@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome to EMO.</title>
+    <style>
+        /* Style the video: 100% width and height to cover the entire window */
+        #myVideo {
+            position: fixed ;
+            right: 0;
+            bottom: 0;
+            min-width: 100%; 
+            min-height: 100%;
+        }
+        /* Add some content at the bottom of the video/page */
+        .content {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            position: fixed;
+            top:10%;
+            left:28%;
+            width:40%;
+            height:70%;
+            margin: auto;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #f1f1f1;
+            padding: 30px;
+            text-align: center;
+            border-radius: 50px;  
+        }
+        /* Style the button used to pause/play the video */
+        #myBtn {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 25px;
+            font-weight: 1000;
+            width: 150px;
+            padding: 10px;
+            border: none;
+            background: rgb(48, 211, 211);
+            color: rgb(0, 0, 0);
+            cursor: pointer;
+            border-radius: 25px; 
+        }
+
+        #myBtn:hover {
+            background: rgb(245, 164, 58);
+            color: rgb(255, 255, 255);
+        }
+
+        .s1 {
+            font-size: 180px;
+        }
+        .s2 {
+            font-size: 40px;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop id="myVideo">
+    <source src="../../static/images/Blue Glitter Particles-1.mp4" type="video/mp4">
+    </video>
+    
+    <!-- Optional: some overlay text to describe the video -->
+    <div class="content">
+        <h1 class="s1">Hello!</h1>
+        <h2 class="s2">Welcome to EMO.</h2>
+        <!-- Use a button to pause/play the video with JavaScript -->
+        <a href="{% url 'home:index' %}"><button id="myBtn">Enter</button></a>
+    </div>
+</body>
+</html>
