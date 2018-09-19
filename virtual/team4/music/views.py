@@ -12,7 +12,8 @@ def findsong(request):
     songs = Songlist.objects.filter(mood=moodNum)
     song = random.choice(songs)
     index = song.url.find('=')
-    songId = song.url[index+1:]    
-    return HttpResponse('https://www.youtube.com/embed/'+songId+'?rel=0&amp;showinfo=0&autoplay=1')
+    songId = song.url[index+1:] 
+    songUrl = 'https://www.youtube.com/embed/'+songId+'?rel=0&amp;showinfo=0&autoplay=1'  
+    return HttpResponse(songId)
 
 # "https://www.youtube.com/embed/DHxtc4W46Qo?rel=0&amp;showinfo=0"
