@@ -39,12 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home',
     'music',
-<<<<<<< HEAD
     'message',
-    
-=======
     'makefriends',
->>>>>>> dfca64997367e7151c6ba642c9e2218a3064cb55
 ]
 
 MIDDLEWARE = [
