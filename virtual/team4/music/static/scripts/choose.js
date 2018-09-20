@@ -1,7 +1,8 @@
 var player;
-var songUrl = ''
-var songId =''
-var buttons = document.querySelectorAll('button')
+var songUrl = '';
+var songId ='';
+var buttons = document.querySelectorAll('button');
+var flag = true;
 
 // 為增加說明文字變化，做一個0~2的亂數產生器
 var randomNum = Math.floor(Math.random()*3);
@@ -40,35 +41,35 @@ var originTxt = ['狂歡','愉悅','孤寂','悲傷','憤怒']
 
 $(document).ready(function(){
     
-for(var i=1; i<=buttons.length; i++){
-    buttons[i-1].number = i;
-    buttons[i-1].addEventListener('mouseenter',chgText);    
-    buttons[i-1].addEventListener('mouseleave',rtnText);
-    buttons[i-1].addEventListener('click',playYt);
-}
+    for(var i=1; i<=buttons.length-1; i++){
+        buttons[i-1].number = i;
+        buttons[i-1].addEventListener('mouseenter',chgText);    
+        buttons[i-1].addEventListener('mouseleave',rtnText);
+        buttons[i-1].addEventListener('click',playYt);
+    }
 
 
-function chgText(){
-    // 滑鼠移上，改變文字
-    index = this.number - 1;
-    this.innerHTML = '<h4>'+allTxt[index][randomNum]+'</h4>';
-}
+    function chgText(){
+        // 滑鼠移上，改變文字
+        index = this.number - 1;
+        this.innerHTML = '<h4>'+allTxt[index][randomNum]+'</h4>';
+    }
 
-function rtnText(){
-    this.innerHTML = '<h2>'+originTxt[this.number-1]+'</h2>';
- 
-}
+    function rtnText(){
+        this.innerHTML = '<h2>'+originTxt[this.number-1]+'</h2>';
+    
+    }
 
-function playYt(){
-    // 先把按鈕隱形
-    // for (var i=0; i<buttons.length; i++) {
-    //     buttons[i].setAttribute('style','display:none');
-    // }
-    $( "button" ).each( function() {
-        $( this ).addClass( "musicOnBtn", 5000 );
-      });
+    function playYt(){
+        // 先把按鈕隱形
+        // for (var i=0; i<buttons.length; i++) {
+        //     buttons[i].setAttribute('style','display:none');
+        // }
+        $( "button" ).each( function() {
+            $( this ).addClass( "musicOnBtn", 5000 );
+        });
 
-    moodNum = this.number;
+    var moodNum = this.number;
     
     // 顯示影片div
     // document.querySelector('#player').removeAttribute('style')
@@ -81,7 +82,7 @@ function playYt(){
             if(findSong.status==200){
                 // songUrl = findSong.responseText;
                 songId = findSong.responseText;
-                alert(songId);                
+                console.log(songId);                
             }        
             else{alert(findSong.status+'ajax has problem');}            
         }
@@ -89,34 +90,45 @@ function playYt(){
     else{
         alert('您的瀏覽器不支援Ajax功能！');
     }
-    findSong.send();
-
+    
+    findSong.send();         
         // 2. This code loads the IFrame Player API code asynchronously.
+    if(flag){    
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);    
-               
-}
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);            
+    }
+    flag = false
+    }
+})
+
 
         
     // 3. This function creates an <iframe> (and YouTube player)
     //    after the API code downloads.
+    
     function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
         height: '390',
         width: '640',
         videoId: songId,
+        rel: '0',
         events: {
         'onReady': onPlayerReady,
         'onStateChange': onPlayerStateChange,
-        }
-    });
+            }
+        });
+                      
     }
 
     // 4. The API will call this function when the video player is ready.
     function onPlayerReady(event) {
-    event.target.playVideo();
+        event.target.playVideo();
+        $('.btn').click(function(){
+            $('#player').attr('src','https://www.youtube.com/embed/'+songId+'?rel=0&amp;showinfo=0&autoplay=1')
+        })
+        
     }
 
     // 5. The API calls this function when the player's state changes.
@@ -125,13 +137,15 @@ function playYt(){
 
     function onPlayerStateChange(event){               
         if (event.data == YT.PlayerState.ENDED) {
+            flag = true;
             alert('video end');
-          }
+            // $('#player').hide('fade',5000);
+            $('.btn').removeClass('musicOnBtn',5000);
+            // player.getIframe()
+            // player.destroy()
+            }
         }
-        
-
-})
-
+     
 
 
 
