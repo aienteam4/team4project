@@ -7,7 +7,7 @@ class Messages(models.Model):
     email = models.CharField(max_length=200)
     song = models.CharField(max_length=10)
     content = models.TextField()
-    response = models.TextField(blank=true)
+    response = models.TextField(blank='true')
 
     class Meta:
         managed = True
