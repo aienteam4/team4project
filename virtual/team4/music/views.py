@@ -1,8 +1,17 @@
-from music.models import Songlist
+from .models import Songlist
+from .serializers import SonglistSerializer
+from rest_framework import viewsets
 from django.shortcuts import render
 import random,re
 from django.http import HttpResponse
+
+
 # Create your views here.
+
+class SonglistViewSet(viewsets.ModelViewSet):
+    queryset = Songlist.objects.all()
+    serializer_class = SonglistSerializer
+
 def music(request):
     return render(request,'music.html')
 

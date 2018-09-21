@@ -82,18 +82,20 @@ $(document).ready(function(){
     }
     
     function newBtnAct(){
-        alert('5 sec');
+        // alert('5 sec');
         for(var i=1; i<=buttons.length; i++){
             var index = i-1;
             $('button:eq('+index+')').on({
                 'mouseenter': newchgText,
-                'mouseleave': newrtnText                
+                'mouseleave': newrtnText,                
             });
-    }clearInterval(timeOut); 
+        }clearInterval(timeOut); 
     }
+    
     function playYt(){
         $('.btn').each(function(){
-            $(this).off()
+            this.removeEventListener("mouseenter", chgText);
+            this.removeEventListener("mouseleave", rtnText);
         })
         $(this).removeClass('moodTxt');
         // 先把按鈕隱形      
@@ -107,36 +109,35 @@ $(document).ready(function(){
         timeOut = setInterval(newBtnAct, 5100);
         var moodNum = this.number;
     
-    // 顯示影片div
-    // document.querySelector('#player').removeAttribute('style')
-    // 利用ajax載入歌曲網址
-    var findSong = new XMLHttpRequest();
-    if(findSong != null){        
-        findSong.open('GET','/music/findsong/?q='+moodNum);              
-        findSong.addEventListener('load',returnData);
-        function returnData(){
-            if(findSong.status==200){
-                // songUrl = findSong.responseText;
-                songId = findSong.responseText;
-                console.log(songId);                
-            }        
-            else{alert(findSong.status+'ajax has problem');}            
+        // 顯示影片div
+        // 利用ajax載入歌曲網址
+        var findSong = new XMLHttpRequest();
+        if(findSong != null){        
+            findSong.open('GET','/music/findsong/?q='+moodNum);              
+            findSong.addEventListener('load',returnData);
+            function returnData(){
+                if(findSong.status==200){
+                    // songUrl = findSong.responseText;
+                    songId = findSong.responseText;
+                    console.log(songId);                
+                }        
+                else{alert(findSong.status+'ajax has problem');}            
+            }
         }
-    }
-    else{
-        alert('您的瀏覽器不支援Ajax功能！');
-    }
-    
-    findSong.send();         
-        // 2. This code loads the IFrame Player API code asynchronously.
-    if(flag){    
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);            
-    }
-    flag = false
-    }
+        else{
+            alert('您的瀏覽器不支援Ajax功能！');
+        }
+        
+        findSong.send();         
+            // 2. This code loads the IFrame Player API code asynchronously.
+        if(flag){    
+            var tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);            
+        }
+        flag = false
+        }
 })
 
 
