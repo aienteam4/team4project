@@ -3,6 +3,10 @@ var songUrl = '';
 var songId ='';
 var buttons = document.querySelectorAll('button');
 var flag = true;
+var timeOut;
+var btnFlag = true;
+var btnStyle1='mood';
+var btnStyle2='moodTxt';
 
 // 為增加說明文字變化，做一個0~2的亂數產生器
 var randomNum = Math.floor(Math.random()*3);
@@ -41,35 +45,67 @@ var originTxt = ['狂歡','愉悅','孤寂','悲傷','憤怒']
 
 $(document).ready(function(){
     
-    for(var i=1; i<=buttons.length-1; i++){
+    for(var i=1; i<=buttons.length; i++){
         buttons[i-1].number = i;
-        buttons[i-1].addEventListener('mouseenter',chgText);    
-        buttons[i-1].addEventListener('mouseleave',rtnText);
-        buttons[i-1].addEventListener('click',playYt);
+        var index = i-1;
+        $('button:eq('+index+')').on({
+            'mouseenter': chgText,
+            'mouseleave': rtnText,            
+        });
+        $('button:eq('+index+')').click(playYt);
+       
+        // $('button:eq('+index+')').click(playYt);
     }
-
 
     function chgText(){
         // 滑鼠移上，改變文字
-        index = this.number - 1;
-        this.innerHTML = '<h4>'+allTxt[index][randomNum]+'</h4>';
+        var index = this.number - 1;
+        $(this).text(allTxt[index][randomNum]);
+        $(this).switchClass('mood','moodTxt',0);
+    }
+
+    function newchgText(){
+        // 滑鼠移上，改變文字
+        var index = this.number - 1;
+        $(this).text(allTxt[index][randomNum]);
+        $(this).switchClass('mood','smMoodTxt',0);
     }
 
     function rtnText(){
-        this.innerHTML = '<h2>'+originTxt[this.number-1]+'</h2>';
-    
+        $(this).text(originTxt[this.number-1]);
+        $(this).switchClass('moodTxt','mood',0);
     }
 
+    function newrtnText(){
+        $(this).text(originTxt[this.number-1]);
+        $(this).switchClass('smMoodTxt','mood',0);
+    }
+    
+    function newBtnAct(){
+        alert('5 sec');
+        for(var i=1; i<=buttons.length; i++){
+            var index = i-1;
+            $('button:eq('+index+')').on({
+                'mouseenter': newchgText,
+                'mouseleave': newrtnText                
+            });
+    }clearInterval(timeOut); 
+    }
     function playYt(){
-        // 先把按鈕隱形
-        // for (var i=0; i<buttons.length; i++) {
-        //     buttons[i].setAttribute('style','display:none');
-        // }
-        $( "button" ).each( function() {
-            $( this ).addClass( "musicOnBtn", 5000 );
-        });
-
-    var moodNum = this.number;
+        $('.btn').each(function(){
+            $(this).off()
+        })
+        $(this).removeClass('moodTxt');
+        // 先把按鈕隱形      
+        $('#revel').addClass( "musicOnRevel", 5000 );
+        $('#happy').addClass( "musicOnHappy", 5000 );
+        $('#anger').addClass( "musicOnAnger", 5000 );
+        $('#sad').addClass( "musicOnSad", 5000 );
+        $('#lonely').addClass( "musicOnLonely", 5000 );
+        
+        // 空五秒鐘才乾淨                
+        timeOut = setInterval(newBtnAct, 5100);
+        var moodNum = this.number;
     
     // 顯示影片div
     // document.querySelector('#player').removeAttribute('style')
@@ -124,7 +160,7 @@ $(document).ready(function(){
 
     // 4. The API will call this function when the video player is ready.
     function onPlayerReady(event) {
-        event.target.playVideo();
+        $('#player').attr('src','https://www.youtube.com/embed/'+songId+'?rel=0&amp;showinfo=0&autoplay=1');
         $('.btn').click(function(){
             $('#player').attr('src','https://www.youtube.com/embed/'+songId+'?rel=0&amp;showinfo=0&autoplay=1')
         })

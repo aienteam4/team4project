@@ -1,0 +1,113 @@
+
+        /* h1{
+            position: fixed;
+            font-size: 80px !important;
+            left: 25%;
+            top:180px;
+        } */
+        .angerbtn{
+            position: fixed;
+            left: 22%;
+            top:22%;
+            width: 200px;
+            height: 140px;
+            border-radius: 20px;
+        }
+        .happybtn{
+            position: fixed;
+            left: 42%;
+            top:47%;
+            width: 200px;
+            height: 140px;
+            border-radius: 20px; 
+        }
+        .revelbtn{
+            position: fixed;
+            left: 62%;
+            top:22%;
+            width: 200px;
+            height: 140px;
+            border-radius: 20px;
+        }
+        .lonelybtn{
+            position: fixed;
+            left: 22%;
+            top:72%;
+            width: 200px;
+            height: 140px;
+            border-radius: 20px; 
+        }
+        .sadbtn{
+            position: fixed;
+            left: 62%;
+            top: 72%;
+            width: 200px;
+            height: 140px;
+            border-radius: 20px; 
+        }
+        .btn{           
+            white-space:normal !important;
+            word-wrap:break-word;
+            opacity: 0.9;
+        }
+        div #player{
+            position: fixed;
+            left: 27%;
+            top:30%
+        }
+        .canSee{
+            display: inline;
+        }
+        .musicOnRevel{
+            width: 126px;
+            height: 90px;
+            position: fixed;
+            left: 5%;
+            top: 13%;
+            opacity: 0.6;
+            font-size: 14px
+        }
+        .musicOnHappy{
+            width: 126px;
+            height: 90px;
+            position: fixed;
+            left: 5%;
+            top: 30%;
+            opacity: 0.6;
+        }    
+        .musicOnAnger{
+            width: 126px;
+            height: 90px;
+            position: fixed;
+            left: 5%;
+            top: 47%;
+            opacity: 0.6;
+        }
+        .musicOnLonely{
+            width: 126px;
+            height: 90px;
+            position: fixed;
+            left: 5%;
+            top: 64%;
+            opacity: 0.6;
+        }
+        .musicOnSad{
+            width: 126px;
+            height: 90px;
+            position: fixed;
+            left: 5%;
+            top: 81%;
+            opacity: 0.6;
+        }
+        .invisible{
+            display: none;
+        }
+        .mood{
+            font-size: 35px;
+        }
+        .moodtxt{
+            font-size: 18px;
+        }
+        .smMoodTxt{
+            font-size: 12px;
+        }
