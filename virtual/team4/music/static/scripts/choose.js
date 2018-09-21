@@ -5,6 +5,7 @@ var buttons = document.querySelectorAll('button');
 var flag = true;
 var timeOut;
 var btnFlag = true;
+var videoFlag = true;
 var btnStyle1='mood';
 var btnStyle2='moodTxt';
 
@@ -50,11 +51,11 @@ $(document).ready(function(){
         var index = i-1;
         $('button:eq('+index+')').on({
             'mouseenter': chgText,
-            'mouseleave': rtnText,            
+            'mouseleave': rtnText,
+            'click': playYt        
         });
-        $('button:eq('+index+')').click(playYt);
-       
-        // $('button:eq('+index+')').click(playYt);
+        
+        // $('button:eq('+index+')').click(playYt);       
     }
 
     function chgText(){
@@ -68,7 +69,8 @@ $(document).ready(function(){
         // 滑鼠移上，改變文字
         var index = this.number - 1;
         $(this).text(allTxt[index][randomNum]);
-        $(this).switchClass('mood','smMoodTxt',0);
+        $(this).removeClass('moodTxt mood');
+        $(this).addClass('smMoodTxt');
     }
 
     function rtnText(){
@@ -78,7 +80,8 @@ $(document).ready(function(){
 
     function newrtnText(){
         $(this).text(originTxt[this.number-1]);
-        $(this).switchClass('smMoodTxt','mood',0);
+        $(this).removeClass('moodTxt smMoodTxt');
+        $(this).addClass('mood')
     }
     
     function newBtnAct(){
@@ -93,11 +96,16 @@ $(document).ready(function(){
     }
     
     function playYt(){
+        $(this).addClass('smMoodTxt');
         $('.btn').each(function(){
-            this.removeEventListener("mouseenter", chgText);
-            this.removeEventListener("mouseleave", rtnText);
+            $(this).off('mouseenter mouseleave');
         })
-        $(this).removeClass('moodTxt');
+        // for(var i=0; i<buttons.length; i++){
+        //     buttons[i].removeEventListener("mouseenter", chgText);
+        //     buttons[i].removeEventListener("mouseleave", rtnText);
+        //     $('.btn:eq(i)').removeClass('moodtxt');
+        // }
+        
         // 先把按鈕隱形      
         $('#revel').addClass( "musicOnRevel", 5000 );
         $('#happy').addClass( "musicOnHappy", 5000 );
@@ -106,7 +114,7 @@ $(document).ready(function(){
         $('#lonely').addClass( "musicOnLonely", 5000 );
         
         // 空五秒鐘才乾淨                
-        timeOut = setInterval(newBtnAct, 5100);
+        timeOut = setInterval(newBtnAct, 5000);
         var moodNum = this.number;
     
         // 顯示影片div
@@ -119,7 +127,9 @@ $(document).ready(function(){
                 if(findSong.status==200){
                     // songUrl = findSong.responseText;
                     songId = findSong.responseText;
-                    console.log(songId);                
+                    console.log(songId+'--1');
+                    $('#player').attr('src','https://www.youtube.com/embed/'+songId+'?rel=0&amp;showinfo=0&autoplay=1');                     
+                
                 }        
                 else{alert(findSong.status+'ajax has problem');}            
             }
@@ -128,7 +138,8 @@ $(document).ready(function(){
             alert('您的瀏覽器不支援Ajax功能！');
         }
         
-        findSong.send();         
+        findSong.send();
+           
             // 2. This code loads the IFrame Player API code asynchronously.
         if(flag){    
             var tag = document.createElement('script');
@@ -156,17 +167,14 @@ $(document).ready(function(){
         'onStateChange': onPlayerStateChange,
             }
         });
-                      
-    }
-
+    }    
     // 4. The API will call this function when the video player is ready.
-    function onPlayerReady(event) {
-        $('#player').attr('src','https://www.youtube.com/embed/'+songId+'?rel=0&amp;showinfo=0&autoplay=1');
-        $('.btn').click(function(){
-            $('#player').attr('src','https://www.youtube.com/embed/'+songId+'?rel=0&amp;showinfo=0&autoplay=1')
-        })
+    function onPlayerReady(){
+        player.playVideo(); 
+    }    
+         
         
-    }
+
 
     // 5. The API calls this function when the player's state changes.
     //    The function indicates that when playing a video (state=1),
@@ -181,7 +189,10 @@ $(document).ready(function(){
             // player.getIframe()
             // player.destroy()
             }
-        }
+        }                  
+    
+
+    
      
 
 

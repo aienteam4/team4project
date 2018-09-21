@@ -5,22 +5,115 @@
     <link rel="stylesheet" href="{% static 'style/music.css' %}">
 {% endblock %}
 {% block content %}
-    <video autoplay muted loop class="video">
-        <source src="../../static/images/Blue Glitter Particles-1.mp4" type="video/mp4">
-    </video>
-    <!--加入youtube-->
-    <!-- <iframe id="player" type="text/html" width="854" height="480" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
-    <div id="player"></div>
-    <button id='revel'  type="button" class="btn btn-outline-warning revelbtn mood"><h2>狂歡</h2></button>    
-    <button id='happy' type="button" class="btn btn-outline-success happybtn mood"><h2>愉悅</h2></button>
-    <button id='lonely' type="button" class="btn btn-outline-primary lonelybtn mood"><h2>孤寂</h2></button>
-    <button id='sad' type="button" class="btn btn-outline-secondary sadbtn mood"><h2>悲傷</h2></button>    
-    <button id='anger' type="button" class="btn btn-outline-danger angerbtn mood"><h2>憤怒</h2></button>
+    
+<form action="{% url 'music:search' %}" method="GET">
+    
+    <div class="form-group">
+        <label for="id">id</label>
+        <input name='id' id="id" type="int">
+    </div>
+    <div class="form-group">
+        <label for="name">歌名</label>
+        <input name='name' id="name" type="text">
+    </div>
+    <div class="form-group">
+        <label for="singer">歌手</label>
+        <input name='singer' id="singer" type="text">
+    </div>
+    <div class="form-group">
+        <label for="type">曲風</label>
+        <input name='type' id="type" type="text">
+    </div>
+    <div class="form-group">
+        <label for="mood">心情</label>
+        <input name='mood' id="mood" type="int">
+    </div>
+    <div class="form-group">
+        <label for="url">url</label>
+        <input name='url' id="url" type="text">
+    </div>                              
+    <div class="form-group">
+        <label for="readall">讀出完整歌單</label>
+        <input type="checkbox" name="readall" id="readall">
+    </div>
+    <div class="form-group">
+        <button id='search' type="submit">查詢送出</button>
+    </div>
+</form>
+<form action="{% url 'music:create' %}" method="POST">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="name">歌名</label>
+            <input name='name' id="cname" type="text">
+        </div>
+        <div class="form-group">
+            <label for="singer">歌手</label>
+            <input name='singer' id="csinger" type="text">
+        </div>
+        <div class="form-group">
+            <label for="type">曲風</label>
+            <input name='type' id="ctype" type="text">
+        </div>
+        <div class="form-group">
+            <label for="mood">心情</label>
+            <input name='mood' id="cmood" type="int">
+        </div>
+        <div class="form-group">
+            <label for="url">url</label>
+            <input name='url' id="curl" type="text">
+        </div>                              
+        <div class="form-group">
+            <button id='create' type="submit">新增歌曲</button>
+        </div>
+    </form>
+<table class="table">
+    <thead>
+        <tr>
+            <td>id</td>
+            <td>歌名</td>
+            <td>歌手</td>
+            <td>曲風</td>
+            <td>心情</td>
+            <td>url</td>
+            <td>修改</td>
+            <td>刪除</td>
+        </tr>
+    <tbody>
+        {% for song in songMeta %}
+        <tr>          
+            <td>{{song.id}}</td>
+            <td>{{song.name}}</td>
+            <td>{{song.singer}}</td>
+            <td>{{song.type}}</td>
+            <td>{{song.mood}}</td>
+            <td>{{song.url}}</td>
+            <td><button><a href="http://">修改</a></button></td>
+            <td><button class='del'>刪除</button></td>
+        </tr>
+        {% endfor %}
+    </tbody>    
+    </thead>
+</table>
 {% endblock %}
 
 {% block scripts %}
     {% load static %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="{% static 'scripts/jquery-ui.min.js' %}"></script>
-    <script src="{% static 'scripts/choose.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+            // 新增歌曲
+            
+            
+            // 刪除歌曲
+            $('.del').each(function(){
+                $(this).click(function(){
+                    var id = $(this).parent().parent().children('td:first').text();
+                    $(this).parent().parent().remove();
+                    $.get('/music/delete/',{'id':id});
+                })
+            })
+        })
+    </script>
 {% endblock %}
