@@ -14,7 +14,7 @@ class Songlist(models.Model):
     type = models.CharField(max_length=15, blank=True, null=True)
     mood = models.SmallIntegerField()
     url = models.CharField(max_length=100)
-
+    last_modified_at = models.DateTimeField(auto_now=True)
     class Meta:
         managed = True
         db_table = 'songlist'
