@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'message',
     'makefriends',
     'donate',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
