@@ -1,11 +1,7 @@
 from django.urls import path,include
 from . import views
-from rest_framework.routers import DefaultRouter
 
 app_name = "music"
-
-router = DefaultRouter()
-router.register(r'songlist',views.SonglistViewSet)
 
 urlpatterns = [
     path('',views.music,name='music'),
@@ -14,5 +10,5 @@ urlpatterns = [
     path('search/',views.search,name='search'),
     path('create/',views.create,name='create'),    
     path('delete/',views.delete,name='delete'),
-    path('api/',include(router.urls)),
+    path('update/',views.update,name='update'),
 ]

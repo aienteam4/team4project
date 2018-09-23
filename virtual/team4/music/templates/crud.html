@@ -88,7 +88,7 @@
             <td>{{song.type}}</td>
             <td>{{song.mood}}</td>
             <td>{{song.url}}</td>
-            <td><button><a href="http://">修改</a></button></td>
+            <td><a href="/music/update/?id={{ song.id }}"><button class='upd'>修改</button></a></td>
             <td><button class='del'>刪除</button></td>
         </tr>
         {% endfor %}
@@ -102,16 +102,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="{% static 'scripts/jquery-ui.min.js' %}"></script>
     <script>
-        $(document).ready(function(){
-            // 新增歌曲
-            
-            
+        $(document).ready(function(){                   
             // 刪除歌曲
             $('.del').each(function(){
                 $(this).click(function(){
                     var id = $(this).parent().parent().children('td:first').text();
                     $(this).parent().parent().remove();
                     $.get('/music/delete/',{'id':id});
+                })
+            })
+            // 修改歌曲
+            $('.upd').each(function(){
+                $(this).click(function(){
+                    var id = $(this).parent().parent().children('td:first').text();
+                    $.get('/music/update/',{'id':id});
                 })
             })
         })
