@@ -4,7 +4,7 @@ from donate.models import Product
 from django.core.files.storage import FileSystemStorage
 
 # Create your views here.
-def index(request):  
+def siteadm(request):  
     #cookies中沒有name表示沒有登入過
     # print(request.path)
     #轉到登入頁面
@@ -16,6 +16,10 @@ def index(request):
         
     title = "斗NET直播主資料管理區"
     products = Product.objects.all()
+    return render(request,'donate/siteadm.html',locals())
+
+def index(request): 
+    title = "斗NET直播主網"
     return render(request,'donate/site.html',locals())
 
 def delete(request,id):  
