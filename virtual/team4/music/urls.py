@@ -9,9 +9,10 @@ urlpatterns = [
     path('crud/',views.crud,name='crud'),
     path('search/',views.search,name='search'),
     path('create/',views.create,name='create'),    
-    path('delete/',views.delete,name='delete'),
-    path('api/',include(router.urls)),
-    #練習cookie
-    path('setcookie',views.cookieTest),
+    path('delete/',views.delete,name='delete'),    
     path('update/',views.update,name='update'),
+    #練習cookie
+    path('setsession',views.set_session),
+    path('sessiontest',views.session_test),
+    path('cookietest',views.cookietest)
 ]

@@ -2,6 +2,7 @@ from .models import Songlist
 from django.shortcuts import render
 import random,re
 from django.http import HttpResponse
+from django.contrib.sessions.models import Session
 
 
 # Create your views here.
@@ -79,17 +80,6 @@ def create(request):
     song.save()
     return render(request,'crud.html')
 
-# 練習cookie
-def cookieTest(request):
-    request.session['lucky_number'] = 8                               # 設置lucky_number
-
-    if 'lucky_number' in request.session:
-        lucky_number = request.session['lucky_number']                # 讀取lucky_number
-
-        response = HttpResponse('Your lucky_number is '+str(lucky_number))
-    # del request.session['lucky_number']                               # 刪除lucky_number
-
-    return response
 def update(request):
     if request.method == 'POST':
         print (request.POST['id'])
@@ -107,3 +97,33 @@ def update(request):
         songMeta = Songlist.objects.get(id=id)    
         return render(request,'update.html',locals())
         
+# 練習session
+def set_session(request):
+
+    if 'lucky_number' in request.session:
+        lucky_number = request.session['lucky_number']                # 讀取lucky_number
+
+        response = HttpResponse('Your lucky_number is '+str(lucky_number))
+    # del request.session['lucky_number']                               # 刪除
+   
+    request.session['lucky_number'] = 9                               # 設置lucky_number
+
+    return response
+
+def session_test(request):
+    sid = request.COOKIES['sessionid']
+    sid2 = request.session.session_key
+    s = Session.objects.get(pk = sid)
+    s_info = "<br>Session Id:" + sid + "<br>Session Id2:" + sid + '<br>expire date:' + str(s.expire_date) + '<br>Session Data:' + str(s.get_decoded())
+    return HttpResponse(s_info)
+
+def cookietest(request):
+    
+    if request.session.test_cookie_worked():
+        request.session.delete_test_cookie()
+        message = 'You can eat cookies!'
+    else:
+        message = 'You cannot eat cookies...'
+    request.session.set_test_cookie()
+    return HttpResponse(message)            
+
