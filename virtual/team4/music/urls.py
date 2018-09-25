@@ -15,4 +15,6 @@ urlpatterns = [
     path('create/',views.create,name='create'),    
     path('delete/',views.delete,name='delete'),
     path('api/',include(router.urls)),
+    #練習cookie
+    path('setcookie',views.cookieTest),
 ]

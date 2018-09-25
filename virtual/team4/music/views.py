@@ -68,3 +68,15 @@ def create(request):
     song.url = request.POST['url']
     song.save()
     return render(request,'crud.html')
+
+# 練習cookie
+def cookieTest(request):
+    request.session['lucky_number'] = 8                               # 設置lucky_number
+
+    if 'lucky_number' in request.session:
+        lucky_number = request.session['lucky_number']                # 讀取lucky_number
+
+        response = HttpResponse('Your lucky_number is '+str(lucky_number))
+    # del request.session['lucky_number']                               # 刪除lucky_number
+
+    return response
