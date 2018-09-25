@@ -79,7 +79,6 @@ def create(request):
     song.save()
     return render(request,'crud.html')
 
-<<<<<<< HEAD
 # 練習cookie
 def cookieTest(request):
     request.session['lucky_number'] = 8                               # 設置lucky_number
@@ -91,7 +90,6 @@ def cookieTest(request):
     # del request.session['lucky_number']                               # 刪除lucky_number
 
     return response
-=======
 def update(request):
     if request.method == 'POST':
         print (request.POST['id'])
@@ -109,4 +107,3 @@ def update(request):
         songMeta = Songlist.objects.get(id=id)    
         return render(request,'update.html',locals())
         
->>>>>>> 1ba563d2ae5ffca60da8aa490ed7dae2a956976d
