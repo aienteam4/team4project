@@ -1,16 +1,10 @@
 from .models import Songlist
-from .serializers import SonglistSerializer
-from rest_framework import viewsets
 from django.shortcuts import render
 import random,re
 from django.http import HttpResponse
 
 
 # Create your views here.
-
-class SonglistViewSet(viewsets.ModelViewSet):
-    queryset = Songlist.objects.all()
-    serializer_class = SonglistSerializer
 
 def music(request):
     return render(request,'music.html')
@@ -27,6 +21,7 @@ def findsong(request):
 
 # "https://www.youtube.com/embed/DHxtc4W46Qo?rel=0&amp;showinfo=0"
 
+
 def crud(request):
     if request.method == 'POST':
         id = request.POST['id']
@@ -39,7 +34,7 @@ def crud(request):
 
     return render(request,'crud.html',locals())
 
-def search(request):
+def searchCore(request):
     id = request.GET['id']
     name = request.GET['name']
     singer = request.GET['singer']
@@ -47,14 +42,29 @@ def search(request):
     mood = request.GET['mood']
     url = request.GET['url']
     readall = request.GET.get('readall', False)
-    songMeta = Songlist.objects.filter(singer=singer)
+    if id:
+        songMeta = Songlist.objects.filter(id=id)
+    elif name:
+        songMeta = Songlist.objects.filter(name = name)
+    elif singer:
+        songMeta = Songlist.objects.filter(singer = singer)
+    elif type:
+        songMeta = Songlist.objects.filter(type = type)
+    elif mood:
+        songMeta = Songlist.objects.filter(mood = mood)
+    elif url:
+        songMeta = Songlist.objects.filter(url = url)    
     if readall:
         songMeta = Songlist.objects.all()
+    # updateUrl = '/music/update/?id='+id    
+    return songMeta
+
+def search(request):
+    songMeta = searchCore(request)
     return render(request,'crud.html',locals())
 
 def delete(request):
     id = request.GET['id']
-    print(id)
     songMeta = Songlist.objects.get(id=id)
     songMeta.delete()
     return render(request,'crud.html')
@@ -69,6 +79,7 @@ def create(request):
     song.save()
     return render(request,'crud.html')
 
+<<<<<<< HEAD
 # 練習cookie
 def cookieTest(request):
     request.session['lucky_number'] = 8                               # 設置lucky_number
@@ -80,3 +91,22 @@ def cookieTest(request):
     # del request.session['lucky_number']                               # 刪除lucky_number
 
     return response
+=======
+def update(request):
+    if request.method == 'POST':
+        print (request.POST['id'])
+        id = request.POST['id']
+        songMeta = Songlist.objects.get(id=id)
+        songMeta.name = request.POST['name']
+        songMeta.singer = request.POST['singer']
+        songMeta.type = request.POST['type']
+        songMeta.mood = request.POST['mood']
+        songMeta.url = request.POST['url']
+        songMeta.save()
+        return render(request,'crud.html')
+    else:    
+        id = request.GET['id']
+        songMeta = Songlist.objects.get(id=id)    
+        return render(request,'update.html',locals())
+        
+>>>>>>> 1ba563d2ae5ffca60da8aa490ed7dae2a956976d

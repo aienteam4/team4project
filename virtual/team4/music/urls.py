@@ -1,11 +1,7 @@
 from django.urls import path,include
 from . import views
-from rest_framework.routers import DefaultRouter
 
 app_name = "music"
-
-router = DefaultRouter()
-router.register(r'songlist',views.SonglistViewSet)
 
 urlpatterns = [
     path('',views.music,name='music'),
@@ -14,7 +10,11 @@ urlpatterns = [
     path('search/',views.search,name='search'),
     path('create/',views.create,name='create'),    
     path('delete/',views.delete,name='delete'),
+<<<<<<< HEAD
     path('api/',include(router.urls)),
     #練習cookie
     path('setcookie',views.cookieTest),
+=======
+    path('update/',views.update,name='update'),
+>>>>>>> 1ba563d2ae5ffca60da8aa490ed7dae2a956976d
 ]
