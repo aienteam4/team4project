@@ -1,8 +1,12 @@
-from .models import Songlist
-from django.shortcuts import render
+from .models import Songlist, Member
+from django.shortcuts import render,redirect
 import random,re
 from django.http import HttpResponse
 from django.contrib.sessions.models import Session
+from .forms import SongListForm
+# 練習restful api
+from .serializers import SongListSer
+from rest_framework import viewsets
 
 
 # Create your views here.
@@ -32,7 +36,7 @@ def crud(request):
         mood = request.POST['mood']
         url = request.POST['url']
         readall = request.POST.get('readall', False)
-
+    songListForm = SongListForm()
     return render(request,'crud.html',locals())
 
 def searchCore(request):
@@ -71,14 +75,15 @@ def delete(request):
     return render(request,'crud.html')
 
 def create(request):
-    song = Songlist()
-    song.name = request.POST['name']
-    song.singer = request.POST['singer']
-    song.type = request.POST['type']
-    song.mood = request.POST['mood']
-    song.url = request.POST['url']
-    song.save()
-    return render(request,'crud.html')
+    if request.method == 'POST':
+        song = Songlist()
+        song.name = request.POST['name']
+        song.singer = request.POST['singer']
+        song.type = request.POST['type']
+        song.mood = request.POST['mood']
+        song.url = request.POST['url']
+        song.save()
+    return redirect('/music/crud/')
 
 def update(request):
     if request.method == 'POST':
@@ -125,5 +130,23 @@ def cookietest(request):
     else:
         message = 'You cannot eat cookies...'
     request.session.set_test_cookie()
-    return HttpResponse(message)            
+    return HttpResponse(message)
 
+# 練習login
+def checkEmail(request):    
+        try:
+            email = request.GET['email']
+            print (email)
+            if Member.objects.filter(email = email):
+                judge = "查有此人"
+            else:
+                judge = "查無此人"    
+        except:
+            judge = "查無此人"
+        return HttpResponse(judge)
+        
+    
+# 練習 restful api
+class SongListViewSet(viewsets.ModelViewSet):
+    queryset = Songlist.objects.all()
+    serializer_class = SongListSer               

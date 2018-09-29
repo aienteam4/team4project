@@ -9,13 +9,26 @@ from django.db import models
 
 
 class Songlist(models.Model):
-    name = models.CharField(max_length=40)
-    singer = models.CharField(max_length=40)
-    type = models.CharField(max_length=15, blank=True, null=True)
-    mood = models.SmallIntegerField()
-    url = models.CharField(max_length=100)
-    last_modified_at = models.DateTimeField(auto_now=True)
-    
+    name = models.CharField(max_length=50)
+    singer = models.CharField(max_length=45)
+    type = models.CharField(max_length=45, blank=True, null=True)
+    mood = models.IntegerField()
+    url = models.CharField(max_length=200)
+    last_modified_at = models.DateTimeField()
+
     class Meta:
-        managed = True
+        managed = False
         db_table = 'songlist'
+
+
+class Member(models.Model):
+    name = models.CharField(max_length=50)
+    gender = models.CharField(max_length=10)
+    birth = models.DateField()
+    email = models.CharField(max_length=50)
+    job = models.CharField(max_length=50, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'member'
+
