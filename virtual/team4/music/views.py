@@ -1,4 +1,4 @@
-from .models import Songlist, Member
+from .models import Songlist, Member, OrderHistory
 from django.shortcuts import render,redirect
 import random,re
 from django.http import HttpResponse
@@ -20,12 +20,16 @@ def findsong(request):
     songs = Songlist.objects.filter(mood=moodNum)
     song = random.choice(songs)
     index = song.url.find('=')
-    songId = song.url[index+1:] 
-    songUrl = 'https://www.youtube.com/embed/'+songId+'?rel=0&amp;showinfo=0&autoplay=1'  
-    return HttpResponse(songId)
+    youtubeId = song.url[index+1:]   
+    return HttpResponse(youtubeId)
 
 # "https://www.youtube.com/embed/DHxtc4W46Qo?rel=0&amp;showinfo=0"
 
+def taste(request):
+    """
+    紀錄歌曲喜好
+    """
+    pass
 
 def crud(request):
     if request.method == 'POST':
@@ -105,13 +109,14 @@ def update(request):
 # 練習session
 def set_session(request):
 
-    if 'lucky_number' in request.session:
-        lucky_number = request.session['lucky_number']                # 讀取lucky_number
+    if 'memberId' in request.session:
+        memberId = request.session['memberId']                # 讀取會員id
 
-        response = HttpResponse('Your lucky_number is '+str(lucky_number))
-    # del request.session['lucky_number']                               # 刪除
-   
-    request.session['lucky_number'] = 9                               # 設置lucky_number
+        response = HttpResponse('memberId : ' + str(memberId))
+    # del request.session['lucky_number']                     # 刪除
+    else:
+        response = HttpResponse("You haven't logged in")
+        request.session['memberId'] = 1                    # 設置會員id
 
     return response
 

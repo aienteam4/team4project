@@ -17,7 +17,6 @@ class Songlist(models.Model):
     last_modified_at = models.DateTimeField()
 
     class Meta:
-        managed = False
         db_table = 'songlist'
 
 
@@ -29,6 +28,15 @@ class Member(models.Model):
     job = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'member'
 
+
+class OrderHistory(models.Model):
+    member = models.ForeignKey(Member, models.DO_NOTHING)
+    song = models.ForeignKey(Songlist, models.DO_NOTHING)
+    order_time = models.DateTimeField()
+    order_num = models.IntegerField()
+    this_song_order_num = models.IntegerField()
+
+    class Meta:
+        db_table = 'orderhistory'

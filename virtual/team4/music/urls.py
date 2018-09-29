@@ -16,6 +16,8 @@ urlpatterns = [
     path('create/',views.create,name='create'),    
     path('delete/',views.delete,name='delete'),    
     path('update/',views.update,name='update'),
+    # 紀錄喜愛或討厭歌曲
+    path('taste/', views.taste),
     #練習cookie
     path('setsession/',views.set_session),
     path('sessiontest/',views.session_test),

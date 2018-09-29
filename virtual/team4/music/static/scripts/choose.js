@@ -1,9 +1,12 @@
+
 var player;
-var songUrl = '';
-var songId ='';
+// var songUrl = '';
+var youtubeId ='';
 var buttons = document.querySelectorAll('button');
 var flag = true;
-var timeOut;
+var timeOut;            //讓按鈕被按下五秒鐘後有另外一套樣式
+var countPlayTime;      //計算歌曲被播放的長度
+var playTime = 0        //歌曲被播放的長度
 var btnFlag = true;
 var videoFlag = true;
 var btnStyle1='mood';
@@ -44,8 +47,23 @@ var originTxt = ['狂歡','愉悅','孤寂','悲傷','憤怒']
 // 游標移到心情選擇按鈕時，會替換說明文字
 // 憤怒5、難過4、寂寞3、開心2、狂歡1
 
+function playCount()        //函式：計算播放時間                      
+    {
+        playTime += 1;
+        console.log("play")
+        // if(playTime > 5) $.post('taste/');
+        countPlayTime=setTimeout("playCount()",1000);
+    };
+
+function stopPlayCount()    //函式：停止計算播放時間
+    {
+        playTime = 0;
+        clearTimeout(countPlayTime);
+    };
+
 $(document).ready(function(){
-    
+            
+    //為按鈕加上行為
     for(var i=1; i<=buttons.length; i++){
         buttons[i-1].number = i;
         var index = i-1;
@@ -126,9 +144,9 @@ $(document).ready(function(){
             function returnData(){
                 if(findSong.status==200){
                     // songUrl = findSong.responseText;
-                    songId = findSong.responseText;
-                    console.log(songId+'--1');
-                    $('#player').attr('src','https://www.youtube.com/embed/'+songId+'?rel=0&amp;showinfo=0&autoplay=1');                     
+                    youtubeId = findSong.responseText;
+                    console.log(youtubeId);
+                    $('#player').attr('src','https://www.youtube.com/embed/'+youtubeId+'?rel=0&amp;showinfo=0&autoplay=1');                     
                 
                 }        
                 else{alert(findSong.status+'ajax has problem');}            
@@ -138,9 +156,9 @@ $(document).ready(function(){
             alert('您的瀏覽器不支援Ajax功能！');
         }
         
-        findSong.send();
-           
-            // 2. This code loads the IFrame Player API code asynchronously.
+        findSong.send(); 
+        
+        // 2. This code loads the IFrame Player API code asynchronously.
         if(flag){    
             var tag = document.createElement('script');
             tag.src = "https://www.youtube.com/iframe_api";
@@ -148,7 +166,14 @@ $(document).ready(function(){
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);            
         }
         flag = false
+        
+        //計算影片播放時間
+        try{stopPlayCount();}
+        catch(err){};
+        playCount();  
+    
         }
+
 })
 
 
@@ -160,7 +185,7 @@ $(document).ready(function(){
         player = new YT.Player('player', {
         height: '390',
         width: '640',
-        videoId: songId,
+        videoId: youtubeId,
         rel: '0',
         events: {
         'onReady': onPlayerReady,
@@ -173,8 +198,6 @@ $(document).ready(function(){
         player.playVideo(); 
     }    
          
-        
-
 
     // 5. The API calls this function when the player's state changes.
     //    The function indicates that when playing a video (state=1),
@@ -185,13 +208,12 @@ $(document).ready(function(){
             flag = true;
             alert('video end');
             // $('#player').hide('fade',5000);
-            $('.btn').removeClass('musicOnBtn',5000);
             // player.getIframe()
             // player.destroy()
             }
         }                  
     
-
+    
     
      
 
