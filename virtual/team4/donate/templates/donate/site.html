@@ -17,7 +17,7 @@
      <div class="col-md-9">
         <table id="todolist" class="table table-bordered">
           <thead>
-             <tr><th>ID</th><th>直播主編號</th><th>性別</th><th>姓名</th><th>說明</th><th>照片</th><th>照片</th><th>管理</th></tr>
+             <tr><th>ID</th><th>直播主編號</th><th>性別</th><th>姓名</th><th>說明</th><th>管理</th><th>照片更新</th><th>照片</th></tr>
           </thead>
           <tbody>
 
@@ -62,9 +62,9 @@ $(document).ready(function(){
               var cell2 = $('<td></td>').text(product.categoryid).attr('contenteditable','true')
               var cell3 = $('<td></td>').text(product.modelname).attr('contenteditable','true')
               var cell4 = $('<td></td>').text(product.description).attr('contenteditable','true')
-              var cell5 = $('<td></td>').html('<img class="img-thumbnail thumb" src="/media/'+product.productimage+'"/>').attr('contenteditable','true')
-              var cell6 = $('<td></td>').text(product.productimage).attr('contenteditable','true')
-              var cell7 = $('<td></td>').html('<button class="btn btn-warning"><i class="fas fa-user-times"></i>></button><button class="btn btn-info"><i class="fas fa-edit"></i></button>')
+              var cell5 = $('<td></td>').html('<button class="btn btn-warning"><i class="fas fa-user-times"></i>></button><button class="btn btn-info"><i class="fas fa-edit"></i></button>')
+              var cell6 = $('<td></td>').html('<input type="file" name="inputfile" id="inputfile"/><img class="img-thumbnail thumb" src="/media/'+product.productimage+'"/>')
+              var cell7 = $('<td></td>').text(product.productimage)
               //<tr><td><td><td>
               var row = $('<tr></tr>').append([cell0,cell1,cell2,cell3,cell4,cell5,cell6,cell7])
               //<tbody><tr>
@@ -73,7 +73,7 @@ $(document).ready(function(){
           tb.html(docFrag)
       })
     }
-    loadTodo()
+    loadTodo();
 
     $('#todolist>tbody').on('click','button:nth-child(1)',function(){
          var id = $(this).parents('tr').find('td:nth-child(1)').text()
@@ -92,15 +92,18 @@ $(document).ready(function(){
          var categoryid = $(this).parents('tr').find('td:nth-child(3)').text()
          var modelname = $(this).parents('tr').find('td:nth-child(4)').text()
          var description = $(this).parents('tr').find('td:nth-child(5)').text()
-         var productimage = $(this).parents('tr').find('td:nth-child(7)').text()
+         var productimage = $(this).parents('tr').find('td:nth-child(8)').text()
+ 
          var datas = {
             "modelnumber": modelnumber,
             "categoryid": categoryid,
             "modelname": modelname,
             "description": description,
             "productimage": productimage
-        };
+         };
         console.log(datas),
+
+
           //修改資料
       $.ajax({
           url:'/api/product/' + productid + '/',
@@ -112,6 +115,31 @@ $(document).ready(function(){
       })
     })
 
+    $('#todolist>tbody').on('change','input',function(){
+        var productid = $(this).parents('tr').find('td:nth-child(1)').text()
+        var modelnumber = $(this).parents('tr').find('td:nth-child(2)').text()
+        var categoryid = $(this).parents('tr').find('td:nth-child(3)').text()
+        var modelname = $(this).parents('tr').find('td:nth-child(4)').text()
+        var description = $(this).parents('tr').find('td:nth-child(5)').text()
+        var productimage = $(this).val().replace(/C:\\fakepath\\/i, '')
+        var datas = {
+            "modelnumber": modelnumber,
+            "categoryid": categoryid,
+            "modelname": modelname,
+            "description": description,
+            "productimage": productimage
+         };
+         console.log(datas)
+                   //修改資料
+      $.ajax({
+          url:'/api/product/' + productid + '/',
+          type:'PUT',
+          data:datas
+      }).done(function(data){
+
+        loadTodo()
+      })
+    })
 })
 </script>
 
