@@ -47,10 +47,23 @@
           <label for="InputIMG">照片</label>
           <input type="file" class="form-control" id="InputIMG" placeholder="照片" name="productimage">
         </div> 
-        <button type="submit" id="buttonSubmit" class="btn btn-primary">新增直播主</button>
-      </form>
+        <button type="submit" id="buttonSubmit" class="btn btn-warning">新增直播主</button>
+      </form><br><br>
+      <hr>
+     <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="InputCID">直播主ID</label>
+        <input type="text" class="form-control" id="InputCID" placeholder="直播主ID">         
+      </div>
+      <div class="form-group">
+        <label for="InputCimg">照片</label>
+        <input type="file" class="form-control" id="InputCimg" placeholder="照片" name="productimage">
+      </div> 
+      <button type="submit" id="buttonChange" class="btn btn-warning">照片更新</button>
+     </form>
      </div>
-   </div>
+    </div>
 {% endblock%}
 
 {% block scripts%}
@@ -136,46 +149,43 @@ $(document).ready(function(){
             "description": description,
             "productimage": productimage
          };
-        console.log(datas),
-
-
           //修改資料
       $.ajax({
           url:'/api/product/' + productid + '/',
           type:'PUT',
           data:datas
       }).done(function(data){
-
         loadTodo()
       })
     })
 
-    $('#todolist>tbody').on('change','input',function(){
-        var productid = $(this).parents('tr').find('td:nth-child(1)').text()
-        var modelnumber = $(this).parents('tr').find('td:nth-child(2)').text()
-        var categoryid = $(this).parents('tr').find('td:nth-child(3)').text()
-        var modelname = $(this).parents('tr').find('td:nth-child(4)').text()
-        var description = $(this).parents('tr').find('td:nth-child(5)').text()
-        // var productimage = $(this).val().replace(/C:\\fakepath\\/i, '')
-        var productimage = $(this).find('td:nth-child(7)').text()
-        var datas = {
-            "modelnumber": modelnumber,
-            "categoryid": categoryid,
-            "modelname": modelname,
-            "description": description,
-            "productimage": productimage
-         };
-         console.log(datas)
-                   //修改照片資料
-      // $.ajax({
-      //     url:'/api/product/' + productid + '/',
-      //     type:'PUT',
-      //     data:datas
-      // }).done(function(data){
+       //修改照片資料
+    $('#buttonChange').click(function(){    
+     var productcid = $('#InputCID').val()
+     $.getJSON('/api/product/',function(products){
+      for(var j = 0; j < products.length; j++){
+        if (products[j].productid == productcid) {
+            var datas = {
+            "modelnumber": products[j].modelnumber,
+            "categoryid": products[j].categoryid,
+            "modelname": products[j].modelname,
+            "description": products[j].description,
+            "productimage": $('#InputCimg').val().replace(/C:\\fakepath\\/i, '')
+            };
+            break;
+        }
+      }
 
-      //   loadTodo()
-      // })
+      // alert(datas.productimage)
+      $.ajax({
+          url:'/api/product/' + productcid + '/',
+          type:'PUT',
+          data: datas
+          }).done(function(data){
+      })
     })
+  loadTodo()
+  })
 })
 </script>
 
