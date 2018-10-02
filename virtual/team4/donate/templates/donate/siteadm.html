@@ -118,8 +118,9 @@ $(document).ready(function(){
       $('#InputNAM').val('')
       $('#InputDES').val('')
       $('#InputIMG').val('')
-        loadTodo()
+      loadTodo()
       })
+
     })
 
 
@@ -132,6 +133,7 @@ $(document).ready(function(){
             }).done(function(data){
               loadTodo()
             })
+
     })
 
     $('#todolist>tbody').on('click','button:nth-child(2)',function(){
@@ -157,36 +159,36 @@ $(document).ready(function(){
       }).done(function(data){
         loadTodo()
       })
+
     })
 
        //修改照片資料
     $('#buttonChange').click(function(){    
      var productcid = $('#InputCID').val()
-     $.getJSON('/api/product/',function(products){
-      for(var j = 0; j < products.length; j++){
-        if (products[j].productid == productcid) {
-            var datas = {
-            "modelnumber": products[j].modelnumber,
-            "categoryid": products[j].categoryid,
-            "modelname": products[j].modelname,
-            "description": products[j].description,
+     $.ajax({
+          url:'/api/product/' + productcid + '/',
+          type:'GET'
+      }).done(function(product){
+            var datac = {
+            "modelnumber":product.modelnumber,
+            "categoryid": product.categoryid,
+            "modelname": product.modelname,
+            "description": product.description,
             "productimage": $('#InputCimg').val().replace(/C:\\fakepath\\/i, '')
             };
-            break;
-        }
-      }
-
-      // alert(datas.productimage)
+      alert(product.productimage)
+      alert(datac.productimage)
       $.ajax({
           url:'/api/product/' + productcid + '/',
           type:'PUT',
-          data: datas
+          data: datac
           }).done(function(data){
-      })
+            loadTodo() 
+        })
     })
-  loadTodo()
   })
-})
+ })
+
 </script>
 
 
