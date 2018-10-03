@@ -1,11 +1,12 @@
 <!-- <link href="../home/static/styles/header.css" rel="stylesheet" /> -->
 <style>
     header {
+        font-size:20px;
         overflow:visible;
-        width:70%;
-        
+        width:80%;
         height: auto;
         margin:auto;
+        margin-top: 20px;
         text-decoration:none;
         color: white !important;
         background-color: rgba(31, 31, 31,0.7);
@@ -74,7 +75,7 @@
         width:auto;
         /* margin-top: 10px; */
         background-color: rgb(48, 110, 192);
-        width:130px;
+        width:100%;
     }
     ul.drop-down-menu li.divider:hover{
         background-color: rgb(31, 31, 31);
@@ -96,11 +97,11 @@
                 </li>
                 <li><a href="#">Friends</a>
                     <ul>
-                        <li><a href="#">Make friends</a>
+                        <li><a href="#">Make friends哲偉的</a>
                         </li>
-                        <li><a href="#">Chat room</a>
+                        <li><a href="#">Chat room安昇的</a>
                         </li>
-                        <li><a href="#">Donate</a>
+                        <li><a href="{% url 'donate:index' %}">Donate</a>
                         </li>
                     </ul>
                 </li>
@@ -110,7 +111,7 @@
                 </li>
                 <li><a href="{% url 'member:register' %}">Register</a>
                 </li>
-                <li><a href="{% url 'home:login' %}">Log in</a>
+                <li><a href="{% url 'member:login' %}">Log in</a>
                 </li>
             </ul>
         </div>
