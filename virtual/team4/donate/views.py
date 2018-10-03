@@ -17,12 +17,16 @@ def siteadm(request):
         
     title = "斗NET直播主資料管理區"
     if request.method == "POST" and request.FILES["productimage"]:
+        productcid = int(request.POST["productcid"])
+        print(productcid)
+        product = Product.objects.get(productid=productcid)
         #檔案上傳到media資料夾中
         myFile = request.FILES["productimage"]
         fs = FileSystemStorage()
-        productimage = fs.save(myFile.name,myFile)
-
+        product.productimage = fs.save(myFile.name,myFile)
+        product.save()
     return render(request,'donate/siteadm.html',locals())
+    
 
 def index(request): 
     title = "斗NET直播主網"
