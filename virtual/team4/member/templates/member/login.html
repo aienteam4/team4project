@@ -3,13 +3,14 @@
 {% block styles %}
     <style>
         .form{
-            width:1100px;
-            margin: auto;
+          font-family: 'Ubuntu Mono', '微軟正黑體', monospace;
+          width:70%;
+          margin: auto;
         }
         .main{
-            padding-top: 80px;
-            width: 400px;
-            margin: auto;
+          padding-top: 80px;
+          width: 400px;
+          margin: auto;
         }
         .login-or {
         position: relative;
@@ -36,69 +37,57 @@
         margin-top: 0px !important;
         margin-bottom: 0px !important;
       }
-        h1{
-            position: fixed;
-            font-size: 80px !important;
-            left: 25%;
-            top:180px;
-        }
-        #bt1{
-            width: 200px;
-            height: 70px;
-            font-size: 30px;
-            margin-left:30px;
-            margin-bottom:30px;
-            background-color: rgb(2, 2, 2);
-            border: white;
-        }
-        #bt2{
-            width: 200px;
-            height: 70px;
-            font-size: 30px;
-            margin-left:30px;
-            margin-bottom:30px;
-            background-color: rgb(48, 211, 211);
-            border: white;
-        }
-        #bt3{
-            width: 200px;
-            height: 70px;
-            font-size: 30px;
-            margin-left:30px;
-            margin-bottom:30px;
-            background-color: rgb(231, 138, 17);
-            border: white;
-        }
-        .color {
-            float:right;
-            padding-top: 8px;
-            padding-right: 250px;
-        }
-        a{
-            border-radius: 30px !important;
-            font-size: 25px !important;
-        }
-        button{
-            border-radius: 30px !important;
-            width: 100px;
-            margin: auto;
-            font-size: 20px !important;
-        }
+      h1{
+          position: fixed;
+          font-size: 80px !important;
+          left: 25%;
+          top:180px;
+      }
+      a.pull-right{
+        color: rgb(231, 138, 17);
+        border-radius: 30px !important;
+        font-size: 15px !important;
+      }
+      #link{
+        border-radius: 30px !important;
+        font-size: 25px !important;
+      }
+      #link:hover{
+        transition: all 0.3s linear;
+        border-radius: 10px !important;
+      }
+    button#btn{
+      background-color: rgb(52, 206, 159);
+      border-color: rgb(52, 206, 159);
+      border-radius: 30px !important;
+      width: 100px;
+      margin-left: 100px;
+      margin: auto;
+      font-size: 20px !important;
+      line-height: 30px;
+      padding-top: 10px;
+      padding-bottom: 3px;
+    }
+    .remember{
+      font-size: 18px;
+    }
+    button#btn:hover{
+      transition: all 0.3s linear;
+      border-radius: 10px !important;
+    }
     </style>
 {% endblock %}
 {% block content %}
 <div class="form">
     <div class="row">
-  
       <div class="main">
-  
         <!-- <h3>Please Log In, or <a href="#">Sign Up</a></h3> -->
         <div class="row">
-          <div class="col-xs-6 col-sm-6 col-md-6">
-            <a href="#" class="btn btn-lg btn-primary btn-block">Facebook</a>
+          <div class="col-xs-6 col-sm-6 col-md-6" class="btn">
+            <a href="#" class="btn btn-lg btn-primary btn-block" id="link"><i class="fab fa-facebook"></i>  facebook</a>
           </div>
           <div class="col-xs-6 col-sm-6 col-md-6">
-            <a href="#" class="btn btn-lg btn-success btn-block">Google</a>
+            <a href="#" class="btn btn-lg btn-success btn-block" id="link"><i class="fab fa-google"></i>  google</a>
           </div>
         </div>
         <div class="login-or">
@@ -109,48 +98,45 @@
         <form role="form" method="POST">
                 {% csrf_token %}
           <div class="form-group">
-            <label for="inputEmail">Your account</label>
+            <label for="inputEmail">您的帳號</label>
             <input type="text" class="form-control" id="inputEmail" name="email">
           </div>
           <div class="form-group">
-            <label for="inputPassword">Your password</label>
+            <label for="inputPassword">您的密碼</label>
             <input type="password" class="form-control" id="inputPassword" name="password">
-            <a class="pull-right" href="#">Forgot password?</a>
+            <a class="pull-right" href="#">忘記密碼了嗎?</a>
           </div>
-          <div class="checkbox pull-right">
-            <label><input type="checkbox" name="remember" value="True">Remember me</label>
+          <div class="btn">
+            <label class="remember"><input type="checkbox" name="remember" value="True">Remember me</label>
           </div>
           <!--name=value remember=True -->
-          <button type="submit" class="btn btn btn-primary">Log in</button>
+          <button type="submit" id="btn" class="btn btn btn-primary">登入</button>
         </form>
-      
       </div>
-      
     </div>
   </div>
-
-
-
-
-
-
-
-
-    <!-- <h1>this is a function(),<br>and it will be great!</h1>
-    <video autoplay muted loop class="video">
-        <source src="../../static/images/Blue Glitter Particles-1.mp4" type="video/mp4">
-    </video>
-    <hr>
-    <div>
-        <h2>color scheme:</h2>
-        <button type="button" class="btn btn-primary" id="bt1">Color1</button>
-        <h2 class="color" style="padding-right:350px;">Red=2%,GREEN=2%,BLUE=2%</h2><br>
-        <button type="button" class="btn btn-primary" id="bt2">Color2</button>
-        <h2 class="color">Red=48%,GREEN=211%,BLUE=211%</h2><br>
-        <button type="button" class="btn btn-primary" id="bt3">Color3</button>
-        <h2 class="color">Red=231%,GREEN=138%,BLUE=17%</h2><br>
-    
-    </div> -->
 {% endblock %}
 {% block scripts %}
+<!-- <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '{your-app-id}',
+        cookie     : true,
+        xfbml      : true,
+        version    : '{api-version}'
+      });
+        
+      FB.AppEvents.logPageView();   
+        
+    };
+  
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>複製代碼 -->
+  
 {% endblock %}
