@@ -27,8 +27,7 @@
         </table>
      </div>
      <div class="col-md-3">
-      <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
+      <form >
         <div class="form-group">
           <label for="InputMID">直播主編號</label>
           <input type="text" class="form-control" id="InputMID" placeholder="直播主編號">         
@@ -45,11 +44,7 @@
           <label for="InputDES">說明</label>
           <input type="text" class="form-control" id="InputDES" placeholder="說明">
         </div> 
-        <div class="form-group">
-          <label for="InputIMG">照片</label>
-          <input type="file" class="form-control" id="InputIMG" placeholder="照片" name="productimage">
-        </div> 
-        <button type="submit" id="buttonSubmit" class="btn btn-warning">新增直播主</button>
+        <button type="button" id="buttonSubmit" class="btn btn-warning">新增直播主</button>
       </form><br><br>
       <hr>
      <form method="POST" enctype="multipart/form-data">
@@ -61,7 +56,7 @@
       <div class="form-group">
         <label for="InputCimg">照片</label>
         <input type="file" class="form-control" id="InputCimg" placeholder="照片" name="productimage">
-        <button type="submit" id="buttonChange" class="btn btn-warning">照片更新</button>
+        <button type="submit" id="buttonChange" class="btn btn-warning">照片上傳</button>
       </div>
      </form>
      </div>
@@ -92,7 +87,6 @@ $(document).ready(function(){
               var cell3 = $('<td></td>').text(product.modelname).attr('contenteditable','true');
               var cell4 = $('<td></td>').text(product.description).attr('contenteditable','true');
               var cell5 = $('<td></td>').html('<button class="btn btn-danger"><i class="fas fa-user-times"></i>></button><button class="btn btn-info"><i class="fas fa-edit"></i></button>');
-              // var cell6 = $('<td></td>').html('<input type="file" name="inputfile" id="inputfile"/><img class="img-thumbnail thumb" src="/media/'+product.productimage+'"/>');
               var cell6 = $('<td></td>').html('<img class="img-thumbnail thumb" src="/media/'+product.productimage+'"/>');
               var cell7 = $('<td></td>').text(product.productimage);
               //<tr><td><td><td>
@@ -112,14 +106,13 @@ $(document).ready(function(){
        "categoryid": $('#InputGEN').val(),
        "modelname": $('#InputNAM').val(),
        "description": $('#InputDES').val(),
-       "productimage": $('#InputIMG').val().replace(/C:\\fakepath\\/i, '')
+       "productimage": "superstar.gif"
     };
     $.post('/api/product/',datas,function(data){
       $('#InputMID').val('');
       $('#InputGEN').val('');
       $('#InputNAM').val('');
       $('#InputDES').val('');
-      $('#InputIMG').val('');
       loadTodo();
       })
 
@@ -138,6 +131,7 @@ $(document).ready(function(){
 
     });
 
+        //修改資料
     $('#todolist>tbody').on('click','button:nth-child(2)',function(){
          var productid = $(this).parents('tr').find('td:nth-child(1)').text();
          var modelnumber = $(this).parents('tr').find('td:nth-child(2)').text();
@@ -145,7 +139,6 @@ $(document).ready(function(){
          var modelname = $(this).parents('tr').find('td:nth-child(4)').text();
          var description = $(this).parents('tr').find('td:nth-child(5)').text();
          var productimage = $(this).parents('tr').find('td:nth-child(8)').text();
- 
          var datas = {
             "modelnumber": modelnumber,
             "categoryid": categoryid,
@@ -153,7 +146,7 @@ $(document).ready(function(){
             "description": description,
             "productimage": productimage
          };
-          //修改資料
+
       $.ajax({
           url:'/api/product/' + productid + '/',
           type:'PUT',
@@ -163,27 +156,6 @@ $(document).ready(function(){
       });
 
     });
-
-       //修改照片資料
-    // $('#buttonChange').click(function(){   
-    //   alert(product['productimage'])
-
-    //   loadTodo();
-    //  var productcid = $('#InputCID').val();
-    //  $.ajax({
-    //       url:'/api/product/' + productcid + '/',
-    //       type:'GET'
-    //   }).done(function(data){
-
-        // data.productimage = $('#InputCimg').val().replace(/C:\\fakepath\\/i, '');
-        // alert(data['productimage'])
-        // $.ajax({
-        //   url:'/api/product/' + productcid + '/',
-        //   type:'PUT',
-        //   data: data
-        // }).done(function(data){
-        // })
-    //  })
   })
 
 </script>
