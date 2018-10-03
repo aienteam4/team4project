@@ -168,24 +168,18 @@ $(document).ready(function(){
      $.ajax({
           url:'/api/product/' + productcid + '/',
           type:'GET'
-      }).done(function(product){
-            var datac = {
-            "modelnumber":product.modelnumber,
-            "categoryid": product.categoryid,
-            "modelname": product.modelname,
-            "description": product.description,
-            "productimage": $('#InputCimg').val().replace(/C:\\fakepath\\/i, '')
-            };
-      alert(product.productimage)
-      alert(datac.productimage)
+      }).done(function(products){
+          products.productimage = $('#InputCimg').val().replace(/C:\\fakepath\\/i, '')
+      alert(products.productimage)
+
       $.ajax({
           url:'/api/product/' + productcid + '/',
           type:'PUT',
-          data: datac
+          data: products
           }).done(function(data){
             loadTodo() 
         })
-    })
+     })
   })
  })
 
