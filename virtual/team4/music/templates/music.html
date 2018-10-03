@@ -1,82 +1,28 @@
 <link href="../../static/styles/main.css" rel="stylesheet" />
 {% extends "main.html" %}
 {% block styles %}
-    <style>
-        /* h1{
-            position: fixed;
-            font-size: 80px !important;
-            left: 25%;
-            top:180px;
-        } */
-        #angerbtn{
-            position: fixed;
-            left: 22%;
-            top:22%;
-            width: 200px;
-            height: 140px;
-            border-radius: 20px;
-        }
-        #happybtn{
-            position: fixed;
-            left: 42%;
-            top:47%;
-            width: 200px;
-            height: 140px;
-            border-radius: 20px; 
-        }
-        #revelbtn{
-            position: fixed;
-            left: 62%;
-            top:22%;
-            width: 200px;
-            height: 140px;
-            border-radius: 20px;
-        }
-        #lonelybtn{
-            position: fixed;
-            left: 22%;
-            top:72%;
-            width: 200px;
-            height: 140px;
-            border-radius: 20px; 
-        }
-        #sadbtn{
-            position: fixed;
-            left: 62%;
-            top:72%;
-            width: 200px;
-            height: 140px;
-            border-radius: 20px; 
-        }
-        .btn{
-            white-space:normal !important;
-            word-wrap:break-word;
-            opacity: 0.9;
-        }
-        iframe, #player{
-            position: fixed;
-            left: 22%;
-            top:22%
-        }
-        
-    </style>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style/music.css' %}">
 {% endblock %}
 {% block content %}
+    <h1>可做聽歌成就系統！！勿忘勿忘！！</h1>
+
     <video autoplay muted loop class="video">
         <source src="../../static/images/Blue Glitter Particles-1.mp4" type="video/mp4">
     </video>
-    <div class="btn-group" role="group" aria-label="Choose Mood">
     <!--加入youtube-->
-    <iframe id="player" type="text/html" width="854" height="480" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    <button type="button" class="btn btn-outline-warning" id="revelbtn"><h2>狂歡</h2></button>    
-    <button type="button" class="btn btn-outline-success" id="happybtn"><h2>愉悅</h2></button>
-    <button type="button" class="btn btn-outline-primary" id="lonelybtn"><h2>孤寂</h2></button>
-    <button type="button" class="btn btn-outline-secondary" id="sadbtn"><h2>悲傷</h2></button>    
-    <button type="button" class="btn btn-outline-danger" id="angerbtn"><h2>憤怒</h2></button>
-    </div>
+    <!-- <iframe id="player" type="text/html" width="854" height="480" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
+    <div id="player"></div>
+    <button id='revel'  type="button" class="btn btn-outline-warning revelbtn mood"><h2>狂歡</h2></button>    
+    <button id='happy' type="button" class="btn btn-outline-success happybtn mood"><h2>愉悅</h2></button>
+    <button id='lonely' type="button" class="btn btn-outline-primary lonelybtn mood"><h2>孤寂</h2></button>
+    <button id='sad' type="button" class="btn btn-outline-secondary sadbtn mood"><h2>悲傷</h2></button>    
+    <button id='anger' type="button" class="btn btn-outline-danger angerbtn mood"><h2>憤怒</h2></button>
 {% endblock %}
 
 {% block scripts %}
     {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{% static 'scripts/jquery-ui.min.js' %}"></script>
     <script src="{% static 'scripts/choose.js' %}"></script>
 {% endblock %}

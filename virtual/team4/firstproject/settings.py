@@ -40,6 +40,11 @@ INSTALLED_APPS = [
     'home',
     'member',
     'music',
+    'message',
+    'makefriends',
+    'donate',
+    'rest_framework',
+    'product'
 ]
 
 MIDDLEWARE = [
@@ -83,7 +88,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'djangodb',
         'USER': 'root',
-        'PASSWORD': 'ken1210710',
+        'PASSWORD': 'root',
         'HOST':'localhost',
     }
 }
@@ -129,3 +134,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static')
 ]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

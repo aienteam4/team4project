@@ -1,4 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `djangodb` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
+CREATE DATABASE  IF NOT EXISTS `djangodb` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `djangodb`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
@@ -187,6 +187,30 @@ LOCK TABLES `auth_user_user_permissions` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `categories`
+--
+
+DROP TABLE IF EXISTS `categories`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `categories` (
+  `categoryid` int(11) NOT NULL AUTO_INCREMENT,
+  `categoryname` varchar(45) NOT NULL,
+  PRIMARY KEY (`categoryid`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categories`
+--
+
+LOCK TABLES `categories` WRITE;
+/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+INSERT INTO `categories` VALUES (1,'sony'),(2,'canon'),(3,'nikon'),(4,'panasonic');
+/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `django_admin_log`
 --
 
@@ -297,6 +321,62 @@ LOCK TABLES `django_session` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `members`
+--
+
+DROP TABLE IF EXISTS `members`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `members` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `age` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `members`
+--
+
+LOCK TABLES `members` WRITE;
+/*!40000 ALTER TABLE `members` DISABLE KEYS */;
+INSERT INTO `members` VALUES (1,'alanchen1','alan1@gmail.com','1111',33),(5,'alanchen2','alan2@gmail.com','1111',28);
+/*!40000 ALTER TABLE `members` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `products`
+--
+
+DROP TABLE IF EXISTS `products`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `products` (
+  `productid` int(11) NOT NULL AUTO_INCREMENT,
+  `modelnumber` varchar(45) NOT NULL,
+  `modelname` varchar(45) NOT NULL,
+  `productimage` varchar(45) NOT NULL,
+  `description` varchar(300) NOT NULL,
+  `categoryid` varchar(45) NOT NULL,
+  PRIMARY KEY (`productid`),
+  KEY `products_categoryid_dd8a17ec_fk_categories_categoryid` (`categoryid`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `products`
+--
+
+LOCK TABLES `products` WRITE;
+/*!40000 ALTER TABLE `products` DISABLE KEYS */;
+INSERT INTO `products` VALUES (1,'a01','毛哥','a01_3i4OlAk.jpg','no1','M'),(6,'a02','昇哥','a02_JlolmGY.jpg','no2','M'),(7,'a03','小偉','a03_0ZbThY6.jpg','3','M'),(8,'a04','小越','a04_C0cCfOV.jpg','no4','M'),(9,'a05','龍哥','a5_ZI6zsrK.jpg','no5','M');
+/*!40000 ALTER TABLE `products` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `songlist`
 --
 
@@ -333,4 +413,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-18 12:09:32
+-- Dump completed on 2018-09-21  9:29:18

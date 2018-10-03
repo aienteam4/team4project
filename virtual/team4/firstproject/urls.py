@@ -1,4 +1,4 @@
-"""firstproject URL Configuration
+﻿"""firstproject URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/2.1/topics/http/urls/
@@ -15,6 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from rest_framework.routers import DefaultRouter
+from product import views
+
+router = DefaultRouter();
+router.register('product', views.ProductViewSet)
 
 urlpatterns = [
     #http://localhost:8000/admin
@@ -23,4 +30,8 @@ urlpatterns = [
     path('',include('home.urls')),  #從project的urls.py去載入app下的urls.py
     path('member/',include('member.urls')),
     path('music/',include('music.urls')),
-]
+    path('donate/',include('donate.urls')),
+    #http://localhost:8000/api/product
+    path('api/', include(router.urls))
+]+static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+
