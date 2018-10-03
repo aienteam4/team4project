@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     #http://localhost:8000
     path('',include('home.urls')),  #從project的urls.py去載入app下的urls.py
+    path('member/',include('member.urls')),
     path('music/',include('music.urls')),
 ]
