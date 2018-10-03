@@ -30,13 +30,14 @@ class Member(models.Model):
     class Meta:
         db_table = 'member'
 
-
-class OrderHistory(models.Model):
-    member = models.ForeignKey(Member, models.DO_NOTHING)
-    song = models.ForeignKey(Songlist, models.DO_NOTHING)
+class Orderhistory(models.Model):
+    member = models.ForeignKey('Member', models.DO_NOTHING)
+    song = models.ForeignKey('Songlist', models.DO_NOTHING)
     order_time = models.DateTimeField()
     order_num = models.IntegerField()
     this_song_order_num = models.IntegerField()
+    this_song_like_or_not = models.IntegerField(blank=True, null=True)
 
     class Meta:
         db_table = 'orderhistory'
+
