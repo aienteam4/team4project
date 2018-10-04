@@ -7,14 +7,14 @@
             width:300px;
         }
         .main{
-            /* width:100%;  */
-            /* margin: auto;  */
             padding-top: 5%;
             color: white !important;
             margin: auto;
             width:700px;
             height: 350px;
         }
+
+        /* hover換圖效果 */
         .hover {
             /* position:relative; */
             float: left;
@@ -22,14 +22,13 @@
         }
         .hover img {
             position:absolute;
-            /* CSS3淡出淡入效果,1秒 */  -webkit-transition: opacity .5s ease-in-out;
-            -moz-transition: opacity .5s ease-in-out;
-            -o-transition: opacity .5s ease-in-out;
+            /* CSS3淡出淡入效果,1秒 */  
             transition: opacity .5s ease-in-out;
         }
         .hover img:nth-of-type(2):hover{
             opacity:0; /*滑鼠滑入時，透明度變0*/
         }
+
         .cardtext1{
             /* position:absolute; */
             padding-top: 30%;
@@ -50,7 +49,6 @@
         .desc{
             width:700px;
             margin: auto;
-
         }
         .desc_text1{
             float: left;
@@ -73,13 +71,13 @@
 {% endblock %}
 {% block content %}
 <div class="main">
-    <a href="{% url 'member:login' %}">
+    <!-- <a href="{% url 'member:login' %}"> -->
         <div class="hover">
             <img src="../../static/images/login_hover.png" alt="Login">
             <img src="../../static/images/login.png" alt="Login">
             <p class="card-text1"></p>
         </div>
-    </a>
+    <!-- </a> -->
     <div class="divider_or">
         or
     </div>

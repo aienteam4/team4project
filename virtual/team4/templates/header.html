@@ -1,23 +1,31 @@
 <!-- <link href="../home/static/styles/header.css" rel="stylesheet" /> -->
 <style>
     header {
-        font-family: 'Ubuntu Mono', '微軟正黑體', monospace;
-        font-size:20px;
+        font-family: Trebuchet MS, '微軟正黑體', monospace;
+        font-size:22px;
         overflow:visible;
         width:80%;
         height: auto;
         margin:auto;
         margin-top: 20px;
         text-decoration:none;
-        color: white !important;
+        color: white;
         background-color: rgba(31, 31, 31,0.7);
     }
-    /* .navbar {
-        
-    } */
     .icon {
         float: left;
         padding-left:50px;
+        padding-top: 0.5%;
+    }
+    .icon img{
+        width:100px;
+        position:absolute;
+        /* margin-top: 1%; */
+        
+        transition: opacity .5s ease-in-out;
+    }
+    .icon img:nth-of-type(2):hover{
+        opacity:0; /*滑鼠滑入時，透明度變0*/
     }
     .pages {
         float: right;
@@ -52,7 +60,7 @@
     ul.drop-down-menu a {
         
         text-decoration:none;
-        color: white !important;
+        color: white ;
     }
     ul.drop-down-menu a:hover { /* 滑鼠滑入按鈕變色*/
         
@@ -75,46 +83,47 @@
     ul.drop-down-menu li ul li:hover {
         width:auto;
         /* margin-top: 10px; */
-        background-color: rgb(48, 110, 192);
+        background-color: rgb(223, 155, 68);
         width:100%;
     }
     ul.drop-down-menu li.divider:hover{
-        background-color: rgb(31, 31, 31);
+        background-color: rgb(18, 33, 34);
     }
 </style>
 <header>
-    <div>
-        <div class="icon">
-            <ul class="drop-down-menu">
-                <li><a href="{% url 'home:welcome' %}" style="float:left">EMO.</a>
-                </li>
-            </ul>
-        </div>
-        <div class="pages">
-            <ul class="drop-down-menu">
-                <li><a href="{% url 'home:index' %}">Index</a>
-                </li>
-                <li><a href="{% url 'music:music' %}">Music</a>
-                </li>
-                <li><a href="#">Friends</a>
-                    <ul>
-                        <li><a href="#">Make friends哲偉的</a>
-                        </li>
-                        <li><a href="#">Chat room安昇的</a>
-                        </li>
-                        <li><a href="{% url 'donate:index' %}">Donate</a>
-                        </li>
-                    </ul>
-                </li>
-                <li><a href="{% url 'home:contact' %}">Contact</a>
-                </li>
-                <li class="divider">|   
-                </li>
-                <!-- <li><a href="{% url 'member:register' %}">Register</a>
-                </li> -->
-                <li><a href="{% url 'home:login_or_register' %}">Log in / Register</a>
-                </li>
-            </ul>
-        </div>
+    <div class="icon">
+        <a href="{% url 'home:welcome' %}">
+            <div >
+                <img src="../../static/images/fusic_hover.png" alt="fusic">
+                <img src="../../static/images/fusic.png" alt="fusic">
+            </div>
+        </a>     
+    </div>
+
+    <div class="pages">
+        <ul class="drop-down-menu">
+            <li><a href="{% url 'home:index' %}">Index</a>
+            </li>
+            <li><a href="{% url 'music:music' %}">Music</a>
+            </li>
+            <li><a href="#">Friends</a>
+                <ul>
+                    <li><a href="#">Make friends哲偉的</a>
+                    </li>
+                    <li><a href="#">Chat room安昇的</a>
+                    </li>
+                    <li><a href="{% url 'donate:index' %}">Donate</a>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="{% url 'home:contact' %}">Contact</a>
+            </li>
+            <li class="divider">|   
+            </li>
+            <!-- <li><a href="{% url 'member:register' %}">Register</a>
+            </li> -->
+            <li><a href="{% url 'home:login_or_register' %}">Log in / Register</a>
+            </li>
+        </ul>
     </div>
 </header>
