@@ -1,0 +1,38 @@
+{% extends "main.html" %}
+{% block styles %}
+{% endblock %}
+{% block content %}
+   <div class="row">
+     <div class="col-md-9">
+        <table id="Friends_Chatlist" class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">會員編號</th>
+              <th scope="col">訊息</th>
+              <th scope="col">訊息更新紀錄</th>
+              <th scope="col">編輯</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+     </div>
+     <div class="col-md-3">
+      <form>
+        <div class="form-group">
+          <label for="InputMemberId">MemberId</label>
+          <input type="text" class="form-control" id="InputMemberId" placeholder="Enter MemberId">         
+        </div>
+        <div class="form-group">
+          <label for="InputMessage">Message</label>
+          <input type="text" class="form-control" id="InputMessage" placeholder="Enter Message">
+        </div>
+        <div class="form-group">
+            <label for="InputMessageRecord">MessageRecord</label>
+            <input type="text" class="form-control" id="InputMessageRecord" placeholder="Enter MessageRecord">
+          </div>          
+        <button type="button" id="buttonSubmit" class="btn btn-primary">Submit</button>
+      </form>
+     </div>
+   </div>
+{% endblock%}

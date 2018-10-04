@@ -2,10 +2,12 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db import connection
 from .modelsfriends import Friends_Talk
-from makefriends.models import Friends_Chat
 import datetime
 from django.utils.encoding import smart_str
 import base64
+from .models import Friends_Chat
+from .serializers import Friends_ChatSerializer
+from rest_framework import viewsets
 
 friend = Friends_Talk()
 
@@ -59,6 +61,8 @@ friend = Friends_Talk()
 #     response = HttpResponse("<script>location.href='/'</script>")
 #     response.delete_cookie("name") 
 #     return response
+def friends(request):
+    return render(request,'friends.html')
 
 def delete(request, id):
     friend.delete(id)
@@ -102,3 +106,8 @@ def message(request):
     #將資料寫進資料庫
     Friends_Chat.objects.create(memberId=memberId.objects.get(memberId=memberId),message=message,messageUpdate=messageUpdate)
     return HttpResponse(message)
+
+# restful api
+class Friends_ChatViewSet(viewsets.ModelViewSet):
+    queryset = Friends_Chat.objects.all()
+    serializer_class = Friends_ChatSerializer
