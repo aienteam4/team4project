@@ -1,6 +1,7 @@
 <!-- <link href="../home/static/styles/header.css" rel="stylesheet" /> -->
 <style>
     header {
+        font-family: 'Ubuntu Mono', '微軟正黑體', monospace;
         font-size:20px;
         overflow:visible;
         width:80%;
@@ -109,9 +110,9 @@
                 </li>
                 <li class="divider">|   
                 </li>
-                <li><a href="{% url 'member:register' %}">Register</a>
-                </li>
-                <li><a href="{% url 'member:login' %}">Log in</a>
+                <!-- <li><a href="{% url 'member:register' %}">Register</a>
+                </li> -->
+                <li><a href="{% url 'home:login_or_register' %}">Log in / Register</a>
                 </li>
             </ul>
         </div>
