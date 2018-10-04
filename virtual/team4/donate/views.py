@@ -1,5 +1,6 @@
 ﻿from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from . import models
 from donate.models import Product
 from django.core.files.storage import FileSystemStorage
 
@@ -15,8 +16,19 @@ def siteadm(request):
         #return HttpResponse(strJS)
         
     title = "斗NET直播主資料管理區"
-    products = Product.objects.all()
-    return render(request,'donate/siteadm.html',locals())
+    if request.method == "POST" and request.FILES["productimage"]:
+            
+            productcid = int(request.POST["productcid"])
+            product = Product.objects.get(productid=productcid)
+            #檔案上傳到media資料夾中
+            myFile = request.FILES["productimage"]
+            fs = FileSystemStorage()
+            product.productimage = fs.save(myFile.name,myFile)
+            product.save()
+
+    # return render(request,'donate/siteadm.html',locals())
+    return render(request,'donate/siteadm.html')
+    
 
 def index(request): 
     title = "斗NET直播主網"

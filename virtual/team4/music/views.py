@@ -1,4 +1,4 @@
-from .models import Songlist, Member, OrderHistory
+from .models import Songlist, Member, Orderhistory
 from django.shortcuts import render,redirect
 import random,re
 from django.http import HttpResponse
@@ -7,7 +7,7 @@ from .forms import SongListForm
 # 練習restful api
 from .serializers import SongListSer
 from rest_framework import viewsets
-
+import json
 
 # Create your views here.
 
@@ -29,7 +29,40 @@ def taste(request):
     """
     紀錄歌曲喜好
     """
-    pass
+    herTaste = request.GET["taste"]        #喜歡或不喜歡(1,0)
+    songUrl = "https://www.youtube.com/watch?v=" + request.GET["youtubeId"]
+    song = Songlist.objects.filter(url=songUrl)[0]
+    songId = song.id                                    #歌曲ID   
+    sid = request.COOKIES['sessionid']
+    herId = Session.objects.get(pk = sid).get_decoded()['memberId']
+    index = song.url.find('=')
+    youtubeId = song.url[index+1:]    
+    data1 = Orderhistory.objects.filter(member = herId)
+    data = data1.filter(song = songId)
+    member = Member.objects.get(id=herId)
+    if data:
+        data[0].this_song_order_num += 1
+        data[0].this_song_like_or_not = herTaste
+        data[0].save() 
+    else:
+        newOrder = Orderhistory()
+        newOrder.member = member
+        newOrder.song = song
+        if data1:
+            newOrder.order_num = data1.last().order_num + 1
+        else:
+            newOrder.order_num = 1
+        newOrder.this_song_order_num = 1    
+        newOrder.this_song_like_or_not = herTaste
+        newOrder.save()
+    # 在頁面顯示上一首聽的歌
+    songname = song.name
+    singer = song.singer
+    theDict = {"songname":songname,"singer":singer,"youtubeId":youtubeId}
+    # 把字典轉化為json字串
+    theJson = json.dumps(theDict)          
+    return HttpResponse(theJson)
+    
 
 def crud(request):
     if request.method == 'POST':
@@ -116,7 +149,7 @@ def set_session(request):
     # del request.session['lucky_number']                     # 刪除
     else:
         response = HttpResponse("You haven't logged in")
-        request.session['memberId'] = 1                    # 設置會員id
+        request.session['memberId'] = 1                       # 設置會員id
 
     return response
 
@@ -139,19 +172,21 @@ def cookietest(request):
 
 # 練習login
 def checkEmail(request):    
-        try:
-            email = request.GET['email']
-            print (email)
-            if Member.objects.filter(email = email):
-                judge = "查有此人"
-            else:
-                judge = "查無此人"    
-        except:
-            judge = "查無此人"
-        return HttpResponse(judge)
-        
-    
+    try:
+        email = request.GET['email']
+        print (email)
+        if Member.objects.filter(email = email):
+            judge = "查有此人"
+        else:
+            judge = "查無此人"    
+    except:
+        judge = "查無此人"
+    return HttpResponse(judge)
+              
 # 練習 restful api
 class SongListViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
     queryset = Songlist.objects.all()
     serializer_class = SongListSer               

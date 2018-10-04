@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `djangodb` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `djangodb`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: djangodb
@@ -282,7 +280,7 @@ CREATE TABLE `django_migrations` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -291,7 +289,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2018-09-17 06:04:07.633128'),(2,'auth','0001_initial','2018-09-17 06:04:11.485910'),(3,'admin','0001_initial','2018-09-17 06:04:12.448175'),(4,'admin','0002_logentry_remove_auto_add','2018-09-17 06:04:12.457151'),(5,'admin','0003_logentry_add_action_flag_choices','2018-09-17 06:04:12.464725'),(6,'contenttypes','0002_remove_content_type_name','2018-09-17 06:04:13.148432'),(7,'auth','0002_alter_permission_name_max_length','2018-09-17 06:04:13.486036'),(8,'auth','0003_alter_user_email_max_length','2018-09-17 06:04:14.128154'),(9,'auth','0004_alter_user_username_opts','2018-09-17 06:04:14.166866'),(10,'auth','0005_alter_user_last_login_null','2018-09-17 06:04:14.402340'),(11,'auth','0006_require_contenttypes_0002','2018-09-17 06:04:14.410357'),(12,'auth','0007_alter_validators_add_error_messages','2018-09-17 06:04:14.438326'),(13,'auth','0008_alter_user_username_max_length','2018-09-17 06:04:14.656441'),(14,'auth','0009_alter_user_last_name_max_length','2018-09-17 06:04:15.111760'),(15,'music','0001_initial_manual','2018-09-17 06:04:15.333990'),(16,'sessions','0001_initial','2018-09-17 06:04:15.489993');
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2018-09-17 06:04:07.633128'),(2,'auth','0001_initial','2018-09-17 06:04:11.485910'),(3,'admin','0001_initial','2018-09-17 06:04:12.448175'),(4,'admin','0002_logentry_remove_auto_add','2018-09-17 06:04:12.457151'),(5,'admin','0003_logentry_add_action_flag_choices','2018-09-17 06:04:12.464725'),(6,'contenttypes','0002_remove_content_type_name','2018-09-17 06:04:13.148432'),(7,'auth','0002_alter_permission_name_max_length','2018-09-17 06:04:13.486036'),(8,'auth','0003_alter_user_email_max_length','2018-09-17 06:04:14.128154'),(9,'auth','0004_alter_user_username_opts','2018-09-17 06:04:14.166866'),(10,'auth','0005_alter_user_last_login_null','2018-09-17 06:04:14.402340'),(11,'auth','0006_require_contenttypes_0002','2018-09-17 06:04:14.410357'),(12,'auth','0007_alter_validators_add_error_messages','2018-09-17 06:04:14.438326'),(13,'auth','0008_alter_user_username_max_length','2018-09-17 06:04:14.656441'),(14,'auth','0009_alter_user_last_name_max_length','2018-09-17 06:04:15.111760'),(15,'music','0001_initial_manual','2018-09-17 06:04:15.333990'),(16,'sessions','0001_initial','2018-09-17 06:04:15.489993'),(17,'donate','0001_initial','2018-09-30 02:07:39.627650'),(18,'donate','0002_auto_20180922_1041','2018-09-30 02:07:39.637656'),(19,'donate','0002_auto_20180921_0942','2018-09-30 02:07:39.644655'),(20,'donate','0003_merge_20180923_2149','2018-09-30 02:07:39.654660'),(21,'message','0001_initial','2018-09-30 02:07:39.660656'),(22,'message','0002_auto_20180922_1041','2018-09-30 02:07:39.668735'),(23,'message','0002_auto_20180921_0942','2018-09-30 02:07:39.675660'),(24,'message','0003_merge_20180923_2149','2018-09-30 02:07:39.682668'),(25,'music','0002_songlist_last_modified_at','2018-09-30 02:07:39.689462'),(26,'music','0003_auto_20180926_2017','2018-09-30 02:07:39.696678'),(27,'music','0004_auto_20180929_1532','2018-09-30 02:07:39.703683'),(28,'music','0005_auto_20180929_1533','2018-09-30 02:07:39.709857'),(29,'product','0001_initial','2018-09-30 02:07:39.716951');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -321,33 +319,6 @@ LOCK TABLES `django_session` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `members`
---
-
-DROP TABLE IF EXISTS `members`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `members` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
-  `email` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
-  `age` int(11) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `members`
---
-
-LOCK TABLES `members` WRITE;
-/*!40000 ALTER TABLE `members` DISABLE KEYS */;
-INSERT INTO `members` VALUES (1,'alanchen1','alan1@gmail.com','1111',33),(5,'alanchen2','alan2@gmail.com','1111',28);
-/*!40000 ALTER TABLE `members` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `products`
 --
 
@@ -363,7 +334,7 @@ CREATE TABLE `products` (
   `categoryid` varchar(45) NOT NULL,
   PRIMARY KEY (`productid`),
   KEY `products_categoryid_dd8a17ec_fk_categories_categoryid` (`categoryid`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -372,7 +343,7 @@ CREATE TABLE `products` (
 
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,'a01','毛哥','a01_3i4OlAk.jpg','no1','M'),(6,'a02','昇哥','a02_JlolmGY.jpg','no2','M'),(7,'a03','小偉','a03_0ZbThY6.jpg','3','M'),(8,'a04','小越','a04_C0cCfOV.jpg','no4','M'),(9,'a05','龍哥','a5_ZI6zsrK.jpg','no5','M');
+INSERT INTO `products` VALUES (1,'a01','毛哥','a01.jpg','No001','M'),(6,'a02','昇哥','a02.jpg','No02','M'),(7,'a03','小偉','a03.jpg','No03','M'),(8,'a04','小越','a04.jpg','No04','M'),(9,'a05','龍哥','a05.jpg','No05','M'),(17,'a06','SUNNI','a06.gif','No06','F'),(18,'a07','RAINI','a07.jpg','No07','F'),(21,'a08','Shiny','a08.jpg','Wonderful','F');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -391,7 +362,7 @@ CREATE TABLE `songlist` (
   `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -413,4 +384,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-21  9:29:18
+-- Dump completed on 2018-10-03 11:16:19
