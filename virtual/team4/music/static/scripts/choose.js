@@ -1,12 +1,14 @@
 
 var player;
 // var songUrl = '';
+var songId = 0;
 var youtubeId ='';
 var buttons = document.querySelectorAll('button');
 var flag = true;
 var timeOut;            //讓按鈕被按下五秒鐘後有另外一套樣式
 var countPlayTime;      //計算歌曲被播放的長度
-var playTime = 0        //歌曲被播放的長度
+var countFlag = false;
+var playTime = 0;        //歌曲被播放的長度
 var btnFlag = true;
 var videoFlag = true;
 var btnStyle1='mood';
@@ -50,16 +52,17 @@ var originTxt = ['狂歡','愉悅','孤寂','悲傷','憤怒']
 function playCount()        //函式：計算播放時間                      
     {
         playTime += 1;
-        console.log("play")
         // if(playTime > 5) $.post('taste/');
-        countPlayTime=setTimeout("playCount()",1000);
     };
 
 function stopPlayCount()    //函式：停止計算播放時間
     {
+        if (playTime >= 10) $.get("taste/", { "taste": 1, "youtubeId" : youtubeId });
+        else $.get("taste/", { "taste": 0, "youtubeId" : youtubeId });
         playTime = 0;
         clearTimeout(countPlayTime);
     };
+if (playTime >= 1000) clearTimeout(countPlayTime);
 
 $(document).ready(function(){
             
@@ -114,25 +117,27 @@ $(document).ready(function(){
     }
     
     function playYt(){
-        $(this).addClass('smMoodTxt');
-        $('.btn').each(function(){
-            $(this).off('mouseenter mouseleave');
-        })
-        // for(var i=0; i<buttons.length; i++){
-        //     buttons[i].removeEventListener("mouseenter", chgText);
-        //     buttons[i].removeEventListener("mouseleave", rtnText);
-        //     $('.btn:eq(i)').removeClass('moodtxt');
-        // }
-        
-        // 先把按鈕隱形      
-        $('#revel').addClass( "musicOnRevel", 5000 );
-        $('#happy').addClass( "musicOnHappy", 5000 );
-        $('#anger').addClass( "musicOnAnger", 5000 );
-        $('#sad').addClass( "musicOnSad", 5000 );
-        $('#lonely').addClass( "musicOnLonely", 5000 );
-        
-        // 空五秒鐘才乾淨                
-        timeOut = setInterval(newBtnAct, 5000);
+        if (countFlag) stopPlayCount();
+        if (btnFlag){
+            $(this).addClass('smMoodTxt');
+            $('.btn').each(function(){
+                $(this).off('mouseenter mouseleave');
+            })
+            // for(var i=0; i<buttons.length; i++){
+            //     buttons[i].removeEventListener("mouseenter", chgText);
+            //     buttons[i].removeEventListener("mouseleave", rtnText);
+            //     $('.btn:eq(i)').removeClass('moodtxt');
+            // }
+                        
+            $('#revel').addClass( "musicOnRevel", 5000 );
+            $('#happy').addClass( "musicOnHappy", 5000 );
+            $('#anger').addClass( "musicOnAnger", 5000 );
+            $('#sad').addClass( "musicOnSad", 5000 );
+            $('#lonely').addClass( "musicOnLonely", 5000 );
+            // 空五秒鐘才乾淨
+            timeOut = setInterval(newBtnAct, 5000);
+        }
+                              
         var moodNum = this.number;
     
         // 顯示影片div
@@ -168,10 +173,9 @@ $(document).ready(function(){
         flag = false
         
         //計算影片播放時間
-        try{stopPlayCount();}
-        catch(err){};
-        playCount();  
-    
+        
+        countPlayTime = setInterval(playCount, 1000);
+        countFlag = true;      
         }
 
 })
