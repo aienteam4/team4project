@@ -7,7 +7,7 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
-
+#歌曲資料表
 class Songlist(models.Model):
     name = models.CharField(max_length=50)
     singer = models.CharField(max_length=45)
@@ -19,7 +19,7 @@ class Songlist(models.Model):
     class Meta:
         db_table = 'songlist'
 
-
+#會員資料表 (測試)
 class Member(models.Model):
     name = models.CharField(max_length=50)
     gender = models.CharField(max_length=10)
@@ -29,14 +29,15 @@ class Member(models.Model):
 
     class Meta:
         db_table = 'member'
-
-
-class OrderHistory(models.Model):
-    member = models.ForeignKey(Member, models.DO_NOTHING)
-    song = models.ForeignKey(Songlist, models.DO_NOTHING)
+# 喜好資料表
+class Orderhistory(models.Model):
+    member = models.ForeignKey('Member', models.DO_NOTHING)
+    song = models.ForeignKey('Songlist', models.DO_NOTHING)
     order_time = models.DateTimeField()
     order_num = models.IntegerField()
     this_song_order_num = models.IntegerField()
+    this_song_like_or_not = models.IntegerField(blank=True, null=True)
 
     class Meta:
         db_table = 'orderhistory'
+
