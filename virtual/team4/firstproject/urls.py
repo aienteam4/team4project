@@ -25,5 +25,6 @@ urlpatterns = [
     path('',include('home.urls')),  #從project的urls.py去載入app下的urls.py
     path('music/',include('music.urls')),
     path('donate/',include('donate.urls')),
+    path('message/',include('message.urls')),
 ]+static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 

@@ -1,9 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from messagge.models import Messages
-# Create your views here.
-def index(request):
-    return render(request,'index.html',{'title':'message'})
+from message.models import Messages
 
-def comment(request)
-dacdklsfjdg
+from models import Messages
+from .serializers import MessagesSerializer
+from rest_framework import viewsets
+# Create your views here.
+# def home(request):
+#     return render(request,'home.html',{'title':'message'})
+# def comment(request)
+class MessagesViewSet(viewsets.ModelViewSet):
+    queryset = Messages.objects.all()
+    serializer_class = MessagesSerializer
+
