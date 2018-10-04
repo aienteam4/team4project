@@ -13,7 +13,7 @@ var btnFlag = true;
 var videoFlag = true;
 var btnStyle1='mood';
 var btnStyle2='moodTxt';
-
+var id = "";
 // 為增加說明文字變化，做一個0~2的亂數產生器
 var randomNum = Math.floor(Math.random()*3);
 
@@ -49,23 +49,35 @@ var originTxt = ['狂歡','愉悅','孤寂','悲傷','憤怒']
 // 游標移到心情選擇按鈕時，會替換說明文字
 // 憤怒5、難過4、寂寞3、開心2、狂歡1
 
-function playCount()        //函式：計算播放時間                      
-    {
-        playTime += 1;
-        // if(playTime > 5) $.post('taste/');
-    };
 
-function stopPlayCount()    //函式：停止計算播放時間
-    {
-        if (playTime >= 10) $.get("taste/", { "taste": 1, "youtubeId" : youtubeId });
-        else $.get("taste/", { "taste": 0, "youtubeId" : youtubeId });
-        playTime = 0;
-        clearTimeout(countPlayTime);
-    };
-if (playTime >= 1000) clearTimeout(countPlayTime);
 
 $(document).ready(function(){
-            
+   
+    function playCount()        //函式：計算播放時間                      
+{
+    playTime += 1;
+    if (playTime >= 600) stopPlayCount();  // 避免背景不斷計時
+};
+
+    function stopPlayCount()    //函式：停止計算播放時間
+{
+        if (playTime >= 10) var tasteNum = 1;
+        else tasteNum = 0;
+        $.getJSON("taste/", { "taste": tasteNum, "youtubeId" : youtubeId }, function(data){
+            $("#songdata > ul").append('<li class="nav-item"><div class="xxx"><i class="fas fa-circle"></i>'+ data.songname + " " + data.singer + '</div><div style="display:none">'+ data.youtubeId +'</div></li>');
+            $("li.nav-item:last").click(playOldYt)
+        });
+        playTime = 0;
+        clearTimeout(countPlayTime);
+};
+    function playOldYt(){
+        id = $(this).children("div:last").text();
+        console.log(id);
+        $('#player').attr('src','https://www.youtube.com/embed/'+id+'?rel=0&amp;showinfo=0&autoplay=1');        
+        // 也寫入資料庫，到這裡已確定聽者喜歡這首歌
+        $.getJSON("taste/", { "taste": 1, "youtubeId":id });
+        id = ""; 
+    }
     //為按鈕加上行為
     for(var i=1; i<=buttons.length; i++){
         buttons[i-1].number = i;
@@ -123,11 +135,6 @@ $(document).ready(function(){
             $('.btn').each(function(){
                 $(this).off('mouseenter mouseleave');
             })
-            // for(var i=0; i<buttons.length; i++){
-            //     buttons[i].removeEventListener("mouseenter", chgText);
-            //     buttons[i].removeEventListener("mouseleave", rtnText);
-            //     $('.btn:eq(i)').removeClass('moodtxt');
-            // }
                         
             $('#revel').addClass( "musicOnRevel", 5000 );
             $('#happy').addClass( "musicOnHappy", 5000 );
@@ -136,33 +143,37 @@ $(document).ready(function(){
             $('#lonely').addClass( "musicOnLonely", 5000 );
             // 空五秒鐘才乾淨
             timeOut = setInterval(newBtnAct, 5000);
+            btnFlag = false
         }
                               
         var moodNum = this.number;
     
         // 顯示影片div
         // 利用ajax載入歌曲網址
-        var findSong = new XMLHttpRequest();
-        if(findSong != null){        
-            findSong.open('GET','/music/findsong/?q='+moodNum);              
-            findSong.addEventListener('load',returnData);
-            function returnData(){
-                if(findSong.status==200){
-                    // songUrl = findSong.responseText;
-                    youtubeId = findSong.responseText;
-                    console.log(youtubeId);
-                    $('#player').attr('src','https://www.youtube.com/embed/'+youtubeId+'?rel=0&amp;showinfo=0&autoplay=1');                     
-                
-                }        
-                else{alert(findSong.status+'ajax has problem');}            
+        if (id == ""){
+            var findSong = new XMLHttpRequest();
+            if(findSong != null){        
+                findSong.open('GET','/music/findsong/?q='+moodNum);              
+                findSong.addEventListener('load',returnData);
+                function returnData(){
+                    if(findSong.status==200){
+                        // songUrl = findSong.responseText;
+                        youtubeId = findSong.responseText;
+                        console.log(youtubeId);
+                        $('#player').attr('src','https://www.youtube.com/embed/'+youtubeId+'?rel=0&amp;showinfo=0&autoplay=1');                     
+                    
+                    }        
+                    else{alert(findSong.status+'ajax 出問題啦');}            
+                }
             }
+            else{
+                alert('您的瀏覽器不支援Ajax功能！');
+            }
+            
+            findSong.send(); 
+        }else{
+            $('#player').attr('src','https://www.youtube.com/embed/'+id+'?rel=0&amp;showinfo=0&autoplay=1');                     
         }
-        else{
-            alert('您的瀏覽器不支援Ajax功能！');
-        }
-        
-        findSong.send(); 
-        
         // 2. This code loads the IFrame Player API code asynchronously.
         if(flag){    
             var tag = document.createElement('script');

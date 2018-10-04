@@ -12,6 +12,5 @@ urlpatterns = [
     path('makefriends/',views.makefriends,name="makefriends"),    
     path('login/',views.login,name="login"),
     path('contact/',views.contact,name="contact"),
-
     path('main/',views.main)
 ]

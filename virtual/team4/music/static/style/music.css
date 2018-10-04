@@ -112,35 +112,21 @@
             font-size: 14px;
         }
         /* 以下是別人的 */
-        .sec-download{
-            background: #fafafa;
-            direction: rtl;
-            text-align: right;
-            color: #000;
-            padding-top: 2.5rem;
-            padding-bottom: 2rem;
+        #songdata{
             position: fixed;
-            left: 5%;
-            top: 5%;
+            top: 25%;
+            right: 5%;
+            width: 200px;
+            height: 300px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            /* z-index: 1; */
         }
-        .sec-download h3{
-            margin-bottom: 2rem;
+        div.xxx{
+            width: 195px;
+            height: 50px; 
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; 
         }
-        .sec-download li a.active {
-            background-color: #f57921 !important;
-            margin-bottom: 0.5rem;
-        }
-        .sec-download li a.active:hover {
-            color: #fff !important;
-        }
-        .sec-download li a.active i{
-            font-size: 1.5rem;
-        }
-        .sec-download li a{
-            font-family:iranyekan_light;
-            color: #000000;
-            padding-right: 1rem;
-        }
-        .sec-download li i{
-            font-size: 0.3rem;
-        }
+        

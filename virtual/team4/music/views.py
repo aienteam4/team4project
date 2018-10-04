@@ -7,7 +7,7 @@ from .forms import SongListForm
 # 練習restful api
 from .serializers import SongListSer
 from rest_framework import viewsets
-
+import json
 
 # Create your views here.
 
@@ -34,10 +34,11 @@ def taste(request):
     song = Songlist.objects.filter(url=songUrl)[0]
     songId = song.id                                    #歌曲ID   
     sid = request.COOKIES['sessionid']
-    herId = Session.objects.get(pk = sid).get_decoded()['memberId']                  
+    herId = Session.objects.get(pk = sid).get_decoded()['memberId']
+    index = song.url.find('=')
+    youtubeId = song.url[index+1:]    
     data1 = Orderhistory.objects.filter(member = herId)
     data = data1.filter(song = songId)
-    print("her taste", herTaste, "song id", songId, data1)
     member = Member.objects.get(id=herId)
     if data:
         data[0].this_song_order_num += 1
@@ -53,8 +54,15 @@ def taste(request):
             newOrder.order_num = 1
         newOrder.this_song_order_num = 1    
         newOrder.this_song_like_or_not = herTaste
-        newOrder.save()                
-    return HttpResponse()
+        newOrder.save()
+    # 在頁面顯示上一首聽的歌
+    songname = song.name
+    singer = song.singer
+    theDict = {"songname":songname,"singer":singer,"youtubeId":youtubeId}
+    # 把字典轉化為json字串
+    theJson = json.dumps(theDict)          
+    return HttpResponse(theJson)
+    
 
 def crud(request):
     if request.method == 'POST':
@@ -164,18 +172,17 @@ def cookietest(request):
 
 # 練習login
 def checkEmail(request):    
-        try:
-            email = request.GET['email']
-            print (email)
-            if Member.objects.filter(email = email):
-                judge = "查有此人"
-            else:
-                judge = "查無此人"    
-        except:
-            judge = "查無此人"
-        return HttpResponse(judge)
-        
-    
+    try:
+        email = request.GET['email']
+        print (email)
+        if Member.objects.filter(email = email):
+            judge = "查有此人"
+        else:
+            judge = "查無此人"    
+    except:
+        judge = "查無此人"
+    return HttpResponse(judge)
+              
 # 練習 restful api
 class SongListViewSet(viewsets.ModelViewSet):
     """
