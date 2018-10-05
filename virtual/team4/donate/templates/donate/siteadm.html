@@ -55,7 +55,7 @@
       </div>
       <div class="form-group">
         <label for="InputCimg">照片</label>
-        <input type="file" class="form-control" id="InputCimg" placeholder="照片" name="productimage">
+        <input type="file" accept= "image/*" class="form-control" id="InputCimg" placeholder="照片" name="productcimg"  />
         <button type="submit" id="buttonChange" class="btn btn-warning">照片上傳</button>
       </div>
      </form>
@@ -98,22 +98,26 @@ $(document).ready(function(){
     loadTodo();
 
     //jquery 新增資料
-    $('#buttonSubmit').click(function(){    
-     var datas = {
-       "modelnumber": $('#InputMID').val(),
-       "categoryid": $('#InputGEN').val(),
-       "modelname": $('#InputNAM').val(),
-       "description": $('#InputDES').val(),
-       "productimage": "superstar.gif"
-    };
-    $.post('/api/product/',datas,function(data){
-      $('#InputMID').val('');
-      $('#InputGEN').val('');
-      $('#InputNAM').val('');
-      $('#InputDES').val('');
-      loadTodo();
-      })
-
+    $('#buttonSubmit').click(function(){
+    if ( $('#InputMID').val() && $('#InputGEN').val() && $('#InputNAM').val() && $('#InputDES').val()){
+        var datas = {
+          "modelnumber": $('#InputMID').val(),
+          "categoryid": $('#InputGEN').val(),
+          "modelname": $('#InputNAM').val(),
+          "description": $('#InputDES').val(),
+          "productimage": "superstar.gif"
+        };
+        $.post('/api/product/',datas,function(data){
+          $('#InputMID').val('');
+          $('#InputGEN').val('');
+          $('#InputNAM').val('');
+          $('#InputDES').val('');
+          loadTodo();
+          })
+      }
+      else {
+          alert("欄位未填寫完全");
+      }
     });
 
 
@@ -137,22 +141,27 @@ $(document).ready(function(){
          var modelname = $(this).parents('tr').find('td:nth-child(4)').text();
          var description = $(this).parents('tr').find('td:nth-child(5)').text();
          var productimage = $(this).parents('tr').find('td:nth-child(7)').text();
-         var datas = {
-            "modelnumber": modelnumber,
-            "categoryid": categoryid,
-            "modelname": modelname,
-            "description": description,
-            "productimage": productimage
-         };
+         if ( modelnumber && categoryid && modelname && description){
+            var datas = {
+                "modelnumber": modelnumber,
+                "categoryid": categoryid,
+                "modelname": modelname,
+                "description": description,
+                "productimage": productimage
+            };
 
-      $.ajax({
-          url:'/api/product/' + productid + '/',
-          type:'PUT',
-          data:datas
-      }).done(function(data){
-        loadTodo();
-      });
-
+            $.ajax({
+                url:'/api/product/' + productid + '/',
+                type:'PUT',
+                data:datas
+            }).done(function(data){
+              loadTodo();
+            });
+          }
+        else {
+          loadTodo();
+          alert("欄位未填寫完全");
+        }
     });
   })
 
