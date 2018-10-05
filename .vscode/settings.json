@@ -1,4 +1,6 @@
 {
+    "python.pythonPath": "${workspaceFolder}\\virtual\\Scripts\\python.exe",
+    "python.linting.pylintEnabled": false,
     "python.pythonPath": "C:\\Program Files (x86)\\Python37-32\\python.exe",
     "python.linting.enabled": false
 }

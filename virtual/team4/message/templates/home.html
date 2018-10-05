@@ -1,60 +1,196 @@
-{% extends "index.html" %}
-{% block content %}
-  <html>
-    <head>
-    </head>
-    <body>
-      <h2>{{title}}</h2>
-    </body>   
-  </html>
-
-
-<!-- <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-group row">
-                <label for="select1" class="col-sm-2 col-form-label">商品分類</label>
-                <div class="col-sm-10">
-                    <select id="select1" name="categoryid" class="form-control">
-                       {% for category in categories %} 
-                        <option value="{{category.categoryid}}">{{category.categoryname}}</option>                       
-                        {% endfor  %} 
-                    </select>
-                </div>
-              </div>
-            <div class="form-group row">
-                <label for="inputnumber" class="col-sm-2 col-form-label">商品型號</label>
-                <div class="col-sm-10">
-                 <input type="text" class="form-control" id="inputnumber" placeholder="model number" name="modelnumber">
-                </div>
-              </div>
-            <div class="form-group row">
-                <label for="inputname"" class="col-sm-2 col-form-label">商品名稱</label>
-                <div class="col-sm-10">
-                 <input type="text" class="form-control" id="inputname" placeholder="model name" name="modelname">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="inputprice"" class="col-sm-2 col-form-label">商品價格</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control" id="inputprice" placeholder="unit cost" name="unitcost">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="file1" class="col-sm-2 col-form-label">商品圖片</label>
-                <div class="col-sm-10">
-                  <input type="file"" class="form-control" id="file1" placeholder="product image" name="productimage">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label for="desc" class="col-sm-2 col-form-label">商品描述</label>
-                <div class="col-sm-10">
-                  <textarea class="form-control" id="desc" placeholder="product description" name="description"></textarea>
-                </div>
-              </div>
-              <div class="form-group row">
-                <div class="col-sm-10">
-                  <button type="submit" class="btn btn-primary"><i class="fab fa-angellist"></i> 新增</button>
-                </div>
-              </div>
-        </form> -->
+{% extends "main.html" %}
+{% block styles %}
 {% endblock %}
+{% block content %}
+  
+     
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <!------ Include the above in your HEAD tag ---------->
+  
+  
+  <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+  <div class="container">
+      <div class="col-sm-8">
+          <div class="panel panel-white post panel-shadow">
+              <div class="post-heading">
+                  <div class="image">
+                      <!-- <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image"> -->
+                  </div>
+                  <div class="sender">
+                      <div class="sendinfo">
+                          <!-- <label for="InputNAM"></label>
+                          <input type="text" class="post-heading" id="InputNAM" placeholder="姓名"> -->
+                          <!-- <a href="#"><b>Ryan Haywood</b></a> -->
+                          made a post.
+                          
+                      </div>
+                      <h6 class="time">1 minute ago</h6>
+                  </div>
+              </div> 
+              <div class="post"> 
+                  <p>comment</p>
+                  <div class="stats">
+                      <a href="#" class="btn btn-default stat-item">
+                          <i class="fa fa-thumbs-up icon"></i>2
+                      </a>
+                      <a href="#" class="btn btn-default stat-item">
+                          <i class="fa fa-share icon"></i>12
+                      </a>
+                  </div>
+              </div>
+              <div class="post-footer">
+                  <div class="input-group"> 
+                    <input class="form-control" id="name" placeholder="輸入名子" type="text"><span class="input-group-addon">
+                    <button type="button" id="btnname"><a href="#"><i class="fa fa-edit"></i></a></button></span>
+                  </div>
+                    
+                  <div class="input-group"> 
+                    <input class="form-control" id="content" placeholder="新增留言" type="text"><span class="input-group-addon">
+                    <button type="button" id="btncon"><a href="#"><i class="fa fa-edit"></i></a></button></span>
+                  </div>
+              </div>
+                   <ul class="comments-list">
+                      <li class="comment">
+                          <a class="pull-left" href="#">
+                              <!-- <img class="avatar" src="http://bootdey.com/img/Content/user_1.jpg" alt="avatar"> -->
+                          </a>
+                          <div class="comment-body">
+                              <div class="comment-heading">
+                                  <h4 class="user">Gavino Free</h4>
+                                  <h5 class="time">5 minutes ago</h5>
+                              </div>
+                              <p>Sure, oooooooooooooooohhhhhhhhhhhhhhhh</p>
+                        <!--  </div>
+                          <ul class="comments-list">
+                              <li class="comment">
+                                  <a class="pull-left" href="#">
+                                      <img class="avatar" src="http://bootdey.com/img/Content/user_3.jpg" alt="avatar">
+                                  </a>
+                                  <div class="comment-body">
+                                      <div class="comment-heading">
+                                          <h4 class="user">Ryan Haywood</h4>
+                                          <h5 class="time">3 minutes ago</h5>
+                                      </div>
+                                      <p>Relax my friend</p>
+                                  </div>
+                              </li> 
+                              <li class="comment">
+                                  <a class="pull-left" href="#">
+                                      <img class="avatar" src="http://bootdey.com/img/Content/user_2.jpg" alt="avatar">
+                                  </a>
+                                  <div class="comment-body">
+                                      <div class="comment-heading">
+                                          <h4 class="user">Gavino Free</h4>
+                                          <h5 class="time">3 minutes ago</h5>
+                                      </div>
+                                      <p>Ok, cool.</p>
+                                  </div>
+                              </li> 
+                          </ul>
+                      </li>
+                  </ul> -->
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+  {% endblock %}
+  {% block scripts %}
+  <script>
+  $(document).ready(function(){
+
+//讀取所有資料
+function loadTodo(){
+  $.getJSON('/api/comment/',function(datas){
+      // console.log(datas)
+      var tb =  $('#todolist>tbody');
+      var docFrag = $(document.createDocumentFragment());
+      $.each(datas,function(idx,product){
+          //a > index
+          //b > {}
+          var cell0 = $('<td></td>').text(product.productid);
+          var cell1 = $('<td></td>').text(product.modelnumber).attr('contenteditable','true');
+          var cell2 = $('<td></td>').text(product.categoryid).attr('contenteditable','true');
+          var cell3 = $('<td></td>').text(product.modelname).attr('contenteditable','true');
+          var cell4 = $('<td></td>').text(product.description).attr('contenteditable','true');
+          var cell5 = $('<td></td>').html('<button class="btn btn-danger"><i class="fas fa-user-times"></i>></button><button class="btn btn-info"><i class="fas fa-edit"></i></button>');
+          var cell6 = $('<td></td>').html('<img class="img-thumbnail thumb" src="/media/'+product.productimage+'"/>');
+          var cell7 = $('<td></td>').text(product.productimage);
+          //<tr><td><td><td>
+          var row = $('<tr></tr>').append([cell0,cell1,cell2,cell3,cell4,cell5,cell6,cell7]);
+          //<tbody><tr>
+          docFrag.append(row);
+      })
+      tb.html(docFrag);
+  })
+}
+loadTodo();
+
+//jquery 新增資料
+$('#buttonSubmit').click(function(){    
+ var datas = {
+   "modelnumber": $('#InputMID').val(),
+   "categoryid": $('#InputGEN').val(),
+   "modelname": $('#InputNAM').val(),
+   "description": $('#InputDES').val(),
+   "productimage": "superstar.gif"
+};
+$.post('/api/product/',datas,function(data){
+  $('#InputMID').val('');
+  $('#InputGEN').val('');
+  $('#InputNAM').val('');
+  $('#InputDES').val('');
+  loadTodo();
+  })
+
+});
+
+
+$('#todolist>tbody').on('click','button:nth-child(1)',function(){
+     var id = $(this).parents('tr').find('td:nth-child(1)').text();
+    //刪除資料
+        $.ajax({
+            url:'/api/product/' + id + '/',
+            type:'DELETE'
+        }).done(function(data){
+          loadTodo();
+        })
+
+});
+
+    //修改資料
+$('#todolist>tbody').on('click','button:nth-child(2)',function(){
+     var productid = $(this).parents('tr').find('td:nth-child(1)').text();
+     var modelnumber = $(this).parents('tr').find('td:nth-child(2)').text();
+     var categoryid = $(this).parents('tr').find('td:nth-child(3)').text();
+     var modelname = $(this).parents('tr').find('td:nth-child(4)').text();
+     var description = $(this).parents('tr').find('td:nth-child(5)').text();
+     var productimage = $(this).parents('tr').find('td:nth-child(8)').text();
+     var datas = {
+        "modelnumber": modelnumber,
+        "categoryid": categoryid,
+        "modelname": modelname,
+        "description": description,
+        "productimage": productimage
+     };
+
+  $.ajax({
+      url:'/api/product/' + productid + '/',
+      type:'PUT',
+      data:datas
+  }).done(function(data){
+    loadTodo();
+  });
+
+});
+})
+  
+  </script>
+  {% endblock %}
