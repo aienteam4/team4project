@@ -62,8 +62,8 @@ friend = Friends_Talk()
 #     response.delete_cookie("name") 
 #     return response
 def friends(request):
-    return render(request,'friends.html')
-
+    return render(request,'makefriends/friends.html')
+    
 def delete(request, id):
     friend.delete(id)
     return redirect("/message_record/")

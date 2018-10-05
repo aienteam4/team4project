@@ -2,94 +2,207 @@
 {% load static %}
 {% block styles %}
 <style>
-.form-gradient .header {
-  border-top-left-radius: .3rem;
-  border-top-right-radius: .3rem; }
-
-.form-gradient input[type=text]:focus:not([readonly]) {
-  border-bottom: 1px solid #fd9267;
-  box-shadow: 0 1px 0 0 #fd9267; }
-
-.form-gradient input[type=text]:focus:not([readonly]) + label {
-  color: #4f4f4f; }
-
-.form-gradient textarea.md-textarea:focus:not([readonly]) {
-    border-bottom: 1px solid #fd9267;
-    box-shadow: 0 1px 0 0 #fd9267; }
-
-
-.form-dark .md-form label {
-  color: #fff; }
-
-.form-dark input[type=text]:focus:not([readonly]) {
-  border-bottom: 1px solid #00C851;
-  -webkit-box-shadow: 0 1px 0 0 #00C851;
-  box-shadow: 0 1px 0 0 #00C851; }
-
-.form-dark input[type=text]:focus:not([readonly]) + label {
-  color: #fff; }
-
-.form-dark textarea.md-textarea:focus:not([readonly]) {
-    border-bottom: 1px solid #00C851;
-    box-shadow: 0 1px 0 0 #00C851;
-    color: #fff; }
-
-.form-dark textarea.md-textarea  {
-    color: #fff;
+.chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    float: left;
 }
 
-.form-dark .form-control, .form-dark .form-control:focus {
-    color: #fff;
+.chat li
+{
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+}
+
+.chat li.left .chat-body
+{
+    margin-left: 20px;
+}
+
+  .chat li.right .chat-body */
+{
+    margin-right: 60px;
+} 
+
+
+.chat li .chat-body p 
+{
+    margin: 0;
+    color: #777777;
+}
+
+.panel .slidedown .glyphicon, .chat .glyphicon
+{
+    margin-right: 5px;
+}
+
+.panel-body
+{
+    overflow-y: scroll;
+    height: 500px;
+}
+
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
 }
 </style>
 {% endblock %}
 
 {% block content %}
     <!-- 聊天即時訊息(id, time) -->
-    <div class="list-group col-md-10 col-md-offset-1 well">
-        <div class="list-group-item">
-            {% for chat in Friends_Chat %}
-                <h4 class="list-group-item-heading">{{chat.memberId}}:{{chat.message}}</h4>
-                <p class="list-group-item-text">{{chat.messageUpdate}}</p>
-                <input type="hidden" class="chat_id" value="{{chat.id}}"/>
-                <br>
-            {% endfor %}
+    <!-- 交友聊天室 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<body>
+    <div class="container" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <div class="row">
+    <!-- bootstrap chat title & select botton-->
+    <div class="col-md-5 col-md-offset-0">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-comment"></span> Chat Room
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </button>
+                        <ul class="dropdown-menu slidedown">
+                            <li><a href="https://www.facebook.com/">
+                                <span class="glyphicon glyphicon-refresh"></span>
+                                Facebook</a></li>
+                            <li><a href="https://www.youtube.com/user/dimit28">
+                                <span class="glyphicon glyphicon-ok-sign"></span>
+                                Youtube</a></li>
+                            <li><a href="{% url "music:music" %}">
+                                <span class="glyphicon glyphicon-ok-sign"></span>
+                                fusic Music</a></li>
+                            <li><a href="{% url "donate:index" %}">
+                                <span class="glyphicon glyphicon-ok-sign">
+                                </span>
+                                donate</a></li>
+                        </ul>
+                    </div>
+                </div>
+    <div class="panel-body">
+        <ul class="chat"></ul>
+        <textarea type="text" name="message" id="message" class="md-textarea form-control" rows="10" placeholder=""></textarea>
+    </div>
+        <div class="panel-footer">
+            <div class="input-group">
+                <input id="inputMessage" type="text" class="form-control input-sm" placeholder="input your message" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-warning btn-sm" id="btnSend" >
+                            Send
+                        </button>
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
+</div>
+</div>
+  <!-- template del item del chat (Oculto: para agarrar un clon y llenarlo e insertar en el chat)-->
+    <li style="display:none" id="plantilla" class="left clearfix">
+        <span class="chat-img pull-left">
+            <img src="http://placehold.it/50/55C1E7/fff&text=U"class="img-circle" />
+        </span>
+            <div class="chat-body clearfix">
+                <div class="header">
+                    <strong class="primary-font Nombre" >memberId</strong> 
+                    <small class="pull-right text-muted">
+                    <span class="glyphicon glyphicon-asterisk Tiempo"></span>
+                        12/02/2015 
+                    </small>
+                </div>
+                    <p class="Mensaje">
+                        Message
+                    </p>
+                </div>
+            </li>
+{% endblock %} 
 
+    <!-- 聊天即時訊息(id, time) -->
     <!-- 交友聊天室 -->
-    <div class="card card-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/pricing-table%20(7).jpg');"
+    <!-- <div class="card card-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/pricing-table%20(7).jpg');"
         method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="text-white rgba-stylish-strong py-5 px-5 z-depth-4">
             <!--Header-->
-            <div class="text-center">
+            <!-- <div class="text-center">
                 <h3 class="white-text mb-5 mt-4 font-weight-bold text-uppercase"><strong>Make</strong> <a class="green-text font-weight-bold" href="https://www.facebook.com"><strong>Friends</strong></a></h3>
             </div>
             <div class="md-form">
-                <textarea type="text" name="message" id="message" class="md-textarea form-control" rows="20" placeholder=""></textarea>
+                <textarea type="text" name="message" id="message" class="md-textarea form-control" rows="15" placeholder=""></textarea>
                 <label for="message">Chat Room</label>
             </div>
             <input type="text" name="inputuser" placeholder="user message" maxlength="100" size="30">|
             <div class="row d-flex align-items-center">
                 <!--Grid column-->
-                <div class="text-center col-md-12 mt-3 mb-2">
+                <!-- <div class="text-center col-md-12 mt-3 mb-2">
                     <button type="button" name="send" id="btn1" class="btn btn-success btn-block btn-rounded z-depth-1">Send</button>
-                <img id="img1" src="{% static "images/ajax-loader.gif" %}" style="display:none" />
                 <input type="button" name="clear" class="btn btn-success btn-block btn-rounded z-depth-1" id="btn2" value="delete">
                 {% for friends in Friends_Chat %}
                     <a href="{% url "friends:all" %}" class="btn btn-danger"><i class="far fa-comment"></i></a>
-                {% endfor %}
-                </div>
+                {% endfor %} -->
+                <!-- </div>
             </div>
         </div>
-    </div>
-{% endblock %} 
+    </div> --> 
 
 {% block scripts %}
 <script>
+// ================= bootsnipp js ====================
     $(document).ready(function(){
 
+    src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyB-CfYZb2rJeeycqL8F5Lo2zmCQAu1A0Sc",
+        authDomain: "soft1-6305e.firebaseapp.com",
+        databaseURL: "https://soft1-6305e.firebaseio.com",
+        projectId: "soft1-6305e",
+        storageBucket: "soft1-6305e.appspot.com",
+        messagingSenderId: "592333250349"
+    };
+    firebase.initializeApp(config);
+    //VARIABLE CON ACCESO A DATOS
+      
+    var TableDate = firebase.database().ref('soft1-6305e');
+    var Nombre= prompt("Nombre:");
+          
+    $('#btnSend').click(function(){
+        var messageDate = new date();
+        var day = messageDate.getUTCDate();
+        var month = messageDate.getMonth()+1;
+        var year = messageDate.getFullYear();
+        var hours = messageDate.getHours();
+        var minutes = messageDate.getMinutes();
+   
+        date = day + "/" + month + "/" + year + "  " + hours + ":" + minutes;
+   
+        TableDate.push({
+            Nombre:Nombre,
+            Mensaje:$("#Mensaje").val(),
+            date:date
+        });
+    });
+// ================== Chat room control js =====================
         // jquery send message
         $('#btn1').click(function(){
             var userid = $('').val();
