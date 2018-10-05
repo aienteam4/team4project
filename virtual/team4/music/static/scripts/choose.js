@@ -14,6 +14,7 @@ var videoFlag = true;
 var btnStyle1='mood';
 var btnStyle2='moodTxt';
 var id = "";
+var tasteNum = 0;
 // 為增加說明文字變化，做一個0~2的亂數產生器
 var randomNum = Math.floor(Math.random()*3);
 
@@ -73,14 +74,21 @@ $(document).ready(function(){
         clearTimeout(countPlayTime);
 };
     function playOldYt(){
+        if (playTime>0){
+            if (playTime >= 10) tasteNum = 1;
+            else tasteNum = 0;
+            $.get("taste/", { "taste": tasteNum, "songId" : songId })            
+        };
         var songid = $(this).children("span:first").text();
         id = $(this).children("span:last").text();
         console.log(songid)
-        console.log(id);
+        console.log(id);            
         // 也寫入資料庫，到這裡已確定聽者喜歡這首歌
         $.get("taste/", { "taste": 1, "songId":songid });
         $('#player').attr('src','https://www.youtube.com/embed/'+id+'?rel=0&amp;showinfo=0&autoplay=1')   
-        id = ""; 
+        id = "";
+        playTime = 0;
+        clearTimeout(countPlayTime);
     }
     //為按鈕加上行為
     for(var i=1; i<=buttons.length; i++){
@@ -161,27 +169,6 @@ $(document).ready(function(){
                 console.log(youtubeId);
                 $('#player').attr('src','https://www.youtube.com/embed/'+youtubeId+'?rel=0&amp;showinfo=0&autoplay=1');
             })
-            
-            // var findSong = new XMLHttpRequest();
-            // if(findSong != null){        
-            //     findSong.open('GET','/music/findsong/?q='+moodNum);              
-            //     findSong.addEventListener('load',returnData);
-            //     function returnData(){
-            //         if(findSong.status==200){
-            //             // songUrl = findSong.responseText;
-            //             youtubeId = findSong.responseText;
-            //             console.log(youtubeId);
-            //             $('#player').attr('src','https://www.youtube.com/embed/'+youtubeId+'?rel=0&amp;showinfo=0&autoplay=1');                     
-                    
-            //         }        
-            //         else{alert(findSong.status+'ajax 出問題啦');}            
-            //     }
-            // }
-            // else{
-            //     alert('您的瀏覽器不支援Ajax功能！');
-            // }
-            
-            // findSong.send(); 
         }else{
             $('#player').attr('src','https://www.youtube.com/embed/'+id+'?rel=0&amp;showinfo=0&autoplay=1');                     
         }
