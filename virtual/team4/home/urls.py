@@ -12,6 +12,7 @@ urlpatterns = [
     path('login/',views.login,name="login"),
     path('makefriends/',include('makefriends.urls')),
     path('contact/',views.contact,name="contact"),
+    path('login_or_register/',views.login_or_register,name="login_or_register"),
 
     path('main/',views.main)
 ]
