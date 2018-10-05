@@ -26,7 +26,8 @@ def siteadm(request):
             product.productimage = fs.save(myFile.name,myFile)
             product.save()
 
-    return render(request,'donate/siteadm.html',locals())
+    # return render(request,'donate/siteadm.html',locals())
+    return render(request,'donate/siteadm.html')
     
 
 def index(request): 
