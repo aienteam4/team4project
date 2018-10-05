@@ -21,15 +21,15 @@ class Member:
     #新增資料    
     def create(self, member):
         with connection.cursor() as cursor:
-            sql = """insert into members(name,email,password,age)
-                     values(%s,%s,%s,%s)"""
+            sql = """insert into members(name,email,password,job,birthday)
+                     values(%s,%s,%s,%s,%s)"""
             #tuple  member = (name,email,password,age)
             cursor.execute(sql, member)
 
             
     def update(self, member):
         with connection.cursor() as cursor:
-            sql = """update members set name=%s,email=%s,password=%s,age=%s
+            sql = """update members set name=%s,email=%s,password=%s,job=%s,birthday=%s
                      where id=%s"""
             #tuple member = (name,email,password,age,id)
             cursor.execute(sql, member)

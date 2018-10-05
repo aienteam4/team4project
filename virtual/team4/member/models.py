@@ -12,7 +12,8 @@ class Members(models.Model):
     name = models.CharField(max_length=45)
     email = models.CharField(max_length=200)
     password = models.CharField(max_length=45)
-    age = models.IntegerField(blank=True, null=True)
+    job = models.CharField(max_length=45)
+    birthday = models.DateTimeField(max_length=45)
 
     class Meta:
         managed = True

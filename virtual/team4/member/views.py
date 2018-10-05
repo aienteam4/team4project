@@ -80,22 +80,24 @@ def logout(request):
     response = HttpResponse("<script>location.href='/'</script>")
     response.delete_cookie('name')
     return response
+
 def register(request):  
     title = "會員註冊"
     if request.method == "POST":
         #接收表單傳過來的資料
         name = request.POST["name"]
-        email = request.POST["email"]  #w124@gmail.com
-        password = request.POST["password"]  
-        age = request.POST["age"] 
+        email = request.POST["email"]
+        password = request.POST["password"]
+        job = request.POST["job"]
+        birthday = request.POST["birthday"]
 
         #將資料寫進資料庫
         # with connection.cursor() as cursor:
-        #     sql = """insert into members(name,email,password,age)
-        #              values(%s,%s,%s,%s)"""
+        #     sql = """insert into members(name,email,password,job,birthday))
+        #              values(%s,%s,%s,%s,%s)"""
         #     #tuple
-        #     cursor.execute(sql,(name,email,password,age))
-        _member = (name,email,password,age)
+        #     cursor.execute(sql,(name,email,password,job,birthday))
+        _member = (name,email,password,job,birthday)
         member.create(_member)
         #轉到會員的首頁上
         return redirect("/member/")
@@ -119,9 +121,10 @@ def update(request, id):
     if request.method == "POST":
         #接收表單傳過來的資料
         name = request.POST["name"]
-        email = request.POST["email"]  #w124@gmail.com
-        password = request.POST["password"]  
-        age = request.POST["age"] 
+        email = request.POST["email"]
+        password = request.POST["password"]
+        job = request.POST["job"]
+        birthday = request.POST["birthday"]
 
         #將資料寫進資料庫
         # with connection.cursor() as cursor:
@@ -129,7 +132,7 @@ def update(request, id):
         #              where id=%s"""
         #     #tuple
         #     cursor.execute(sql,(name,email,password,age,id))
-        _member = (name,email,password,age,id)
+        _member = (name,email,password,job,birthday,id)
         member.update(_member)
         #轉到會員的首頁上
         return redirect("/member/")
@@ -143,16 +146,16 @@ def update(request, id):
     membersingle = member.single(id)
     return render(request,'member/update.html',locals())
     
-def testencoding(request):
-    u1 = "中文"
-    u2 = smart_str(u1,encoding='utf-8')
-    response = HttpResponse("<h2>encoding test</h2>")
-    # response.set_cookie("u1",u1)
-    response.set_cookie("u2",u2)
-    return response
+# def testencoding(request):
+#     u1 = "中文"
+#     u2 = smart_str(u1,encoding='utf-8')
+#     response = HttpResponse("<h2>encoding test</h2>")
+#     # response.set_cookie("u1",u1)
+#     response.set_cookie("u2",u2)
+#     return response
 
-def hello(request):
-    return HttpResponse("Hello Ajax!!")
+# def hello(request):
+#     return HttpResponse("Hello Ajax!!")
 
 def show(request):
    datas = serializers.serialize("json", Members.objects.all())

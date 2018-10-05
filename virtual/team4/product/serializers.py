@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, Songlist
+from .models import Product, Category, Songlist
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,3 +12,7 @@ class SongListSer(serializers.ModelSerializer):
     class Meta:
         model = Songlist
         fields = '__all__' #將所有欄位序列化        
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'

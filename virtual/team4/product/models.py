@@ -23,3 +23,10 @@ class Songlist(models.Model):
 
     class Meta:
         db_table = 'songlist'        
+class Category(models.Model):
+    categoryid = models.AutoField(primary_key=True)
+    categoryname = models.CharField(max_length=45)
+    class Meta:
+        managed = False
+        db_table = 'categories'
+# Create your models here.
