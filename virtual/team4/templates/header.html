@@ -91,6 +91,41 @@
     }
 </style>
 <header>
+<<<<<<< HEAD
+    <div>
+        <div class="icon">
+            <ul class="drop-down-menu">
+                <li><a href="{% url 'home:welcome' %}" style="float:left">EMO.</a>
+                </li>
+            </ul>
+        </div>
+        <div class="pages">
+            <ul class="drop-down-menu">
+                <li><a href="{% url 'home:index' %}">Index</a>
+                </li>
+                <li><a href="{% url 'music:music' %}">Music</a>
+                </li>
+                <li><a href="#">Friends</a>
+                    <ul>
+                        <li><a href="{% url 'makefriends:friends' %}">Make friends 哲偉的</a>
+                        </li>
+                        <li><a href="#">Chat room安昇的</a>
+                        </li>
+                        <li><a href="{% url 'donate:index' %}">Donate</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="{% url 'home:contact' %}">Contact</a>
+                </li>
+                <li class="divider">|   
+                </li>
+                <li><a href="{% url 'member:register' %}">Register</a>
+                </li>
+                <li><a href="{% url 'member:login' %}">Log in</a>
+                </li>
+            </ul>
+        </div>
+=======
     <div class="icon">
         <a href="{% url 'home:welcome' %}">
             <div >
@@ -125,5 +160,6 @@
             <li><a href="{% url 'home:login_or_register' %}">Log in / Register</a>
             </li>
         </ul>
+>>>>>>> b3365ced9fa52f686c15b83b6a5f58e17ec688bf
     </div>
 </header>
