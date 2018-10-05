@@ -22,6 +22,7 @@ from product import views
 
 router = DefaultRouter();
 router.register('product', views.ProductViewSet)
+router.register(r'songlist', views.SongListViewSet)
 
 urlpatterns = [
     #http://localhost:8000/admin
