@@ -38,10 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
+    'member',
     'music',
     'message',
     'makefriends',
     'donate',
+    'rest_framework',
+    'product',
+    'comment',
 ]
 
 MIDDLEWARE = [

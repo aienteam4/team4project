@@ -8,7 +8,7 @@ def welcome(request):
     return render(request,'home/welcome.html',locals())
 
 def index(request):
-    title = "首頁"
+    title = "Index"
     desc = "This is a web page."
     now = datetime.datetime.now()
 

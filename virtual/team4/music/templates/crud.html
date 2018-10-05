@@ -1,0 +1,149 @@
+<link href="../../static/styles/main.css" rel="stylesheet" />
+{% extends "main.html" %}
+{% block styles %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style/music.css' %}">
+{% endblock %}
+{% block content %}
+    
+<form action="{% url 'music:search' %}" method="GET">
+    
+    <div class="form-group">
+        <label for="id">id</label>
+        <input name='id' id="id" type="int">
+    </div>
+    <div class="form-group">
+        <label for="name">歌名</label>
+        <input name='name' id="name" type="text">
+    </div>
+    <div class="form-group">
+        <label for="singer">歌手</label>
+        <input name='singer' id="singer" type="text">
+    </div>
+    <div class="form-group">
+        <label for="type">曲風</label>
+        <input name='type' id="type" type="text">
+    </div>
+    <div class="form-group">
+        <label for="mood">心情</label>
+        <input name='mood' id="mood" type="int">
+    </div>
+    <div class="form-group">
+        <label for="url">url</label>
+        <input name='url' id="url" type="text">
+    </div>                              
+    <div class="form-group">
+        <label for="readall">讀出完整歌單</label>
+        <input type="checkbox" name="readall" id="readall">
+    </div>
+    <div class="form-group">
+        <button id='search' type="submit">查詢送出</button>
+    </div>
+</form>
+<form action="{% url 'music:create' %}" method="POST">
+        {% csrf_token %}
+        {{ songListForm.as_p }}   <!-- 表單模組化 -->
+        
+        <!-- <div class="form-group">
+            <label for="name">歌名</label>
+            <input name='name' id="cname" type="text">
+        </div>
+        <div class="form-group">
+            <label for="singer">歌手</label>
+            <input name='singer' id="csinger" type="text">
+        </div>
+        <div class="form-group">
+            <label for="type">曲風</label>
+            <input name='type' id="ctype" type="text">
+        </div>
+        <div class="form-group">
+            <label for="mood">心情</label>
+            <input name='mood' id="cmood" type="int">
+        </div>
+        <div class="form-group">
+            <label for="url">url</label>
+            <input name='url' id="curl" type="text">
+        </div>                              
+        <div class="form-group">
+            <button id='create' type="submit">新增歌曲</button>
+        </div> -->
+        <button id='create' type="submit">新增歌曲</button>
+    </form>
+<table class="table">
+    <thead>
+        <tr>
+            <td>id</td>
+            <td>歌名</td>
+            <td>歌手</td>
+            <td>曲風</td>
+            <td>心情</td>
+            <td>url</td>
+            <td>修改</td>
+            <td>刪除</td>
+        </tr>
+    <tbody>
+        {% for song in songMeta %}
+        <tr>          
+            <td>{{song.id}}</td>
+            <td>{{song.name}}</td>
+            <td>{{song.singer}}</td>
+            <td>{{song.type}}</td>
+            <td>{{song.mood}}</td>
+            <td>{{song.url}}</td>
+            <td><a href="/music/update/?id={{ song.id }}"><button class='upd'>修改</button></a></td>
+            <td><button class='del'>刪除</button></td>
+        </tr>
+        {% endfor %}
+    </tbody>    
+    </thead>
+</table>
+<form class="form-signin" style="width:300px;">
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+    <p id="checkEmail"></p>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <p id="checkpwd"></p>
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+  </form>
+{% endblock %}
+
+{% block scripts %}
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{% static 'scripts/jquery-ui.min.js' %}"></script>
+    <script>
+        $(document).ready(function(){                   
+            // 刪除歌曲
+            $('.del').each(function(){
+                $(this).click(function(){
+                    var id = $(this).parent().parent().children('td:first').text();
+                    $(this).parent().parent().remove();
+                    $.get('/music/delete/',{'id':id});
+                })
+            })
+            // 修改歌曲
+            $('.upd').each(function(){
+                $(this).click(function(){
+                    var id = $(this).parent().parent().children('td:first').text();
+                    $.get('/music/update/',{'id':id});
+                })
+            })
+            // 檢查登入信箱
+            $('#inputEmail').focusout(function(){
+                $.get('/music/checkEmail/',{'email':$(this).val()},
+                    function(judge){
+                        $('#checkEmail').text(judge)
+                    }
+                );
+            })
+        })
+    </script>
+{% endblock %}

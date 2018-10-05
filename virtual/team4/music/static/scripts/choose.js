@@ -1,10 +1,14 @@
+
 var player;
-var songUrl = '';
-var songId ='';
+// var songUrl = '';
+var youtubeId ='';
 var buttons = document.querySelectorAll('button');
 var flag = true;
-var timeOut;
+var timeOut;            //讓按鈕被按下五秒鐘後有另外一套樣式
+var countPlayTime;      //計算歌曲被播放的長度
+var playTime = 0        //歌曲被播放的長度
 var btnFlag = true;
+var videoFlag = true;
 var btnStyle1='mood';
 var btnStyle2='moodTxt';
 
@@ -43,18 +47,33 @@ var originTxt = ['狂歡','愉悅','孤寂','悲傷','憤怒']
 // 游標移到心情選擇按鈕時，會替換說明文字
 // 憤怒5、難過4、寂寞3、開心2、狂歡1
 
+function playCount()        //函式：計算播放時間                      
+    {
+        playTime += 1;
+        console.log("play")
+        // if(playTime > 5) $.post('taste/');
+        countPlayTime=setTimeout("playCount()",1000);
+    };
+
+function stopPlayCount()    //函式：停止計算播放時間
+    {
+        playTime = 0;
+        clearTimeout(countPlayTime);
+    };
+
 $(document).ready(function(){
-    
+            
+    //為按鈕加上行為
     for(var i=1; i<=buttons.length; i++){
         buttons[i-1].number = i;
         var index = i-1;
         $('button:eq('+index+')').on({
             'mouseenter': chgText,
-            'mouseleave': rtnText,            
+            'mouseleave': rtnText,
+            'click': playYt        
         });
-        $('button:eq('+index+')').click(playYt);
-       
-        // $('button:eq('+index+')').click(playYt);
+        
+        // $('button:eq('+index+')').click(playYt);       
     }
 
     function chgText(){
@@ -68,7 +87,8 @@ $(document).ready(function(){
         // 滑鼠移上，改變文字
         var index = this.number - 1;
         $(this).text(allTxt[index][randomNum]);
-        $(this).switchClass('mood','smMoodTxt',0);
+        $(this).removeClass('moodTxt mood');
+        $(this).addClass('smMoodTxt');
     }
 
     function rtnText(){
@@ -78,24 +98,32 @@ $(document).ready(function(){
 
     function newrtnText(){
         $(this).text(originTxt[this.number-1]);
-        $(this).switchClass('smMoodTxt','mood',0);
+        $(this).removeClass('moodTxt smMoodTxt');
+        $(this).addClass('mood')
     }
     
     function newBtnAct(){
-        alert('5 sec');
+        // alert('5 sec');
         for(var i=1; i<=buttons.length; i++){
             var index = i-1;
             $('button:eq('+index+')').on({
                 'mouseenter': newchgText,
-                'mouseleave': newrtnText                
+                'mouseleave': newrtnText,                
             });
-    }clearInterval(timeOut); 
+        }clearInterval(timeOut); 
     }
+    
     function playYt(){
+        $(this).addClass('smMoodTxt');
         $('.btn').each(function(){
-            $(this).off()
+            $(this).off('mouseenter mouseleave');
         })
-        $(this).removeClass('moodTxt');
+        // for(var i=0; i<buttons.length; i++){
+        //     buttons[i].removeEventListener("mouseenter", chgText);
+        //     buttons[i].removeEventListener("mouseleave", rtnText);
+        //     $('.btn:eq(i)').removeClass('moodtxt');
+        // }
+        
         // 先把按鈕隱形      
         $('#revel').addClass( "musicOnRevel", 5000 );
         $('#happy').addClass( "musicOnHappy", 5000 );
@@ -104,39 +132,48 @@ $(document).ready(function(){
         $('#lonely').addClass( "musicOnLonely", 5000 );
         
         // 空五秒鐘才乾淨                
-        timeOut = setInterval(newBtnAct, 5100);
+        timeOut = setInterval(newBtnAct, 5000);
         var moodNum = this.number;
     
-    // 顯示影片div
-    // document.querySelector('#player').removeAttribute('style')
-    // 利用ajax載入歌曲網址
-    var findSong = new XMLHttpRequest();
-    if(findSong != null){        
-        findSong.open('GET','/music/findsong/?q='+moodNum);              
-        findSong.addEventListener('load',returnData);
-        function returnData(){
-            if(findSong.status==200){
-                // songUrl = findSong.responseText;
-                songId = findSong.responseText;
-                console.log(songId);                
-            }        
-            else{alert(findSong.status+'ajax has problem');}            
+        // 顯示影片div
+        // 利用ajax載入歌曲網址
+        var findSong = new XMLHttpRequest();
+        if(findSong != null){        
+            findSong.open('GET','/music/findsong/?q='+moodNum);              
+            findSong.addEventListener('load',returnData);
+            function returnData(){
+                if(findSong.status==200){
+                    // songUrl = findSong.responseText;
+                    youtubeId = findSong.responseText;
+                    console.log(youtubeId);
+                    $('#player').attr('src','https://www.youtube.com/embed/'+youtubeId+'?rel=0&amp;showinfo=0&autoplay=1');                     
+                
+                }        
+                else{alert(findSong.status+'ajax has problem');}            
+            }
         }
-    }
-    else{
-        alert('您的瀏覽器不支援Ajax功能！');
-    }
-    
-    findSong.send();         
+        else{
+            alert('您的瀏覽器不支援Ajax功能！');
+        }
+        
+        findSong.send(); 
+        
         // 2. This code loads the IFrame Player API code asynchronously.
-    if(flag){    
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);            
-    }
-    flag = false
-    }
+        if(flag){    
+            var tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);            
+        }
+        flag = false
+        
+        //計算影片播放時間
+        try{stopPlayCount();}
+        catch(err){};
+        playCount();  
+    
+        }
+
 })
 
 
@@ -148,24 +185,19 @@ $(document).ready(function(){
         player = new YT.Player('player', {
         height: '390',
         width: '640',
-        videoId: songId,
+        videoId: youtubeId,
         rel: '0',
         events: {
         'onReady': onPlayerReady,
         'onStateChange': onPlayerStateChange,
             }
         });
-                      
-    }
-
+    }    
     // 4. The API will call this function when the video player is ready.
-    function onPlayerReady(event) {
-        $('#player').attr('src','https://www.youtube.com/embed/'+songId+'?rel=0&amp;showinfo=0&autoplay=1');
-        $('.btn').click(function(){
-            $('#player').attr('src','https://www.youtube.com/embed/'+songId+'?rel=0&amp;showinfo=0&autoplay=1')
-        })
-        
-    }
+    function onPlayerReady(){
+        player.playVideo(); 
+    }    
+         
 
     // 5. The API calls this function when the player's state changes.
     //    The function indicates that when playing a video (state=1),
@@ -176,11 +208,13 @@ $(document).ready(function(){
             flag = true;
             alert('video end');
             // $('#player').hide('fade',5000);
-            $('.btn').removeClass('musicOnBtn',5000);
             // player.getIframe()
             // player.destroy()
             }
-        }
+        }                  
+    
+    
+    
      
 
 
