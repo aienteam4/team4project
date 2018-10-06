@@ -52,7 +52,7 @@
         }
         .desc_text1{
             float: left;
-            margin-top: 10%;
+            margin-top: 13.5%;
             margin-left: 4.5%;
         }
         .desc_text2{
@@ -71,13 +71,13 @@
 {% endblock %}
 {% block content %}
 <div class="main">
-    <!-- <a href="{% url 'member:login' %}"> -->
+    <a href="{% url 'member:login' %}">
         <div class="hover">
             <img src="../../static/images/login_hover.png" alt="Login">
             <img src="../../static/images/login.png" alt="Login">
             <p class="card-text1"></p>
         </div>
-    <!-- </a> -->
+    </a>
     <div class="divider_or">
         or
     </div>
@@ -90,12 +90,9 @@
 </div>
 <div class="desc">
     <p class="desc_text1">如您已是本站會員，請由<a href="{% url 'member:login' %}" class="login_text">此處</a>登入</p>
-    <p class="desc_text2">沒有帳號嗎? <br>來創辦一個屬於<a href="{% url 'member:register' %}" class="login_text">您的帳號</a>吧!</p>
+    <p class="desc_text2">還沒加入會員嗎? <br>來創辦一個屬於<a href="{% url 'member:register' %}" class="login_text">您的帳號</a>吧!</p>
 </div>
 {% endblock %}
 {% block scripts %}
 <!-- <script src="../../static/scripts/jquery-ui.min.js"></script> -->
 {% endblock %}
-
-
-
