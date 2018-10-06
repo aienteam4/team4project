@@ -111,3 +111,22 @@
         .smMoodTxt{
             font-size: 14px;
         }
+        /* 以下是別人的 */
+        #songdata{
+            position: fixed;
+            top: 25%;
+            right: 5%;
+            width: 200px;
+            height: 300px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            /* z-index: 1; */
+        }
+        div.xxx{
+            width: 195px;
+            height: 50px; 
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; 
+        }
+        

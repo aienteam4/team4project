@@ -1,0 +1,46 @@
+<link href="../../static/styles/main.css" rel="stylesheet" />
+{% extends "main.html" %}
+{% block styles %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style/music.css' %}">
+{% endblock %}
+
+{% block content %}   
+
+<form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <input name='id' id="id" type="text" value='{{id}}' style="display:none">
+        </div>
+        <div class="form-group">
+            <label for="name">歌名</label>
+            <input name='name' id="uname" type="text" value='{{songMeta.name}}'>
+        </div>
+        <div class="form-group">
+            <label for="singer">歌手</label>
+            <input name='singer' id="usinger" type="text" value='{{songMeta.singer}}'>
+        </div>
+        <div class="form-group">
+            <label for="type">曲風</label>
+            <input name='type' id="utype" type="text" value='{{songMeta.type}}'>
+        </div>
+        <div class="form-group">
+            <label for="mood">心情</label>
+            <input name='mood' id="umood" type="int" value='{{songMeta.mood}}'>
+        </div>
+        <div class="form-group">
+            <label for="url">url</label>
+            <input name='url' id="uurl" type="text" value='{{songMeta.url}}'>
+        </div>                              
+        <div class="form-group">
+            <button id='update' type="submit">修改歌曲</button>
+        </div>
+    </form>
+
+{% endblock %}
+
+{% block scripts %}
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{% static 'scripts/jquery-ui.min.js' %}"></script>   
+{% endblock %}

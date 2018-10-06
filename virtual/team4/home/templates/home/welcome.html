@@ -14,6 +14,11 @@
             min-width: 100%; 
             min-height: 100%;
         }
+        .icon {
+            width:220px;
+            /* float: left;
+            padding-left:50px; */
+        }
         /* Add some content at the bottom of the video/page */
         .content {
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -26,9 +31,10 @@
             padding: 10px;
             background: rgba(0, 0, 0, 0.5);
             color: #f1f1f1;
-            padding: 30px;
+            /* padding: 30px; */
             text-align: center;
             border-radius: 50px;  
+            overflow:hidden;
         }
         /* Style the button used to pause/play the video */
         #myBtn {
@@ -38,23 +44,25 @@
             width: 150px;
             padding: 10px;
             border: none;
-            background: rgb(48, 211, 211);
+            background: rgb(52, 206, 159);
             color: rgb(0, 0, 0);
             cursor: pointer;
             border-radius: 25px; 
+            margin-top: 50px;
         }
-
         #myBtn:hover {
-            background: rgb(245, 164, 58);
+            background: rgb(223, 155, 68);
             color: rgb(255, 255, 255);
+            transition: all 0.5s ease-in-out;
         }
-
         .s1 {
-            font-size: 180px;
+            font-size: 1200%;
+            line-height: 10%;
         }
         .s2 {
-            font-size: 40px;
-            margin-bottom: 40px;
+            font-size: 35px;
+            color: rgb(52, 206, 159);
+            margin-bottom: 5%;
             font-weight: 300;
         }
     </style>
@@ -67,9 +75,12 @@
     <!-- Optional: some overlay text to describe the video -->
     <div class="content">
         <h1 class="s1">Hello!</h1>
-        <h2 class="s2">Welcome to EMO.</h2>
+        <h2 class="s2">Welcome to</h2>
+        <img src="../../static/images/fusic.png" class="icon" alt="fusic">
         <!-- Use a button to pause/play the video with JavaScript -->
-        <a href="{% url 'home:index' %}"><button id="myBtn">Enter</button></a>
+        <div class="btn">
+            <a href="{% url 'home:index' %}"><button id="myBtn">Enter</button></a>
+        </div>
     </div>
 </body>
 </html>

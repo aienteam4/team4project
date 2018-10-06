@@ -1,0 +1,63 @@
+<link href="../../static/styles/main.css" rel="stylesheet" />
+{% extends "main.html" %}
+{% block styles %}
+<style>
+    .main{
+        font-family: 'Ubuntu Mono', '微軟正黑體', monospace;
+        padding-top: 20px;
+        width:70%;
+        margin: auto;
+        font-size: 18px
+    }
+    button.btn{
+    background-color: rgb(52, 206, 159);
+    border-color: rgb(52, 206, 159);
+    border-radius: 30px !important;
+    width: 80px;
+    font-size: 20px !important;
+    font-weight: 700;
+    line-height: 30px;
+    
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 3px;
+    }
+    button.btn:hover{
+        background-color: rgb(43, 160, 125);
+        border-color: rgb(43, 160, 125);
+        transition: all 0.3s linear;
+        border-radius: 10px !important;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="main">
+   <table class="table table-bordered">
+       <thead>
+           <tr>
+               <th>姓名</th>
+               <th>密碼</th>
+               <th>電子郵件</th>
+               <th>職業</th>
+               <th>生日</th>
+               <th>編輯</th>
+           </tr>
+       </thead>
+       <tbody>
+           {% for member in members %}
+           <tr>
+               <td>{{member.1}}</td>
+               <td>{{member.2}}</td>
+               <td>{{member.3}}</td>
+               <td>{{member.4}}</td>
+               <td>{{member.5}}</td>
+               <td>
+                   <a href="{% url 'member:delete' member.0 %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                   <a href="{% url 'member:update' member.0 %}" class="btn btn-secondary"><i class="fas fa-user-edit"></i></a>
+                </td>
+           </tr>
+          {% endfor %}
+       </tbody>
+   </table>
+</div>
+{% endblock%}

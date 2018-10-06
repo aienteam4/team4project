@@ -1,0 +1,101 @@
+<link href="../../static/styles/main.css" rel="stylesheet" />
+<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous"> -->
+{% extends "main.html" %}
+{% block styles %}
+    <style>
+        img{
+            width:300px;
+        }
+        .main{
+            padding-top: 5%;
+            color: white !important;
+            margin: auto;
+            width:700px;
+            height: 350px;
+        }
+
+        /* hover換圖效果 */
+        .hover {
+            /* position:relative; */
+            float: left;
+            width:300px;
+        }
+        .hover img {
+            position:absolute;
+            /* CSS3淡出淡入效果,1秒 */  
+            transition: opacity .5s ease-in-out;
+        }
+        .hover img:nth-of-type(2):hover{
+            opacity:0; /*滑鼠滑入時，透明度變0*/
+        }
+
+        .cardtext1{
+            /* position:absolute; */
+            padding-top: 30%;
+            margin-left: 20%;
+            margin: auto;
+            /* text-decoration: none; */
+            text-align: center;
+            font-size: 20px;
+        }
+        .divider_or{
+            width:10%;
+            padding-top: 15%;
+            float: left;
+            text-align: center;
+            font-size: 50px;
+            /* vertical-align:auto; */
+        }
+        .desc{
+            width:700px;
+            margin: auto;
+        }
+        .desc_text1{
+            float: left;
+            margin-top: 10%;
+            margin-left: 4.5%;
+        }
+        .desc_text2{
+            float: left;
+            margin-top: 10%;
+            margin-left: 22%;
+            text-align: center;
+        }
+        .login_text{
+            color: rgb(52, 206, 159);
+        }
+        .login_text:hover{
+            color: rgb(223, 155, 68);
+        }
+    </style>
+{% endblock %}
+{% block content %}
+<div class="main">
+    <a href="{% url 'member:login' %}">
+        <div class="hover">
+            <img src="../../static/images/login_hover.png" alt="Login">
+            <img src="../../static/images/login.png" alt="Login">
+            <p class="card-text1"></p>
+        </div>
+    </a>
+    <div class="divider_or">
+        or
+    </div>
+    <a href="{% url 'member:register' %}">
+        <div class="hover">
+            <img src="../../static/images/register_hover.png" alt="Register">
+            <img src="../../static/images/register.png" alt="Register">
+        </div>
+    </a>
+</div>
+<div class="desc">
+    <p class="desc_text1">如您已是本站會員，請由<a href="{% url 'member:login' %}" class="login_text">此處</a>登入</p>
+    <p class="desc_text2">沒有帳號嗎? <br>來創辦一個屬於<a href="{% url 'member:register' %}" class="login_text">您的帳號</a>吧!</p>
+</div>
+{% endblock %}
+{% block scripts %}
+<!-- <script src="../../static/scripts/jquery-ui.min.js"></script> -->
+{% endblock %}
+
+
+

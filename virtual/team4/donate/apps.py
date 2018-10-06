@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class StoreConfig(AppConfig):
-    name = 'store'
+class DonateConfig(AppConfig):
+    name = 'donate'

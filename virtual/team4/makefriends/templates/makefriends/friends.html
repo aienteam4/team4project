@@ -1,0 +1,169 @@
+{% extends "main.html" %}
+{% load static %}
+{% block styles %}
+<style>
+.chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    float: left;
+}
+
+.chat li
+{
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+}
+
+.chat li.left .chat-body
+{
+    margin-left: 20px;
+}
+
+  .chat li.right .chat-body
+{
+    margin-right: 60px;
+} 
+
+
+.chat li .chat-body p 
+{
+    margin: 0;
+    color: #777777;
+}
+
+.panel .slidedown .glyphicon, .chat .glyphicon
+{
+    margin-right: 5px;
+}
+
+.panel-body
+{
+    overflow-y: scroll;
+    height: 500px;
+}
+
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+    <!-- 聊天即時訊息(id, time) -->
+    <!-- 交友聊天室 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <div class="container" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <div class="row">
+    <!-- bootstrap chat title & select botton-->
+    <div class="col-md-5 col-md-offset-0">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-comment"></span> Chat Room
+                    <!-- <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </button>
+                        <ul class="dropdown-menu slidedown">
+                            <li><a href="https://www.facebook.com/">
+                                <span class="glyphicon glyphicon-refresh"></span>
+                                Facebook</a></li>
+                            <li><a href="https://www.youtube.com/user/dimit28">
+                                <span class="glyphicon glyphicon-ok-sign"></span>
+                                Youtube</a></li>
+                            <li><a href="{% url "music:music" %}">
+                                <span class="glyphicon glyphicon-ok-sign"></span>
+                                fusic Music</a></li>
+                            <li><a href="{% url "donate:index" %}">
+                                <span class="glyphicon glyphicon-ok-sign">
+                                </span>
+                                donate</a></li>
+                        </ul> -->
+                    <!-- </div> -->
+                </div>
+    <div class="panel-body">
+        <ul class="chat"></ul>
+        
+        <div id="message" class="alert alert-primary" style="height:300px"></div>
+        <textarea type="text" name="message" id="outputMessage" class="md-textarea form-control" rows="24" placeholder="wellcom to fusic chat room "></textarea>
+    </div>
+        <div class="panel-footer">
+            <div class="input-group">
+                <input id="inputMessage" type="text" maxlength="100" class="form-control input-sm" placeholder="input your message" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-warning btn-sm" id="btnSend" >
+                            Send
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+    <div id="message1" class="alert alert-primary"></div>
+    <input type="text" id='text1' placeholder="user name"><br>
+    <input type="text" id='text2' placeholder="user age">
+    <input type="button" class="btn btn-primary" id="btn1" value="click">
+    <input type="button" class="btn btn-danger" id="btn2" value="cancel">
+{% endblock %} 
+
+{% block scripts %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+// ================== Chat room control js =====================
+    $(document).ready(function(){
+
+        function setDate(){
+            time = new Date()
+            var hours = time.getHours();
+            var minutes = time.getMinutes();
+            var seconds = time.getSeconds();
+            times =  hours + ":" + minutes + ":" + seconds;
+            return times;
+        }
+
+        // jquery send message
+        $('#btnSend').click(function(){
+            // var userid = $('').val();
+            var message = $('#inputMessage').val();
+            var messageUpdate = setDate();
+            // 顯示對話訊息
+            $.get('/send/'+ messageUpdate +'/',{"message":message},function(datas){
+                $('#message').html("<h5>"+ datas +"</h5>"+ "<br>");
+            })
+        })     
+
+        // $('#btn1').click(function(){
+        //     var name = $('#text1').val()
+        //     var age = $('#text2').val()
+        //     $.get('/hello/'+ age +'/',{"name":name},function(datas){
+        //         $('#message1').html("<h2>"+ datas + "</h2>");
+        //     })     
+        // })
+
+        // jquery clean message
+        // $('#btn2').click(function(){  
+        //     $('#message').html("");
+        // })     
+})
+</script>
+{% endblock %}

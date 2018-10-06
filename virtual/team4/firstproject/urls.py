@@ -17,13 +17,26 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework.routers import DefaultRouter
+from product import views
+
+router = DefaultRouter()
+router.register('product', views.ProductViewSet)
+router.register(r'songlist', views.SongListViewSet)
+router.register('category', views.CategoryViewSet)
 
 urlpatterns = [
     #http://localhost:8000/admin
     path('admin/', admin.site.urls),
     #http://localhost:8000
     path('',include('home.urls')),  #從project的urls.py去載入app下的urls.py
+    path('member/',include('member.urls')),
     path('music/',include('music.urls')),
+    path('makefriends/',include('makefriends.urls')),
     path('donate/',include('donate.urls')),
+    path('message/',include('message.urls')),
+    #http://localhost:8000/api/product
+    #http://localhost:8000/api/
+    path('api/', include(router.urls))
 ]+static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
