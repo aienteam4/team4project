@@ -23,7 +23,7 @@ def siteadm(request):
 
     title = "斗NET直播主資料管理區"
     if request.method == "POST":
-      if request.POST["productcid"]:
+      if request.POST["productcid"].isnumeric():
         productcid = int(request.POST["productcid"])
         if Product.objects.filter(productid=productcid):
           product = Product.objects.get(productid=productcid)
@@ -100,8 +100,11 @@ def index(request):
 
 
 def logout(request):
-    response = HttpResponse("<script>location.href='/'</script>")
-    response.delete_cookie('name')
+    strJS = "<script>alert('登出');location.href='/donate/'</script>"
+    response = HttpResponse(strJS)
+    response.delete_cookie('nameadm')
+    return response
+
 
 
 def captcha(request):    
