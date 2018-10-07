@@ -89,6 +89,15 @@
     ul.drop-down-menu li.divider:hover{
         background-color: rgb(18, 33, 34);
     }
+    /* 下拉式選單第三層 */
+    ul.drop-down-menu li:hover > ul ul { /* 滑鼠滑入之後、次選單之後的選單依舊隱藏*/
+        left: 99999px;
+    }
+
+    ul.drop-down-menu ul li:hover > ul { /* 第二層之後的選單展開位置*/
+        top:80%;
+        left: 80%;
+    }
 </style>
 <header>
     <div class="icon">
@@ -109,8 +118,25 @@
             <li><a href="#">Friends</a>
                 <ul>
                     <li><a href="#">Make friends哲偉的</a>
+                        <ul>
+                            <li><a href="#">第三層-1</a>
+                            </li>
+                            <li><a href="#">第三層-2</a>
+                            </li>
+                            <li><a href="#">第三層-3</a>
+                            </li>
+                        </ul>
                     </li>
+
                     <li><a href="#">Chat room安昇的</a>
+                        <ul>
+                            <li><a href="#">第三層-1</a>
+                            </li>
+                            <li><a href="#">第三層-2</a>
+                            </li>
+                            <li><a href="#">第三層-3</a>
+                            </li>
+                        </ul>
                     </li>
                     <li><a href="{% url 'donate:index' %}">Donate</a>
                     </li>
