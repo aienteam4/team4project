@@ -64,17 +64,51 @@ def login(request):
         else:
             # print("登入失敗")
             #return HttpResponse("<h2>登入失敗</h2>")
-            return HttpResponse("<script>alert('登入失敗');location.href='/member/login'</script>")
-
-
-
-        
-        
-        # print(email, password, remember)
-
+            return HttpResponse("<script>alert('登入失敗，帳號或密碼有誤!');location.href='/member/login'</script>")
 
     # GET   
     return render(request,'member/login.html',locals())
+
+def login_as_adm(request):  
+    title = "會員登入"
+    # POST
+    if request.method == "POST":
+        #name=value > key=value
+        # print(request.POST.keys())
+        mail = request.POST["email"]
+        pwd = request.POST["password"]
+
+        theMember = Members.objects.filter(email=mail,password=pwd).values('name')
+        #print()
+
+        if theMember:
+            if 'url' in request.GET:
+                theUrl = request.GET['url']
+            else:
+                theUrl = "/"
+            # print("登入成功：", theMember[0].name)
+            #return HttpResponse("<h2>登入成功</h2>")
+            name = theMember[0]['name']
+            strJS = "<script>alert('登入成功');location.href='" + theUrl + "'</script>"
+            response = HttpResponse(strJS)
+           
+            remember = None
+            #記住我有打勾保留cookie7天
+            if 'remember' in request.POST.keys():
+                #    remember = request.POST["remember"]
+                expiresdate = datetime.datetime.now() + datetime.timedelta(days=7)
+                response.set_cookie("name",name,expires=expiresdate)
+            else:
+                response.set_cookie("name",name)
+
+            return response
+        else:
+            # print("登入失敗")
+            #return HttpResponse("<h2>登入失敗</h2>")
+            return HttpResponse("<script>alert('登入失敗，帳號或密碼有誤!');location.href='/member/login_as_adm'</script>")
+
+    # GET   
+    return render(request,'member/login_as_adm.html',locals())
 
 def logout(request):
     response = HttpResponse("<script>location.href='/'</script>")

@@ -8,6 +8,7 @@ urlpatterns = [
     #http://localhost:8000/member
     path('',views.index,name="index"),  
     path('login/',views.login,name="login"),
+    path('login_as_adm/',views.login_as_adm,name="login_as_adm"),
     path('logout/',views.logout,name="logout"),
     # path('test/',views.testencoding,name="testencoding"),
     path('register/',views.register,name="register"),
