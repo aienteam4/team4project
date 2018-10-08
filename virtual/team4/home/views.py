@@ -17,11 +17,7 @@ def contact(request):
 
 def login_or_register(request):
     title="Please log in or register."
-<<<<<<< HEAD
     return render(request,'home/login_or_register.html',locals())
 
 def main(request):
     return redirect("/")
-=======
-    return render(request,'home/login_or_register.html',locals())
->>>>>>> 8d35611b12fd98c2f24037195e376ef3de8b1683

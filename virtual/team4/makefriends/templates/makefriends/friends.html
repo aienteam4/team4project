@@ -113,8 +113,8 @@ uncomment this part if you haven't added this code anywhere else
     <!-- 交友聊天室 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <div class="container" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
+    <div class="container"> 
+        <!-- {% csrf_token %}  method="POST" enctype="multipart/form-data" -->
     <div class="row align-items-start">
 <!-- bootstrap chat title & select botton-->
     <div class="col-sm-4 col-md-offset-0">
@@ -149,8 +149,8 @@ uncomment this part if you haven't added this code anywhere else
             <div class="panel-heading">
                 <span class="glyphicon glyphicon-comment"></span> Chat Room
                     <div class="btn-group pull-right">
-                        <a style="color:rgb(31, 11, 211)" href="{% url "music:music" %}"><span class="glyphicon glyphicon-ok-sign"></span>fusic Music</a>
-                        <a style="color:rgb(23, 158, 19)" href="{% url "donate:index" %}"><span class="glyphicon glyphicon-ok-sign"></span>donate</a> 
+                        <a style="color:rgb(31, 11, 211)" href="https://www.facebook.com/"><span class="glyphicon glyphicon-ok-sign"></span>Facebook</a>
+                        <a style="color:rgb(67, 209, 24)" href="https://www.youtube.com/"><span class="glyphicon glyphicon-ok-sign"></span>Youtube</a> 
                         <!-- <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-chevron-down"></span>
                         </button>  
@@ -173,7 +173,7 @@ uncomment this part if you haven't added this code anywhere else
                 </div>
     <div class="panel-body">
         <ul class="chat"></ul>
-        <div id="message" class="alert alert-primary" style="height:50px;text-align:center;">wellcom to fusic chat room</div>
+        <div id="chat" class="alert alert-primary" style="height:50px;text-align:center;">wellcom to fusic chat room</div>
         <textarea type="text" name="message" id="outputMessage" class="md-textarea form-control" rows="24" placeholder="Please enter a chat conversation"></textarea>
     </div>
         <div class="panel-footer">
@@ -190,6 +190,25 @@ uncomment this part if you haven't added this code anywhere else
                 </div>
             </div>
         </div>
+        <hr>
+        <div class="col" id="nav">
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-tab-1" data-toggle="pill" href="#tab1" role="tab" aria-controls="pills-home" aria-selected="true">Chatbot</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-tab-2" data-toggle="pill" href="#tab2" role="tab" aria-controls="pills-profile" aria-selected="false">Description</a>
+                </li>
+            </ul>
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-content1" role="tabpanel" aria-labelledby="pills-home-tab">Home</div>
+            <div class="tab-pane fade" id="pills-content2" role="tabpanel" aria-labelledby="pills-profile-tab">A web chat is a system that allows users to communicate in real time using easily accessible web interfaces. It is a type of Internet online chat distinguished by its simplicity and accessibility to users who do not wish to take the time to install and learn to use specialized chat software. This trait allows users instantaneous access and only a web browser is required to chat. Users will always get the latest version of a chat service because no software installation or updates are required.</div>
+        </div>
+        </div> 
+        <div class="col" id="webchat">
+            <iframe src='https://webchat.botframework.com/embed/maoBot?s=JcIKINeI66g.cwA.G2k.8k7PW7RH-QX4CqDlFbZ5NNiyZvBfipA8tT5nUFVL1uA'></iframe>
+        </div>
+        
     </div>
 </div>
 </div>
@@ -203,10 +222,13 @@ uncomment this part if you haven't added this code anywhere else
 
 {% block scripts %}
 <!-- jQuery 1.7.2+ or Zepto.js 1.0+ -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
 <!-- Magnific Popup core JS file -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+<!-- chatbot -- 內嵌程式碼 -->
+<script src="https://cdn.botframework.com/botframework-webchat/preview/botchat.js"></script>
 <script>
 // ================== Chat room control js =====================
     $(document).ready(function(){
@@ -223,11 +245,11 @@ uncomment this part if you haven't added this code anywhere else
         // jquery send message
         $('#btnSend').click(function(){
             // var userid = $('').val();
-            var message = $('#inputMessage').val();
+            var message = $('#inputMessage').html();
             var messageUpdate = setDate();
             // 顯示對話訊息
-            $.get('/send/'+ messageUpdate +'/',{"message":message},function(datas){
-                $('#message').html("<h5>"+ datas +"</h5>"+ "<br>");
+            $.get('/makefriends/send/'+ messageUpdate +'/',{"message":message},function(datas){
+                $('#outputMessage').html("<h5>"+ datas +"</h5>"+ "<br>");
             })
         })  
           
@@ -241,7 +263,7 @@ uncomment this part if you haven't added this code anywhere else
 
         // jquery clean message
         $('#btnClean').click(function(){  
-            $('#message').html("");
+            $('#outputMessage').html("");
         })     
         
         // lightbox 
@@ -262,7 +284,23 @@ uncomment this part if you haven't added this code anywhere else
                 duration: 300 // don't foget to change the duration also in CSS
             }
         })
+        
+        // Chatbot -- 內嵌程式碼
+        window.WebChat.renderWebChat({
+            directLine: window.WebChat.createDirectLine({ secret:           'JcIKINeI66g.cwA.G2k.8k7PW7RH-QX4CqDlFbZ5NNiyZvBfipA8tT5nUFVL1uA' })
+        }, 
+        document.getElementById('webchat'));
+        
+        // boostrap nav control
+        $('#pills-tab-1').click(function(e){
+            e.preventDefault()
+            $('#pills-tab-1 a[href="#tab1"]').tab('show')
+        })
 
+        $('#pills-tab-2').click(function(e){
+            e.preventDefault()
+            $('#pills-tab-2 a[href="#tab2"]').tab('show')
+        })
 
 })
 </script>

@@ -94,16 +94,22 @@ def testencoding(request):
 # 傳訊息進資料庫
 def send(request, messageUpdate):
     # time.sleep(1)
-    if request.method == "POST":
-        #接收表單傳過來的資料
-        # memberId = request.POST["memberId"]
-        message = request.POST["message"]  
-        Message = "{}/n{}".format(message,messageUpdate)
-        return HttpResponse(Message)
+    # if request.method == "POST":
+    #     #接收表單傳過來的資料
+    #     # memberId = request.POST["memberId"]
+    #     message = request.POST["message"]  
+    #     Message = "{}/n{}".format(message,messageUpdate)
+    #     return HttpResponse(Message)
 
-    #將資料寫進資料庫
-    Friends_Chat.objects.create(id=id.objects.get(id=id),message=message,messageUpdate=messageUpdate)
-    return HttpResponse(Message)
+    # #將資料寫進資料庫
+    # Friends_Chat.objects.create(id=id.objects.get(id=id),message=message,messageUpdate=messageUpdate)
+    # return HttpResponse(Message)
+    #     # time.sleep(10)
+    message = request.GET["message"]
+    # age = request.GET["age"]
+  
+    print(message)
+    return HttpResponse(message)
 
 # def hello(request,age):
 #     # time.sleep(10)
