@@ -4,12 +4,16 @@ import random,re
 from django.http import HttpResponse
 from django.contrib.sessions.models import Session
 from .forms import SongListForm
+from datetime import datetime
 import json
 
 # Create your views here.
 
 def music(request):
     return render(request,'music.html')
+
+def achievement(request):
+    pass
 
 def findsong(request):
     # 從資料庫撈出隨機一首歌
@@ -55,6 +59,8 @@ def taste(request):
         newdata.order_num = data.last().order_num + 1
         newdata.this_song_order_num = data.last().this_song_order_num + 1
         newdata.this_song_like_or_not = herTaste
+        newdata.order_time = datetime.now()
+        print(newdata.order_time)
         newdata.save()
         print(newdata.this_song_like_or_not) 
     else:                                               #如果此會員沒點過這首歌...
