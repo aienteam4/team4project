@@ -14,7 +14,7 @@ member = Member()
 
 # Create your views here.
 def index(request):  
-    title = "會員專區"
+    title = "會員資料修改"
     # with connection.cursor() as cursor:
     #     sql = """select * from members"""
     #     cursor.execute(sql)
@@ -27,6 +27,21 @@ def index(request):
     #呼叫方法
     members = member.all()
     return render(request,'member/index.html',locals())
+
+def my_member(request):  
+    title = "會員資料"
+    # with connection.cursor() as cursor:
+    #     sql = """select * from members"""
+    #     cursor.execute(sql)
+    #     members = cursor.fetchall()
+    # print(members)
+
+    #ORM
+    # print(Members.objects.all())
+    
+    #呼叫方法
+    members = member.single(id)
+    return render(request,'member/my_member.html',locals())
 
 def login(request):  
     title = "會員登入"
@@ -124,6 +139,7 @@ def register(request):
         password = request.POST["password"]
         job = request.POST["job"]
         birthday = request.POST["birthday"]
+        gender = request.POST["gender"]
 
         #將資料寫進資料庫
         # with connection.cursor() as cursor:
@@ -131,12 +147,10 @@ def register(request):
         #              values(%s,%s,%s,%s,%s)"""
         #     #tuple
         #     cursor.execute(sql,(name,email,password,job,birthday))
-        _member = (name,email,password,job,birthday)
+        _member = (name,email,password,job,birthday,gender)
         member.create(_member)
         #轉到會員的首頁上
-        # return redirect("/member/")
-   
-        
+        return redirect("/member/my_member")
     return render(request,'member/register.html',locals())
 
 
@@ -146,7 +160,7 @@ def delete(request, id):
     #     #tuple
     #     cursor.execute(sql,(id,))
     member.delete(id)
-    return redirect("/member/")
+    return redirect("/member/index")
 
     # return HttpResponse("<h2>" + str(id) + "</h2>")
 
@@ -159,6 +173,8 @@ def update(request, id):
         password = request.POST["password"]
         job = request.POST["job"]
         birthday = request.POST["birthday"]
+        gender = request.POST["gender"]
+
 
         #將資料寫進資料庫
         # with connection.cursor() as cursor:
@@ -166,10 +182,10 @@ def update(request, id):
         #              where id=%s"""
         #     #tuple
         #     cursor.execute(sql,(name,email,password,age,id))
-        _member = (name,email,password,job,birthday,id)
+        _member = (name,email,password,job,birthday,gender,id)
         member.update(_member)
         #轉到會員的首頁上
-        return redirect("/member/")
+        return redirect("/member/index")
 
     #步驟一
     # with connection.cursor() as cursor:
