@@ -51,8 +51,8 @@
             opacity: 0.9;
         }
         div #player{
-            /* position: fixed; */
-            margin-left: 20%;
+            /* margin-left: 23%; */
+            margin: 20%;
             margin-top: 2.5%;
             
         }
@@ -136,7 +136,8 @@
             bottom: 0;
             min-width: 100%; 
             min-height: 100%;
-            z-index: -2;
+            z-index: -1;
+            margin: 0px;
             
         }
         .main_content {
@@ -156,5 +157,28 @@
         }
         body{
             background-image: none;
+            
         }
-        
+        #worldhotsong{
+            position: fixed;
+            top: 62%;
+            right: 5%;
+            width: 200px;
+            height: 300px;
+            overflow-x: hidden;
+            overflow-y: scroll;
+            /* z-index: 1; */
+        }
+        span.round-tabs{
+            width: 70px;
+            height: 70px;
+            line-height: 70px;
+            display: inline-block;
+            border-radius: 100px;
+            background: white;
+            z-index: 2;
+            position: absolute;
+            left: 0;
+            text-align: center;
+            font-size: 25px;
+        }

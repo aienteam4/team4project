@@ -21,4 +21,6 @@ urlpatterns = [
     path('cookietest/',views.cookietest),
     #練習登入
     path('checkEmail/', views.checkEmail, name='checkEmail'),
+    # 爬蟲
+    path('worldhotsong/', views.worldHotSong),
 ]
