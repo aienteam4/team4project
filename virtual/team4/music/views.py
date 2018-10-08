@@ -1,11 +1,13 @@
 from .models import Songlist, Member, Orderhistory
 from django.shortcuts import render,redirect
-import random,re
+import random,re,json,time
 from django.http import HttpResponse
 from django.contrib.sessions.models import Session
 from .forms import SongListForm
 from datetime import datetime
-import json
+from bs4 import BeautifulSoup
+from selenium import webdriver
+
 
 # Create your views here.
 
@@ -164,9 +166,9 @@ def set_session(request):
     if 'memberId' in request.session:
         memberId = request.session['memberId']                # 讀取會員id
         response = HttpResponse('memberId : ' + str(memberId))
-    # del request.session['lucky_number']                     # 刪除
+        del request.session['memberId']                     # 刪除
     else: 
-        request.session['memberId'] = 2                 # 設置會員id
+        request.session['memberId'] = 3                 # 設置會員id
         response = HttpResponse('您還未登入')
                               
     return response
@@ -201,4 +203,29 @@ def checkEmail(request):
         judge = "查無此人"
     return HttpResponse(judge)
               
-              
+# 爬蟲
+def worldHotSong(request):
+    driver = webdriver.Chrome()
+    #利用Katalon跑到發燒音樂頁面
+    driver.get("https://www.youtube.com/")
+    time.sleep(1)
+    driver.find_element_by_id("guide-icon").click()
+    time.sleep(1)
+    driver.find_element_by_xpath(u"(.//*[normalize-space(text()) and normalize-space(.)='首頁'])[1]/following::span[2]").click()
+    time.sleep(2)  #這些睡眠時間很重要，不然selenium會跟不上
+    driver.find_element_by_xpath(u"(.//*[normalize-space(text()) and normalize-space(.)='•'])[1]/following::img[2]").click()
+    time.sleep(2)
+    # 用BeautifulSoup爬出資料
+    soup = BeautifulSoup(driver.page_source, 'lxml')
+    # 存放資料的字典
+    dataDict = {}
+    for song in soup.select('ytd-video-renderer #video-title',limit=4):
+        print(song.get('aria-label'))
+        print(song.get('href'))
+        print("=========================")
+        dataDict[song.get('aria-label')] = song.get('href')
+    driver.close()
+    print(dataDict)
+    # 把字典轉化成json字串
+    dataJson = json.dumps(dataDict, ensure_ascii=False, indent=4)
+    return HttpResponse(dataJson)              

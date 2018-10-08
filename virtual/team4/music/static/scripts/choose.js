@@ -16,7 +16,7 @@ var btnStyle2='moodTxt';
 var id = "";
 var tasteNum = 0;
 var secondPlay = false;
-
+var moodNum = "";
 // 為增加說明文字變化，做一個0~2的亂數產生器
 var randomNum = Math.floor(Math.random()*3);
 
@@ -52,10 +52,27 @@ var originTxt = ['狂歡','愉悅','孤寂','悲傷','憤怒']
 // 游標移到心情選擇按鈕時，會替換說明文字
 // 憤怒5、難過4、寂寞3、開心2、狂歡1
 
+function ajaxFindSong(){
+    $.getJSON('findsong/', {"moodNum": moodNum}, function(data){
+        songId = data.songId;
+        youtubeId = data.youtubeId.replace(/(\r\n\t|\n|\r\t|\s)/gm,"");
 
+        console.log(youtubeId +"歌曲ID："+ songId);
+        // $('#player').attr('src','https://www.youtube.com/embed/'+youtubeId+'?rel=0&amp;showinfo=0&autoplay=1');
+    })
+}      
 
 $(document).ready(function(){
-   
+    
+    // 爬蟲熱門五首歌
+    $('#worldhotsong li:first')
+        .mouseenter(function() {
+            $( "span:first",this ).text( "世界在聽這些歌！" );
+        })
+        .mouseleave(function() {
+            $( "span:first",this ).text( "全球哈燒榜" );
+        });
+     
     function playCount()        //函式：計算播放時間                      
 {
     playTime += 1;
@@ -69,7 +86,9 @@ $(document).ready(function(){
         console.log(tasteNum);
         console.log(songId);
         $.getJSON("taste/", { "taste": tasteNum, "songId" : songId }, function(data){
-            $("#songdata > ul").append('<li class="nav-item"><span style="display:none">'+ data.songId +'</span>'+'<span style="display:none">'+ data.youtubeId +'</span>'+'<div class="xxx"><i class="fas fa-circle"></i>'+ data.songname + " " + data.singer + '</div></li>');
+            $("#songdata > ul").append('<li class="nav-item"><span style="display:none">'+ data.songId +
+            '</span>'+'<span style="display:none">'+ data.youtubeId +'</span>'+'<div class="xxx"><i class="fas fa-circle"></i>'
+            + data.songname + " " + data.singer + '</div></li>');
             $("li.nav-item:last").click(playOldYt)
         });        
         clearTimeout(countPlayTime);
@@ -163,18 +182,12 @@ $(document).ready(function(){
             btnFlag = false
         }
                               
-        var moodNum = this.number;
+        moodNum = this.number;
     
         // 顯示影片div
         // 利用ajax載入歌曲網址
         if (id == ""){
-            $.getJSON('findsong/', {"moodNum": moodNum}, function(data){
-                songId = data.songId;
-                youtubeId = data.youtubeId.replace(/(\r\n\t|\n|\r\t|\s)/gm,"");
-
-                console.log(youtubeId +"歌曲ID："+ songId);
-                // $('#player').attr('src','https://www.youtube.com/embed/'+youtubeId+'?rel=0&amp;showinfo=0&autoplay=1');
-            })
+            ajaxFindSong();
         }else{
             // $('#player').attr('src','https://www.youtube.com/embed/'+id+'?rel=0&amp;showinfo=0&autoplay=1');                     
         }
@@ -237,14 +250,18 @@ $(document).ready(function(){
     //    the player should play for six seconds and then stop.
 
     function onPlayerStateChange(event){               
-        
+        // 狀態0是播完，1是開播
         if (event.data == 0) {
-            alert('video end');
+            console.log('video end');
+            stopPlayCount();
+            ajaxFindSong();
+            var stop1sec = setTimeout(function(){player.loadVideoById(youtubeId);}, 3000);                        
+            playCount();
             // $('#player').hide('fade',5000);
             // player.getIframe()
             // player.destroy()
             }
-        if (event.data == 1) alert("start");    
+        // if (event.data == 1) alert("start");    
         // if (event.data == YT.PlayerState.BUFFERING) alert("Buffering")   
         }                  
     
