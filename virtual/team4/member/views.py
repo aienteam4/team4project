@@ -134,7 +134,7 @@ def register(request):
         _member = (name,email,password,job,birthday)
         member.create(_member)
         #轉到會員的首頁上
-        return redirect("/member/")
+        # return redirect("/member/")
    
         
     return render(request,'member/register.html',locals())

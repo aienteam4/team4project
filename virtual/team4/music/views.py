@@ -159,7 +159,10 @@ def set_session(request):
         memberId = request.session['memberId']                # 讀取會員id
         response = HttpResponse('memberId : ' + str(memberId))
     # del request.session['lucky_number']                     # 刪除
-    request.session['memberId'] = 2                       # 設置會員id
+    else: 
+        request.session['memberId'] = 2                 # 設置會員id
+        response = HttpResponse('您還未登入')
+                              
     return response
 
 def session_test(request):

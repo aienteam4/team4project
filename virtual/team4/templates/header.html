@@ -31,7 +31,7 @@
     }
     .pages {
         float: right;
-        padding-right: 50px;
+        padding-right: 20px;
     }
     ul { /* 取消ul預設的內縮及樣式 */
         margin: 0;
@@ -88,6 +88,11 @@
         background-color: rgb(223, 155, 68);
         width:100%;
     }
+    .divider{
+        margin:0;
+        padding: 0;
+        width:1px;
+    }
     ul.drop-down-menu li.divider:hover{
         background-color: rgb(18, 33, 34);
     }
@@ -100,13 +105,27 @@
         top:80%;
         left: 80%;
     }
+    .fb_li{
+        width:50px;
+    }
+    .fb_li img{
+        width:30px;
+        position:absolute;
+        transition: opacity .3s ease-in-out;
+    }
+    .fb_li img:nth-of-type(2):hover{
+        opacity:0; 
+    }
+    .fb_li:hover{
+        background-color: transparent !important;
+    }
 </style>
 <header>
     <div class="icon">
         <a href="{% url 'home:welcome' %}">
             <div>
-                <img src="../../static/images/fusic_hover.png" alt="fusic">
-                <img src="../../static/images/fusic.png" alt="fusic">
+                <img src="../../static/images/fusic_hover.png">
+                <img src="../../static/images/fusic.png">
             </div>
         </a>     
     </div>
@@ -134,6 +153,18 @@
             <!-- <li><a href="{% url 'member:register' %}">Register</a>
             </li> -->
             <li><a href="{% url 'home:login_or_register' %}">Log in / Register</a>
+            </li>
+            <li class="fb_li">
+                <a href="https://zh-tw.facebook.com/">
+                    <img src="../../static/images/facebook_hover.png" class="fb_icon">
+                    <img src="../../static/images/facebook.png" class="fb_icon">
+                </a>
+            </li>
+            <li class="fb_li">
+                <a href="https://www.instagram.com/?hl=zh-tw">
+                    <img src="../../static/images/instagram_hover.png" class="fb_icon">
+                    <img src="../../static/images/instagram.png" class="fb_icon">
+                </a>
             </li>
         </ul>
     </div>

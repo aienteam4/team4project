@@ -9,15 +9,21 @@
         width:100% !important;
         border-radius: 0;
     }
-    .cover, .cover1{
+    .carousel.slide, .d-block.w-100{
+        height:120%;
+    }
+    .cover1, .cover2, .cover3{
         position:absolute;
         width:30%;
         height:100%;
         z-index: 1;
         background-color: rgba(56, 56, 56, 0.6)
     }
-    .cover1{
+    .cover2{
         margin-left: 70%;
+    }
+    .cover3{
+        height:120%;
     }
     .carousel-control-next-icon, .carousel-control-prev-icon{
         width:50px;
@@ -28,14 +34,14 @@
         position: absolute;
         width:25%;
         margin-left: 5%;
-        margin-top: 28%;
+        margin-top: 18%;
         z-index:1;
     }
     .text1{
         position: absolute;
         width:25%;
         margin-left: 75%;
-        margin-top: 28%;
+        margin-top: 20%;
         z-index:1;
     }
     .title{
@@ -81,7 +87,7 @@
 {% block content %}
 <!-- carousel -->
 <div id="controls1" class="carousel slide" data-ride="carousel">
-    <div class="cover">
+    <div class="cover1">
     </div>
     <div class="text">
         <h1 class="title">音樂功能區</h1>
@@ -114,7 +120,7 @@
 </div>
 
 <div id="controls2" class="carousel slide" data-ride="carousel">
-    <div class="cover1">
+    <div class="cover2">
     </div>
     <div class="text1">
         <h1 class="title1">交友功能區</h1>
@@ -146,7 +152,7 @@
 </div>
 
 <div id="controls3" class="carousel slide" data-ride="carousel">
-    <div class="cover">
+    <div class="cover3">
     </div>
     <div class="text">
         <h1 class="title">斗內功能區</h1>

@@ -6,7 +6,7 @@ app_name = "member"
 
 urlpatterns = [
     #http://localhost:8000/member
-    path('',views.index,name="index"),  
+    path('index',views.index,name="index"),  
     path('login/',views.login,name="login"),
     path('login_as_adm/',views.login_as_adm,name="login_as_adm"),
     path('logout/',views.logout,name="logout"),

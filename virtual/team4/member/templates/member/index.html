@@ -7,26 +7,38 @@
         padding-top: 20px;
         width:70%;
         margin: auto;
-        font-size: 18px
+        font-size: 18px;
+        border-radius: 10px;
     }
-    button.btn{
-    background-color: rgb(52, 206, 159);
-    border-color: rgb(52, 206, 159);
-    border-radius: 30px !important;
-    width: 80px;
-    font-size: 20px !important;
-    font-weight: 700;
-    line-height: 30px;
-    
-    margin-top: 20px;
-    padding-top: 10px;
-    padding-bottom: 3px;
+    a.btn-danger{
+        border-radius: 30px;
+        height: 40px;
+        width:60px;
+        padding-top: 10px;
     }
-    button.btn:hover{
+    a.btn-danger:hover{
+        background-color: rgb(150, 40, 40);
+        border-color: rgb(150, 40, 40);
+        transition: all 0.3s linear;
+        border-radius: 10px;
+    }
+    a.btn-secondary{
+        background-color: rgb(52, 206, 159);
+        border-color: rgb(52, 206, 159);
+        border-radius: 30px;
+        height: 40px;
+        width:60px;
+        padding-top: 10px; 
+    }
+    a.btn-secondary:hover{
         background-color: rgb(43, 160, 125);
         border-color: rgb(43, 160, 125);
         transition: all 0.3s linear;
-        border-radius: 10px !important;
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar{
+        width: 6 !important;
+        background-color: rgb(31, 31, 31);
     }
 </style>
 {% endblock %}

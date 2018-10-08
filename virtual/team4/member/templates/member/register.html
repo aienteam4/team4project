@@ -95,12 +95,10 @@
   $(document).ready(function(){
     $('#inputName').blur(function(){
       var n =$(this).val()
-
-    get("../check/" + n +"/",function(data){
-      if (data == 1){
-        
-      }
-    })
+      get("../check/" + n +"/",function(data){
+        if (data == 1){
+        }
+      })
     })
   })
 </script>
