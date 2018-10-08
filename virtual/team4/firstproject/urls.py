@@ -20,10 +20,12 @@ from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 from product import views
 
+
 router = DefaultRouter()
 router.register('product', views.ProductViewSet)
 router.register(r'songlist', views.SongListViewSet)
 router.register('category', views.CategoryViewSet)
+router.register(r'comment', views.MessagesViewSet)
 
 urlpatterns = [
     #http://localhost:8000/admin
@@ -33,12 +35,10 @@ urlpatterns = [
     path('member/',include('member.urls')),
     path('music/',include('music.urls')),
     path('donate/',include('donate.urls')),
-<<<<<<< HEAD
     path('message/',include('message.urls')),
     #http://localhost:8000/api/product
-=======
     #http://localhost:8000/api/
->>>>>>> dd1ddfa0242e7e24822dbc5d8c43bf1f6fd865de
-    path('api/', include(router.urls))
+    path('api/', include(router.urls)),
+    
 ]+static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 

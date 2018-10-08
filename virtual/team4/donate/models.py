@@ -17,5 +17,5 @@ class Product(models.Model):
     categoryid = models.CharField(max_length=45)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'products'

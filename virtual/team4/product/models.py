@@ -30,3 +30,14 @@ class Category(models.Model):
         managed = False
         db_table = 'categories'
 # Create your models here.
+class Messages(models.Model):
+    name = models.CharField(max_length=45)
+    gender = models.CharField(max_length=2, null=True)
+    email = models.CharField(max_length=200, null=True)
+    song = models.CharField(max_length=10, null=True)
+    content = models.TextField()
+    response = models.TextField( null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'messages'
