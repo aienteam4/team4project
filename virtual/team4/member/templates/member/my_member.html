@@ -7,6 +7,7 @@
         padding-top: 20px;
         width:70%;
         margin: auto;
+        font-size: 18px;
         border-radius: 10px;
     }
     .title{
@@ -85,42 +86,42 @@
 <div class="form">
     <div class="title">
         <div id="sdk">
-        會員資料管理
+        我的會員資料
         </div>
         <div class="login-or">
         <hr class="hr-or">
     </div>
 </div>
-    <div class="main">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>姓名</th>
-                    <th>密碼</th>
-                    <th>電子郵件</th>
-                    <th>職業</th>
-                    <th>生日</th>
-                    <th>性別</th>
-                    <th>編輯</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for member in members %}
-                <tr>
-                    <td>{{member.1}}</td>
-                    <td>{{member.2}}</td>
-                    <td>{{member.3}}</td>
-                    <td>{{member.4}}</td>
-                    <td>{{member.5}}</td>
-                    <td>{{member.6}}</td>
-                    <td>
-                        <a href="{% url 'member:delete' member.0 %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
-                        <a href="{% url 'member:update' member.0 %}" class="btn btn-secondary"><i class="fas fa-user-edit"></i></a>
-                        </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+<div class="main">
+   <table class="table table-bordered">
+       <thead>
+           <tr>
+               <th>姓名</th>
+               <th>密碼</th>
+               <th>電子郵件</th>
+               <th>職業</th>
+               <th>生日</th>
+               <th>性別</th>
+               <th>編輯</th>
+           </tr>
+       </thead>
+       <tbody>
+           {% for member in members %}
+           <tr>
+               <td>{{member.1}}</td>
+               <td>{{member.2}}</td>
+               <td>{{member.3}}</td>
+               <td>{{member.4}}</td>
+               <td>{{member.5}}</td>
+               <td>{{member.6}}</td>
+               <td>
+                   <!-- <a href="{% url 'member:delete' member.0 %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a> -->
+                   <a href="{% url 'member:update' member.0 %}" class="btn btn-secondary"><i class="fas fa-user-edit"></i></a>
+                </td>
+           </tr>
+          {% endfor %}
+       </tbody>
+   </table>
 </div>
+
 {% endblock%}
