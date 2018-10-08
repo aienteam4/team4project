@@ -34,12 +34,9 @@ urlpatterns = [
     path('music/',include('music.urls')),
     path('makefriends/',include('makefriends.urls')),
     path('donate/',include('donate.urls')),
-<<<<<<< HEAD
     path('message/',include('message.urls')),
     #http://localhost:8000/api/product
-=======
     #http://localhost:8000/api/
->>>>>>> dd1ddfa0242e7e24822dbc5d8c43bf1f6fd865de
     path('api/', include(router.urls))
 ]+static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 

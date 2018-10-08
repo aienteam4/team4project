@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Welcome to EMO.</title>
+    <title>Welcome to fusic!</title>
+    <link rel="icon" href="../../static/images/fusic_logo.png" type="image/x-icon" />
     <style>
-        /* Style the video: 100% width and height to cover the entire window */
-        #myVideo {
+        .myVideo {
             position: fixed ;
             right: 0;
             bottom: 0;
@@ -37,12 +37,12 @@
             overflow:hidden;
         }
         /* Style the button used to pause/play the video */
-        #myBtn {
+        .myBtn {
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            font-size: 25px;
+            font-size: 1.5rem;
             font-weight: 1000;
-            width: 150px;
-            padding: 10px;
+            width: 20%;
+            padding: 5px;
             border: none;
             background: rgb(52, 206, 159);
             color: rgb(0, 0, 0);
@@ -68,7 +68,7 @@
     </style>
 </head>
 <body>
-    <video autoplay muted loop id="myVideo">
+    <video autoplay muted loop class="myVideo">
     <source src="../../static/images/Blue Glitter Particles-1.mp4" type="video/mp4">
     </video>
     
