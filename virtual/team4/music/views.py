@@ -11,6 +11,9 @@ import json
 def music(request):
     return render(request,'music.html')
 
+def achievement(request):
+    pass
+
 def findsong(request):
     # 從資料庫撈出隨機一首歌
     moodNum = request.GET['moodNum']
