@@ -14,7 +14,7 @@ class Songlist(models.Model):
     type = models.CharField(max_length=45, blank=True, null=True)
     mood = models.IntegerField()
     url = models.CharField(max_length=200)
-    last_modified_at = models.DateTimeField()
+    last_modified_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         db_table = 'songlist'
@@ -33,7 +33,7 @@ class Member(models.Model):
 class Orderhistory(models.Model):
     member = models.ForeignKey('Member', models.DO_NOTHING)
     song = models.ForeignKey('Songlist', models.DO_NOTHING)
-    order_time = models.DateTimeField()
+    order_time = models.DateTimeField(auto_now=True)
     order_num = models.IntegerField()
     this_song_order_num = models.IntegerField()
     this_song_like_or_not = models.IntegerField(blank=True, null=True)

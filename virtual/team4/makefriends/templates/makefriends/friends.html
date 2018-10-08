@@ -1,0 +1,282 @@
+{% extends "main.html" %}
+{% load static %}
+{% block styles %}
+<style>
+body{
+        background-image: url("../../static/images/album.jpg")
+}
+header {
+    margin:auto;
+    text-decoration:none;
+    color: white;
+    background-color: rgba(22, 22, 22,0.6) !important;
+}
+footer{
+    color:white;
+    font-size: 16px;
+}
+/* boostnipp chat room */
+.chat
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    float: left;
+}
+
+.chat li
+{
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #B3A9A9;
+}
+
+.chat li.left .chat-body
+{
+    margin-left: 20px;
+}
+
+  .chat li.right .chat-body
+{
+    margin-right: 60px;
+} 
+
+
+.chat li .chat-body p 
+{
+    margin: 0;
+    color: #777777;
+}
+
+.panel .slidedown .glyphicon, .chat .glyphicon
+{
+    margin-right: 5px;
+}
+
+.panel-body
+{
+    overflow-y: scroll;
+    height: 500px;
+}
+
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+
+
+/* lightbox */
+/* padding-bottom and top for image */
+.mfp-no-margins img.mfp-img {
+	padding: 0;
+}
+/* position of shadow behind the image */
+.mfp-no-margins .mfp-figure:after {
+	top: 0;
+	bottom: 0;
+}
+/* padding for main container */
+.mfp-no-margins .mfp-container {
+	padding: 0;
+}
+
+/* for zoom animation 
+uncomment this part if you haven't added this code anywhere else 
+
+.mfp-with-zoom .mfp-container,
+.mfp-with-zoom.mfp-bg {
+	opacity: 0;
+	-webkit-backface-visibility: hidden;
+	-webkit-transition: all 0.3s ease-out; 
+	-moz-transition: all 0.3s ease-out; 
+	-o-transition: all 0.3s ease-out; 
+	transition: all 0.3s ease-out;
+}
+
+.mfp-with-zoom.mfp-ready .mfp-container {
+	opacity: 1;
+}
+.mfp-with-zoom.mfp-ready.mfp-bg {
+	opacity: 0.8;
+}
+
+.mfp-with-zoom.mfp-removing .mfp-container, 
+.mfp-with-zoom.mfp-removing.mfp-bg {
+	opacity: 0;
+}*/
+
+</style>
+{% endblock %}
+
+{% block content %}
+    <!-- 聊天即時訊息(id, time) -->
+    <!-- 交友聊天室 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <div class="container" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <div class="row align-items-start">
+<!-- bootstrap chat title & select botton-->
+    <div class="col-sm-4 col-md-offset-0">
+<!-- lightbox & boostrap card-->
+    <div class="card" style="width: 35rem;">
+        <a class="image-popup-no-margins" href="../../static/images/singer_donate.jpg" title="donate">
+        <img class="card-img-top" src="../../static/images/singer_donate.jpg" width="400" height="300" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Donate</h5>
+            <p>This is my Big brother * Alan's * template (the card's content).</p>
+            <a href="{% url "donate:index" %}" class="btn btn-primary" data-toggle="tooltip" title="Alan's template">Go Donate</a>
+        </div>
+        </div><hr class="col-md-12">
+        <div class="col-md-offset-6">
+        <input type="button" class="btn btn-primary" id="donate1" data-toggle="tooltip" title="music chat" value="音樂聊天">
+        </div><hr class="col-md-12">
+    <div class="card" style="width: 35rem;">
+        <a class="image-popup-no-margins" href="../../static/images/music_music.jpg" title="music">
+        <img class="card-img-top" src="../../static/images/music_music.jpg" width="400" height="300" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Music</h5>
+            <p>This is my brother * Mao's * template (the card's content).</p>
+            <a href="{% url "donate:index" %}" class="btn btn-primary" data-toggle="tooltip" title="Mao's template">Go Music</a>
+        </div>
+        </div><hr class="col-md-12">
+        <div class="col-md-offset-6">
+        <input type="button" class="btn btn-danger" id="music2" data-toggle="tooltip" title="small talk" value="小型聊天">
+        </div> 
+    </div>
+    <div class="col-md-5 col-md-offset-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-comment"></span> Chat Room
+                    <div class="btn-group pull-right">
+                        <a style="color:rgb(31, 11, 211)" href="{% url "music:music" %}"><span class="glyphicon glyphicon-ok-sign"></span>fusic Music</a>
+                        <a style="color:rgb(23, 158, 19)" href="{% url "donate:index" %}"><span class="glyphicon glyphicon-ok-sign"></span>donate</a> 
+                        <!-- <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </button>  
+                        <ul class="dropdown-menu slidedown">
+                            <li><a href="https://www.facebook.com/">
+                                <span class="glyphicon glyphicon-refresh"></span>
+                                Facebook</a></li>
+                            <li><a href="https://www.youtube.com/user/dimit28">
+                                <span class="glyphicon glyphicon-ok-sign"></span>
+                                Youtube</a></li>
+                            <li><a href="{% url "music:music" %}">
+                                <span class="glyphicon glyphicon-ok-sign"></span>
+                                fusic Music</a></li>
+                            <li><a href="{% url "donate:index" %}">
+                                <span class="glyphicon glyphicon-ok-sign">
+                                </span>
+                                donate</a></li>
+                        </ul>  -->
+                    </div> 
+                </div>
+    <div class="panel-body">
+        <ul class="chat"></ul>
+        <div id="message" class="alert alert-primary" style="height:50px;text-align:center;">wellcom to fusic chat room</div>
+        <textarea type="text" name="message" id="outputMessage" class="md-textarea form-control" rows="24" placeholder="Please enter a chat conversation"></textarea>
+    </div>
+        <div class="panel-footer">
+            <div class="input-group">
+                <input id="inputMessage" type="text" maxlength="100" class="form-control input-sm" placeholder="input your message" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-warning btn-sm" id="btnSend" >
+                            Send
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm" id="btnClean" >
+                            Clean
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+    <hr>
+    <!-- <div id="message1" class="alert alert-primary"></div> -->
+        <!-- <input type="text" id='text1' placeholder="user name"><br>
+        <input type="text" id='text2' placeholder="user age">
+        <input type="button" class="btn btn-primary" id="btn1" value="click">
+        <input type="button" class="btn btn-danger" id="btn2" value="cancel">  -->
+{% endblock %} 
+
+{% block scripts %}
+<!-- jQuery 1.7.2+ or Zepto.js 1.0+ -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!-- Magnific Popup core JS file -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+<script>
+// ================== Chat room control js =====================
+    $(document).ready(function(){
+
+        function setDate(){
+            time = new Date()
+            var hours = time.getHours();
+            var minutes = time.getMinutes();
+            var seconds = time.getSeconds();
+            times =  hours + ":" + minutes + ":" + seconds;
+            return times;
+        }
+
+        // jquery send message
+        $('#btnSend').click(function(){
+            // var userid = $('').val();
+            var message = $('#inputMessage').val();
+            var messageUpdate = setDate();
+            // 顯示對話訊息
+            $.get('/send/'+ messageUpdate +'/',{"message":message},function(datas){
+                $('#message').html("<h5>"+ datas +"</h5>"+ "<br>");
+            })
+        })  
+          
+        // $('#btn1').click(function(){
+        //     var name = $('#text1').val()
+        //     var age = $('#text2').val()
+        //     $.get('/hello/'+ age +'/',{"name":name},function(datas){
+        //         $('#message1').html("<h2>"+ datas + "</h2>");
+        //     })     
+        // })
+
+        // jquery clean message
+        $('#btnClean').click(function(){  
+            $('#message').html("");
+        })     
+        
+        // lightbox 
+        $('.image-popup-no-margins').magnificPopup({
+            type: 'image',
+            closeOnContentClick: true,
+            closeBtnInside: false,
+            fixedContentPos: true,
+            mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
+            gallery: {
+                enabled: true
+            },
+            image: {
+                verticalFit: true
+            },
+            zoom: {
+                enabled: true,
+                duration: 300 // don't foget to change the duration also in CSS
+            }
+        })
+
+
+})
+</script>
+{% endblock %}

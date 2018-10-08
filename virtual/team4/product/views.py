@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .serializers import ProductSerializer, CategorySerializer, SongListSer, MessagesSerializer
-from .models import Product, Category, Songlist, Messages
+from .serializers import ProductSerializer, CategorySerializer, SongListSer, MessagesSerializer, Friends_ChatSerializer
+from .models import Product, Category, Songlist, Messages, Friends_Chat
+
 # Create your views here.
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -25,3 +26,7 @@ class MessagesViewSet(viewsets.ModelViewSet):
     
     queryset = Messages.objects.all()
     serializer_class = MessagesSerializer
+# restful api makefriends
+class Friends_ChatViewSet(viewsets.ModelViewSet):
+    queryset = Friends_Chat.objects.all()
+    serializer_class = Friends_ChatSerializer

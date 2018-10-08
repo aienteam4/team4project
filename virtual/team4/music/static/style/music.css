@@ -51,9 +51,10 @@
             opacity: 0.9;
         }
         div #player{
-            position: fixed;
-            left: 27%;
-            top:30%
+            /* position: fixed; */
+            margin-left: 20%;
+            margin-top: 2.5%;
+            
         }
         .canSee{
             display: inline;
@@ -114,7 +115,7 @@
         /* 以下是別人的 */
         #songdata{
             position: fixed;
-            top: 25%;
+            top: 22%;
             right: 5%;
             width: 200px;
             height: 300px;
@@ -128,5 +129,32 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis; 
+        }
+        #bgvideo{
+            position: fixed ;
+            right: 0;
+            bottom: 0;
+            min-width: 100%; 
+            min-height: 100%;
+            z-index: -2;
+            
+        }
+        .main_content {
+            font-family: 'Ubuntu Mono', '微軟正黑體', monospace;
+            background: none;
+            width:100%;
+            position:absolute;
+            top:90px;
+            bottom:55px;
+            left:0px;
+            right:0px;
+            overflow:hidden;
+            margin-left:0px;
+            margin-right: 0px;
+            border-radius: 10px;
+            padding-top:0px;
+        }
+        body{
+            background-image: none;
         }
         

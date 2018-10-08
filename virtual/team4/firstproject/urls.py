@@ -34,11 +34,11 @@ urlpatterns = [
     path('',include('home.urls')),  #從project的urls.py去載入app下的urls.py
     path('member/',include('member.urls')),
     path('music/',include('music.urls')),
+    path('makefriends/',include('makefriends.urls')),
     path('donate/',include('donate.urls')),
     path('message/',include('message.urls')),
     #http://localhost:8000/api/product
     #http://localhost:8000/api/
-    path('api/', include(router.urls)),
-    
+    path('api/', include(router.urls))
 ]+static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 

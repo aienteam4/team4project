@@ -1,6 +1,18 @@
 {% extends "main.html" %}
 {% block styles %}
 <style>
+  body{
+    background-image: url("../../static/images/album.jpg")
+  }
+  header {
+    margin:auto;
+    text-decoration:none;
+    color: white;
+    background-color: rgba(22, 22, 22,0.6) !important;
+  }
+  .main_content {
+    background:rgba(22, 22, 22,0.6);
+  }
   .main{
     font-family: 'Ubuntu Mono', '微軟正黑體', monospace;
     padding-top: 80px;
@@ -83,12 +95,10 @@
   $(document).ready(function(){
     $('#inputName').blur(function(){
       var n =$(this).val()
-
-    get("../check/" + n +"/",function(data){
-      if (data == 1){
-        
-      }
-    })
+      get("../check/" + n +"/",function(data){
+        if (data == 1){
+        }
+      })
     })
   })
 </script>

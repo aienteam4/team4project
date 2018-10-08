@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Product, Category, Songlist, Messages
+from .models import Product, Category, Songlist, Messages, Friends_Chat
+
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,7 +12,8 @@ class SongListSer(serializers.ModelSerializer):
     # 亞資料類別
     class Meta:
         model = Songlist
-        fields = '__all__' #將所有欄位序列化        
+        fields = '__all__' #將所有欄位序列化   
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
@@ -20,3 +22,9 @@ class MessagesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Messages
         fields ='__all__'
+
+# 序列化,做資料格式轉換 ex: list -> json
+class Friends_ChatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Friends_Chat
+        fields = '__all__'     #將所有欄位序列化

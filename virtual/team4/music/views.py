@@ -4,12 +4,16 @@ import random,re
 from django.http import HttpResponse
 from django.contrib.sessions.models import Session
 from .forms import SongListForm
+from datetime import datetime
 import json
 
 # Create your views here.
 
 def music(request):
     return render(request,'music.html')
+
+def achievement(request):
+    pass
 
 def findsong(request):
     # 從資料庫撈出隨機一首歌
@@ -30,28 +34,36 @@ def taste(request):
     """
     紀錄歌曲喜好
     """
-    herTaste = request.GET["taste"]        #喜歡或不喜歡(1,0)
+    herTaste = request.GET["taste"]                     #喜歡或不喜歡(1,0)
     songId = request.GET["songId"]
     print(herTaste)
     print(songId)
     try:
-        song = Songlist.objects.get(id=songId)
+        song = Songlist.objects.get(id=songId)          #抓出這首歌
         print(song)
     except:
-        print("url有問題")    
+        print("查無此songid")    
     songId = song.id                                    #歌曲ID   
-    sid = request.COOKIES['sessionid']
-    herId = Session.objects.get(pk = sid).get_decoded()['memberId']
+    sid = request.COOKIES['sessionid']                 
+    herId = Session.objects.get(pk = sid).get_decoded()['memberId'] #會員ID
+    print("會員ID：",herId)
     index = song.url.find('=')
     youtubeId = song.url[index+1:]    
-    data1 = Orderhistory.objects.filter(member = herId)
-    data = data1.filter(song = songId)
+    data1 = Orderhistory.objects.filter(member = herId) #此會員所有點歌資料
+    data = data1.filter(song = songId)                  #此會員點此首歌的資料
     member = Member.objects.get(id=herId)
-    if data:
-        data[0].this_song_order_num += 1
-        data[0].this_song_like_or_not = herTaste
-        data[0].save() 
-    else:
+    if data:                                             #如果此會員點過這首歌...
+        print("他點過這首歌")
+        print(data.last().order_time)                                           
+        newdata = data.last()
+        newdata.order_num = data.last().order_num + 1
+        newdata.this_song_order_num = data.last().this_song_order_num + 1
+        newdata.this_song_like_or_not = herTaste
+        newdata.order_time = datetime.now()
+        print(newdata.order_time)
+        newdata.save()
+        print(newdata.this_song_like_or_not) 
+    else:                                               #如果此會員沒點過這首歌...
         newOrder = Orderhistory()
         newOrder.member = member
         newOrder.song = song
@@ -151,13 +163,12 @@ def set_session(request):
 
     if 'memberId' in request.session:
         memberId = request.session['memberId']                # 讀取會員id
-
         response = HttpResponse('memberId : ' + str(memberId))
     # del request.session['lucky_number']                     # 刪除
-    else:
-        response = HttpResponse("You haven't logged in")
-        request.session['memberId'] = 1                       # 設置會員id
-
+    else: 
+        request.session['memberId'] = 2                 # 設置會員id
+        response = HttpResponse('您還未登入')
+                              
     return response
 
 def session_test(request):
