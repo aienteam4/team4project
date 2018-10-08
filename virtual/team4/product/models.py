@@ -22,11 +22,25 @@ class Songlist(models.Model):
     last_modified_at = models.DateTimeField()
 
     class Meta:
-        db_table = 'songlist'        
+        db_table = 'songlist'     
+
 class Category(models.Model):
     categoryid = models.AutoField(primary_key=True)
     categoryname = models.CharField(max_length=45)
     class Meta:
         managed = False
         db_table = 'categories'
-# Create your models here.
+
+class Friends_Chat(models.Model):
+    memberId = models.IntegerField()
+    message = models.TextField()
+    messageUpdate = models.DateTimeField(auto_now_add=True) 
+
+    class Meta:
+        managed = False
+        db_table = 'Friends_Chat'
+
+
+
+
+

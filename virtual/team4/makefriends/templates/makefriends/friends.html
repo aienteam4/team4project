@@ -2,6 +2,14 @@
 {% load static %}
 {% block styles %}
 <style>
+body{
+        background-image: url("../../static/images/image_background_1.jpg")
+}
+footer{
+    color:white;
+    font-size: 16px;
+}
+/* boostnipp chat room */
 .chat
 {
     list-style: none;
@@ -22,7 +30,7 @@
     margin-left: 20px;
 }
 
-  .chat li.right .chat-body */
+  .chat li.right .chat-body
 {
     margin-right: 60px;
 } 
@@ -62,26 +70,97 @@
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
     background-color: #555;
 }
+
+
+/* lightbox */
+/* padding-bottom and top for image */
+.mfp-no-margins img.mfp-img {
+	padding: 0;
+}
+/* position of shadow behind the image */
+.mfp-no-margins .mfp-figure:after {
+	top: 0;
+	bottom: 0;
+}
+/* padding for main container */
+.mfp-no-margins .mfp-container {
+	padding: 0;
+}
+
+/* for zoom animation 
+uncomment this part if you haven't added this code anywhere else 
+
+.mfp-with-zoom .mfp-container,
+.mfp-with-zoom.mfp-bg {
+	opacity: 0;
+	-webkit-backface-visibility: hidden;
+	-webkit-transition: all 0.3s ease-out; 
+	-moz-transition: all 0.3s ease-out; 
+	-o-transition: all 0.3s ease-out; 
+	transition: all 0.3s ease-out;
+}
+
+.mfp-with-zoom.mfp-ready .mfp-container {
+	opacity: 1;
+}
+.mfp-with-zoom.mfp-ready.mfp-bg {
+	opacity: 0.8;
+}
+
+.mfp-with-zoom.mfp-removing .mfp-container, 
+.mfp-with-zoom.mfp-removing.mfp-bg {
+	opacity: 0;
+}*/
+
 </style>
 {% endblock %}
 
 {% block content %}
     <!-- 聊天即時訊息(id, time) -->
     <!-- 交友聊天室 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<body>
     <div class="container" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-    <div class="row">
-    <!-- bootstrap chat title & select botton-->
-    <div class="col-md-5 col-md-offset-0">
+    <div class="row align-items-start">
+<!-- bootstrap chat title & select botton-->
+    <div class="col-sm-4 col-md-offset-0">
+<!-- lightbox & boostrap card-->
+    <div class="card" style="width: 35rem;">
+        <a class="image-popup-no-margins" href="../../static/images/singer_donate.jpg" title="donate">
+        <img class="card-img-top" src="../../static/images/singer_donate.jpg" width="400" height="300" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Donate</h5>
+            <p>This is my Big brother * Alan's * template (the card's content).</p>
+            <a href="{% url "donate:index" %}" class="btn btn-primary" data-toggle="tooltip" title="Alan's template">Go Donate</a>
+        </div>
+        </div><hr class="col-md-12">
+        <div class="col-md-offset-6">
+        <input type="button" class="btn btn-primary" id="donate1" data-toggle="tooltip" title="music chat" value="音樂聊天">
+        </div><hr class="col-md-12">
+    <div class="card" style="width: 35rem;">
+        <a class="image-popup-no-margins" href="../../static/images/music_music.jpg" title="music">
+        <img class="card-img-top" src="../../static/images/music_music.jpg" width="400" height="300" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Music</h5>
+            <p>This is my brother * Mao's * template (the card's content).</p>
+            <a href="{% url "donate:index" %}" class="btn btn-primary" data-toggle="tooltip" title="Mao's template">Go Music</a>
+        </div>
+        </div><hr class="col-md-12">
+        <div class="col-md-offset-6">
+        <input type="button" class="btn btn-danger" id="music2" data-toggle="tooltip" title="small talk" value="小型聊天">
+        </div> 
+    </div>
+    <div class="col-md-5 col-md-offset-3">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <span class="glyphicon glyphicon-comment"></span> Chat Room
                     <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                        <a style="color:rgb(31, 11, 211)" href="{% url "music:music" %}"><span class="glyphicon glyphicon-ok-sign"></span>fusic Music</a>
+                        <a style="color:rgb(23, 158, 19)" href="{% url "donate:index" %}"><span class="glyphicon glyphicon-ok-sign"></span>donate</a> 
+                        <!-- <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-chevron-down"></span>
-                        </button>
+                        </button>  
                         <ul class="dropdown-menu slidedown">
                             <li><a href="https://www.facebook.com/">
                                 <span class="glyphicon glyphicon-refresh"></span>
@@ -96,19 +175,23 @@
                                 <span class="glyphicon glyphicon-ok-sign">
                                 </span>
                                 donate</a></li>
-                        </ul>
-                    </div>
+                        </ul>  -->
+                    </div> 
                 </div>
     <div class="panel-body">
         <ul class="chat"></ul>
-        <textarea type="text" name="message" id="message" class="md-textarea form-control" rows="24" readonly="readonly" placeholder="wellcom to fusic chat room "></textarea>
+        <div id="message" class="alert alert-primary" style="height:50px;text-align:center;">wellcom to fusic chat room</div>
+        <textarea type="text" name="message" id="outputMessage" class="md-textarea form-control" rows="24" placeholder="Please enter a chat conversation"></textarea>
     </div>
         <div class="panel-footer">
             <div class="input-group">
-                <input id="inputMessage" type="text" class="form-control input-sm" placeholder="input your message" />
+                <input id="inputMessage" type="text" maxlength="100" class="form-control input-sm" placeholder="input your message" />
                     <span class="input-group-btn">
-                        <button class="btn btn-warning btn-sm" id="btnSend" >
+                        <button type="button" class="btn btn-warning btn-sm" id="btnSend" >
                             Send
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm" id="btnClean" >
+                            Clean
                         </button>
                     </span>
                 </div>
@@ -117,115 +200,75 @@
     </div>
 </div>
 </div>
-  <!-- template del item del chat (Oculto: para agarrar un clon y llenarlo e insertar en el chat)-->
-    <li style="display:none" id="plantilla" class="left clearfix">
-        <span class="chat-img pull-left">
-            <img src="http://placehold.it/50/55C1E7/fff&text=U"class="img-circle" />
-        </span>
-            <div class="chat-body clearfix">
-                <div class="header">
-                    <strong class="primary-font Nombre" >memberId</strong> 
-                    <small class="pull-right text-muted">
-                    <span class="glyphicon glyphicon-asterisk Tiempo"></span>
-                        12/02/2015 
-                    </small>
-                </div>
-                    <p class="Mensaje">
-                        Message
-                    </p>
-                </div>
-            </li>
+    <hr>
+    <!-- <div id="message1" class="alert alert-primary"></div> -->
+        <!-- <input type="text" id='text1' placeholder="user name"><br>
+        <input type="text" id='text2' placeholder="user age">
+        <input type="button" class="btn btn-primary" id="btn1" value="click">
+        <input type="button" class="btn btn-danger" id="btn2" value="cancel">  -->
 {% endblock %} 
 
-    <!-- 聊天即時訊息(id, time) -->
-    <!-- 交友聊天室 -->
-    <!-- <div class="card card-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/pricing-table%20(7).jpg');"
-        method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="text-white rgba-stylish-strong py-5 px-5 z-depth-4">
-            <!--Header-->
-            <!-- <div class="text-center">
-                <h3 class="white-text mb-5 mt-4 font-weight-bold text-uppercase"><strong>Make</strong> <a class="green-text font-weight-bold" href="https://www.facebook.com"><strong>Friends</strong></a></h3>
-            </div>
-            <div class="md-form">
-                <textarea type="text" name="message" id="message" class="md-textarea form-control" rows="15" placeholder=""></textarea>
-                <label for="message">Chat Room</label>
-            </div>
-            <input type="text" name="inputuser" placeholder="user message" maxlength="100" size="30">|
-            <div class="row d-flex align-items-center">
-                <!--Grid column-->
-                <!-- <div class="text-center col-md-12 mt-3 mb-2">
-                    <button type="button" name="send" id="btn1" class="btn btn-success btn-block btn-rounded z-depth-1">Send</button>
-                <input type="button" name="clear" class="btn btn-success btn-block btn-rounded z-depth-1" id="btn2" value="delete">
-                {% for friends in Friends_Chat %}
-                    <a href="{% url "friends:all" %}" class="btn btn-danger"><i class="far fa-comment"></i></a>
-                {% endfor %} -->
-                <!-- </div>
-            </div>
-        </div>
-    </div> --> 
-
 {% block scripts %}
+<!-- jQuery 1.7.2+ or Zepto.js 1.0+ -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!-- Magnific Popup core JS file -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 <script>
-// ================= bootsnipp js ====================
+// ================== Chat room control js =====================
     $(document).ready(function(){
 
-    src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyB-CfYZb2rJeeycqL8F5Lo2zmCQAu1A0Sc",
-        authDomain: "soft1-6305e.firebaseapp.com",
-        databaseURL: "https://soft1-6305e.firebaseio.com",
-        projectId: "soft1-6305e",
-        storageBucket: "soft1-6305e.appspot.com",
-        messagingSenderId: "592333250349"
-    };
-    firebase.initializeApp(config);
-    //VARIABLE CON ACCESO A DATOS
-      
-    var TableDate = firebase.database().ref('soft1-6305e');
-    var Nombre= prompt("Nombre:");
-          
-    $('#btnSend').click(function(){
-        var messageDate = new date();
-        var day = messageDate.getUTCDate();
-        var month = messageDate.getMonth()+1;
-        var year = messageDate.getFullYear();
-        var hours = messageDate.getHours();
-        var minutes = messageDate.getMinutes();
-   
-        date = day + "/" + month + "/" + year + "  " + hours + ":" + minutes;
-   
-        TableDate.push({
-            Nombre:Nombre,
-            Mensaje:$("#Mensaje").val(),
-            date:date
-        });
-    });
-// ================== Chat room control js =====================
+        function setDate(){
+            time = new Date()
+            var hours = time.getHours();
+            var minutes = time.getMinutes();
+            var seconds = time.getSeconds();
+            times =  hours + ":" + minutes + ":" + seconds;
+            return times;
+        }
+
         // jquery send message
-        $('#btn1').click(function(){
-            var userid = $('').val();
-            var message = $('input[type="text"]').val();
-            var messageUpdate = $('').val();
-            // 抓取對話訊息
-            $.get('/send/'+ userid +'/',        
-               {"memberID":userid,"message":message,"messageUpdate":messageUpdate},   
-            function(datas){
-                $('#message').html("<h4>"+ datas +"</h4>"+ "<br>");
-            // 傳給python函式寫進資料庫
-            $.post('/message/'+ userid +'/',  
-               {"memberID":userid,"message":message,"messageUpdate":messageUpdate},
-            function(datas){
-                $('#message').html(datas);
-        })
-    })     
-})
-       // jquery clean message
-        $('#btn2').click(function(){
+        $('#btnSend').click(function(){
+            // var userid = $('').val();
+            var message = $('#inputMessage').val();
+            var messageUpdate = setDate();
+            // 顯示對話訊息
+            $.get('/send/'+ messageUpdate +'/',{"message":message},function(datas){
+                $('#message').html("<h5>"+ datas +"</h5>"+ "<br>");
+            })
+        })  
+          
+        // $('#btn1').click(function(){
+        //     var name = $('#text1').val()
+        //     var age = $('#text2').val()
+        //     $.get('/hello/'+ age +'/',{"name":name},function(datas){
+        //         $('#message1').html("<h2>"+ datas + "</h2>");
+        //     })     
+        // })
+
+        // jquery clean message
+        $('#btnClean').click(function(){  
             $('#message').html("");
-         })     
-    
+        })     
+        
+        // lightbox 
+        $('.image-popup-no-margins').magnificPopup({
+            type: 'image',
+            closeOnContentClick: true,
+            closeBtnInside: false,
+            fixedContentPos: true,
+            mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
+            gallery: {
+                enabled: true
+            },
+            image: {
+                verticalFit: true
+            },
+            zoom: {
+                enabled: true,
+                duration: 300 // don't foget to change the duration also in CSS
+            }
+        })
 
 
 })

@@ -1,0 +1,41 @@
+﻿{% extends "main.html" %}
+{% block content %}
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group row">
+                <label for="inputgid" class="col-sm-2 col-form-label">性別</label>
+                <div class="col-sm-10">
+                 <input type="text" class="form-control" id="inputgid" placeholder="M or F" name="categoryid">
+                </div>
+              </div>
+            <div class="form-group row">
+                <label for="inputnumber" class="col-sm-2 col-form-label">編號</label>
+                <div class="col-sm-10">
+                 <input type="text" class="form-control" id="inputnumber" placeholder="model number" name="modelnumber">
+                </div>
+              </div>
+            <div class="form-group row">
+                <label for="inputname" class="col-sm-2 col-form-label">姓名</label>
+                <div class="col-sm-10">
+                 <input type="text" class="form-control" id="inputname" placeholder="model name" name="modelname">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="file1" class="col-sm-2 col-form-label">照片</label>
+                <div class="col-sm-10">
+                  <input type="file" class="form-control" id="file1" placeholder="product image" name="productimage">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="desc" class="col-sm-2 col-form-label">備註</label>
+                <div class="col-sm-10">
+                  <textarea class="form-control" id="desc" placeholder="product description" name="description"></textarea>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-sm-10">
+                  <button type="submit" class="btn btn-primary"><i class="fab fa-angellist"></i> 新增</button>
+                </div>
+              </div>
+        </form>
+{% endblock %}
