@@ -9,28 +9,19 @@ def welcome(request):
 
 def index(request):
     title = "Index"
-    desc = "This is a web page."
-    now = datetime.datetime.now()
-
-    datas = [
-    {"name":"Jack","age":25,"email":"Jack@gmail.com"},
-    {"name":"Mary","age":18,"email":"Mary@gmail.com"},
-    {"name":"Tom","age":32,"email":"Tom@gmail.com"},
-    ]
-    #print(locals())
     return render(request,'home/index.html',locals())
 
 def contact(request):
     title="Contact"
     return render(request,'home/contact.html',locals())
 
-def login(request):
-    title="Please log in."
-    return render(request,'home/login.html',locals())
-
 def login_or_register(request):
     title="Please log in or register."
+<<<<<<< HEAD
     return render(request,'home/login_or_register.html',locals())
 
 def main(request):
     return redirect("/")
+=======
+    return render(request,'home/login_or_register.html',locals())
+>>>>>>> 8d35611b12fd98c2f24037195e376ef3de8b1683

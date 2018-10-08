@@ -1,16 +1,18 @@
 <!-- <link href="../home/static/styles/header.css" rel="stylesheet" /> -->
 <style>
     header {
-        font-family: Trebuchet MS, '微軟正黑體', monospace;
+        font-family: 'Ubuntu Mono',Trebuchet MS, '微軟正黑體', monospace;
         font-size:22px;
         overflow:visible;
         width:80%;
-        height: auto;
+        height: 80px;
         margin:auto;
-        margin-top: 20px;
+        margin-top: 5px;
+        padding-top: 15px;
         text-decoration:none;
         color: white;
-        background-color: rgba(31, 31, 31,0.7);
+        /* background-color: rgba(22, 22, 22, 0.6); */
+        border-radius: 10px;
     }
     .icon {
         float: left;
@@ -89,11 +91,20 @@
     ul.drop-down-menu li.divider:hover{
         background-color: rgb(18, 33, 34);
     }
+    /* 下拉式選單第三層 */
+    ul.drop-down-menu li:hover > ul ul { /* 滑鼠滑入之後、次選單之後的選單依舊隱藏*/
+        left: 99999px;
+    }
+
+    ul.drop-down-menu ul li:hover > ul { /* 第二層之後的選單展開位置*/
+        top:80%;
+        left: 80%;
+    }
 </style>
 <header>
     <div class="icon">
         <a href="{% url 'home:welcome' %}">
-            <div >
+            <div>
                 <img src="../../static/images/fusic_hover.png" alt="fusic">
                 <img src="../../static/images/fusic.png" alt="fusic">
             </div>
@@ -108,9 +119,30 @@
             </li>
             <li><a href="#">Friends</a>
                 <ul>
+<<<<<<< HEAD
                     <li><a href="{% url 'makefriends:friends' %}">Make friends</a>
+=======
+                    <li><a href="#">Make friends哲偉的</a>
+                        <ul>
+                            <li><a href="#">第三層-1</a>
+                            </li>
+                            <li><a href="#">第三層-2</a>
+                            </li>
+                            <li><a href="#">第三層-3</a>
+                            </li>
+                        </ul>
+>>>>>>> 8d35611b12fd98c2f24037195e376ef3de8b1683
                     </li>
+
                     <li><a href="#">Chat room安昇的</a>
+                        <ul>
+                            <li><a href="#">第三層-1</a>
+                            </li>
+                            <li><a href="#">第三層-2</a>
+                            </li>
+                            <li><a href="#">第三層-3</a>
+                            </li>
+                        </ul>
                     </li>
                     <li><a href="{% url 'donate:index' %}">Donate</a>
                     </li>
