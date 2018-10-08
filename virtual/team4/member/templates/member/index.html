@@ -2,6 +2,9 @@
 {% extends "main.html" %}
 {% block styles %}
 <style>
+    body{
+        background-image: url("../../static/images/album1.jpg")
+    }
     .main{
         font-family: 'Ubuntu Mono', '微軟正黑體', monospace;
         padding-top: 20px;
@@ -27,7 +30,7 @@
         line-height: 80%;
         font-size: 40px;
         margin: auto;
-        color:rgb(52, 206, 159);
+        color:rgb(223, 155, 68);
     }
     #sdk_button{
         width: 100% !important;
@@ -62,22 +65,30 @@
         border-radius: 10px;
     }
     a.btn-secondary{
-        background-color: rgb(52, 206, 159);
-        border-color: rgb(52, 206, 159);
+        background-color: rgb(223, 155, 68);
+        border-color: rgb(223, 155, 68);
         border-radius: 30px;
         height: 40px;
         width:60px;
         padding-top: 10px; 
     }
     a.btn-secondary:hover{
-        background-color: rgb(43, 160, 125);
-        border-color: rgb(43, 160, 125);
+        background-color: rgb(190, 137, 66);
+        border-color: rgb(190, 137, 66);
         transition: all 0.3s linear;
         border-radius: 10px;
     }
     ::-webkit-scrollbar{
         width: 6 !important;
         background-color: rgb(31, 31, 31);
+    }
+    ::-webkit-scrollbar-thumb{
+        border-radius: 10px;
+        background-image: 
+            -webkit-gradient(linear,left bottom,left top,
+            color-stop(0.34, rgb(255, 181, 85)),
+            color-stop(0.62, rgb(173, 122, 55)),
+            color-stop(0.86, rgb(119, 83, 36)));                         
     }
 </style>
 {% endblock %}
@@ -114,8 +125,8 @@
                     <td>{{member.5}}</td>
                     <td>{{member.6}}</td>
                     <td>
-                        <a href="{% url 'member:delete' member.0 %}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
-                        <a href="{% url 'member:update' member.0 %}" class="btn btn-secondary"><i class="fas fa-user-edit"></i></a>
+                        <a href="{% url 'member:delete' member.0 %}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                        <a href="{% url 'member:update' member.0 %}" class="btn btn-secondary"><i class="fas fa-edit"></i></a>
                         </td>
                 </tr>
                 {% endfor %}

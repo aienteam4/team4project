@@ -157,6 +157,7 @@ $(document).ready(function(){
             $('#anger').addClass( "musicOnAnger", 5000 );
             $('#sad').addClass( "musicOnSad", 5000 );
             $('#lonely').addClass( "musicOnLonely", 5000 );
+            $('#center').addClass( "musicOnCenter", 5000 );
             // 空五秒鐘才乾淨
             timeOut = setInterval(newBtnAct, 5000);
             btnFlag = false
