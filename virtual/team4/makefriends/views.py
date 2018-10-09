@@ -11,6 +11,17 @@ from rest_framework import viewsets
 
 friend = Friends_Talk()
 
+def friends(request):
+    return render(request,'makefriends/friends.html',locals())
+
+# restful api CRUD
+def api_message(request):  
+    title = "Restful api -- makefriends"
+    return render(request,'makefriends/api_message.html',locals())
+
+def message_update(request):
+    return render(request,'makefriends/message_update.html')
+
 # def index(request):  
 #     #ORM
 #     # print(Friends_Chat.objects.all())
@@ -61,38 +72,36 @@ friend = Friends_Talk()
 #     response = HttpResponse("<script>location.href='/'</script>")
 #     response.delete_cookie("name") 
 #     return response
-def friends(request):
-    return render(request,'makefriends/friends.html')
 
-def delete(request, id):
-    friend.delete(id)
-    return redirect("/message_record/")
+# def delete(request, id):
+#     friend.delete(id)
+#     return redirect("/message_record/")
 
-def update(request, id):
-    if request.method == "POST":
-        #接收表單傳過來的資料
-        memberId = request.POST["memberId"]
-        message = request.POST["message"]  
-        messageUpdate = request.POST["messageUpdate"]  
+# def update(request, id):
+#     if request.method == "POST":
+#         #接收表單傳過來的資料
+#         memberId = request.POST["memberId"]
+#         message = request.POST["message"]  
+#         messageUpdate = request.POST["messageUpdate"]  
 
-        friends = (memberId,message,messageUpdate,id)
-        friend.update(friends)
-        return redirect("/message_record/")
+#         friends = (memberId,message,messageUpdate,id)
+#         friend.update(friends)
+#         return redirect("/message_record/")
 
-    friendsingle = friend.single(id)
-    return render(request,'message_update.html',locals())
+#     friendsingle = friend.single(id)
+#     return render(request,'message_update.html',locals())
 
-def testencoding(request):
-    response = HttpResponse("<h2>encoding test</h2>")
-    # u1 = u"中文"
-    # u2 = smart_str(u1)
-    u2 = bytes("中文","utf-8").decode("utf-8")
-    # response.set_cookie("u1",u1)
-    response.set_cookie("username",u2)
-    return response
+# def testencoding(request):
+#     response = HttpResponse("<h2>encoding test</h2>")
+#     # u1 = u"中文"
+#     # u2 = smart_str(u1)
+#     u2 = bytes("中文","utf-8").decode("utf-8")
+#     # response.set_cookie("u1",u1)
+#     response.set_cookie("username",u2)
+#     return response
 
 # 傳訊息進資料庫
-def send(request, messageUpdate):
+# def send(request, messageUpdate):
     # time.sleep(1)
     # if request.method == "POST":
     #     #接收表單傳過來的資料
@@ -104,21 +113,9 @@ def send(request, messageUpdate):
     # #將資料寫進資料庫
     # Friends_Chat.objects.create(id=id.objects.get(id=id),message=message,messageUpdate=messageUpdate)
     # return HttpResponse(Message)
-    #     # time.sleep(10)
-    message = request.GET["message"]
-    # age = request.GET["age"]
-  
-    print(message)
-    return HttpResponse(message)
+    # message = request.GET["message"]
+    # Message = "{}     ({})".format(message,messageUpdate)
+    # print(message)
+    # return HttpResponse(Message)
 
-# def hello(request,age):
-#     # time.sleep(10)
-#     name = request.GET["name"]
-#     # age = request.GET["age"]
-#     message = "{}\r\n{}".format(name,age)
-#     return HttpResponse(message)
-    
-# restful api CRUD
-def message_api(request):  
-    title = "Restful api -- makefriends"
-    return render(request,'makefriends/api_message.html',locals())
+

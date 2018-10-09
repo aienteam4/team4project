@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-12">
     <table id="Friends_Chatlist" class="table table-bordered">
        <thead class="table-info">
             <tr style="color:black">
@@ -24,15 +24,15 @@
         <form>
             <div class="form-group">
                 <label for="InputMemberId">MemberId</label>
-                <input type="text" class="form-control" id="InputMemberId" placeholder="Enter MemberId">         
+                <input type="text" class="form-control" id="InputMemberId" placeholder="Enter MemberId">     
             </div>
             <div class="form-group">
                 <label for="InputMessage">Message</label>
                 <input type="text" class="form-control" id="InputMessage" placeholder="Enter Message">
             </div>
             <div class="form-group">
-                <label for="InputMessageRecord">MessageRecord</label>
-                <input type="text" class="form-control" id="InputMessageRecord" placeholder="Enter MessageRecord">
+                <label for="InputMessageUpdate">MessageUpdate</label>
+                <input type="text" class="form-control" id="InputMessageUpdate" placeholder="Enter MessageUpdate">
             </div>          
                 <button type="button" id="buttonSubmit" class="btn btn-primary">Submit</button>
         </form>
@@ -48,21 +48,21 @@ $(document).ready(function(){
     //jquery 新增資料
     $('#buttonSubmit').click(function(){    
         var datas = {
-           "MemberId": $('#InputMemberId').val(),
-           "Message": $('#InputMessage').val(),
-           "MessageRecord": $('#InputMessageRecord').val(),
+           "memberId": $('#InputMemberId').val(),
+           "message": $('#InputMessage').val(),
+           "messageUpdate": $('#InputMessageUpdate').val(),
         };
 
     $.post('/api/product/',datas,function(data){
         $('#InputMemberId').val('')
         $('#InputMessage').val('')
-        $('#InputMessageRecord').val('')
-            loadTodo()
+        $('#InputMessageUpdate').val('')
+            loadMessage()
         })
     })
 
     //讀取所有資料
-    function loadTodo(){
+    function loadMessage(){
         $.getJSON('/api/product',function(datas){
             // console.log(datas)
             var tb =  $('#Friends_Chatlist>tbody');
@@ -72,9 +72,9 @@ $(document).ready(function(){
                 //b > {}
                 var cell1 = $('<td></td>').text(todo.id)
                 // ============== "contenteditable" 屬性 -> 可直接修改欄位 Chrome瀏覽器 ==========================
-                var cell2 = $('<td></td>').text(todo.MemberId).attr('contenteditable','true')   
-                var cell3 = $('<td></td>').text(todo.Message).attr('contenteditable','true')
-                var cell4 = $('<td></td>').text(todo.MessageRecord).attr('contenteditable','true')
+                var cell2 = $('<td></td>').text(todo.memberId).attr('contenteditable','true')   
+                var cell3 = $('<td></td>').text(todo.message).attr('contenteditable','true')
+                var cell4 = $('<td></td>').text(todo.messageUpdate).attr('contenteditable','true')
                 var cell5 = $('<td></td>').html('<button class="btn btn-danger"><i class="far fa-trash-alt"></i></button><button class="btn btn-primary"><i class="fas fa-user-edit"></i></button>')
                 //<tr><td><td><td>
                 var row = $('<tr></tr>').append([cell1,cell2,cell3,cell4,cell5])
@@ -85,7 +85,7 @@ $(document).ready(function(){
         })
     }
     
-    loadTodo()
+    loadMessage()
     //讀取單筆資料
     // $.getJSON('/api/todo/1',function(todo){        
     //     console.log(todo.id)
@@ -104,19 +104,19 @@ $(document).ready(function(){
             'url':'/api/product/' + id + '/',
             'type':'DELETE'
         }).done(function(data){
-            loadTodo()
+            loadMessage()
         })
     })
 
     $('#Friends_Chatlist>tbody').on('click','button:nth-child(2)',function(){
         var id = $(this).parents('tr').find('td:nth-child(1)').text()
-        var MemberId = $(this).parents('tr').find('td:nth-child(2)').text()
-        var Message = $(this).parents('tr').find('td:nth-child(3)').text()
-        var MessageRecord = $(this).parents('tr').find('td:nth-child(4)').text()
+        var memberId = $(this).parents('tr').find('td:nth-child(2)').text()
+        var message = $(this).parents('tr').find('td:nth-child(3)').text()
+        var messageUpdate = $(this).parents('tr').find('td:nth-child(4)').text()
         var datas = {
-            "MemberId":MemberId,
-            "Message": Message,
-            "MessageRecord": MessageRecord
+            "memberId":memberId,
+            "message": message,
+            "messageUpdate": messageUpdate
         };
         //修改資料
         $.ajax({
@@ -124,7 +124,7 @@ $(document).ready(function(){
             'type':'PUT',
             'data':datas
         }).done(function(data){
-            loadTodo()
+            loadMessage()
         })
     })
 })
