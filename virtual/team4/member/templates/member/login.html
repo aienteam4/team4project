@@ -91,11 +91,12 @@
   .remember{
     font-size: 18px;
   }
-  button#btn{
+  #btn{
     background-color: rgb(52, 206, 159);
     border-color: rgb(52, 206, 159);
     border-radius: 30px !important;
-    width: 100px;
+    width: 120px;
+    color: rgb(255, 255, 255) !important;
     margin: auto;
     font-size: 20px !important;
     font-weight: 700;
@@ -103,16 +104,36 @@
     padding-top: 10px;
     padding-bottom: 3px;
   }
-  button#btn:hover{
+  #btn:hover{
     background-color: rgb(43, 160, 125);
     border-color: rgb(43, 160, 125);
     transition: all 0.3s linear;
-    border-radius: 10px !important;
+    border-radius: 10px;
+  }
+  a:link{
+    text-decoration: none;
+  }
+  a:visited{
+    color:white;
+    text-decoration: none;
   }
   .form-control{
     background-color: white;
   }
-  </style>
+  #img_captcha{
+    width:65px;
+    border-radius: 5px;
+  }
+  #btn_captcha{
+    margin-top: 10px;
+    margin-left: 3px;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+    background-color: rgb(52, 206, 159);
+    border:2px solid white;
+  }
+</style>
 {% endblock %}
 {% block content %}
 <div class="form">
@@ -123,35 +144,6 @@
     <div class="login-or">
       <hr class="hr-or">
     </div>
-
-    <!-- <div class="form-group">
-      <form role="form" method="POST">
-              {% csrf_token %}
-        <div class="form-group">
-          <input type="text" class="form-control" id="inputLogin" placeholder="會員帳號" name="login">
-        </div>
-        <div class="form-group">
-          <input type="password" class="form-control" id="inputPassword" placeholder="會員密碼" name="password">
-        </div>
-        <div class="form-group">
-          <input type="text" name="captcha" id="captcha" placeholder="驗證碼" class="form-control" >
-          <img id="img_captcha" src="/donate/captcha"><button id="btn_captcha" type="button"><i class="fas fa-redo-alt"></i>
-          </button>
-        </div>
-        <div class="btn">
-          <label class="remember"><input type="checkbox" name="remember" value="True">Remember me</label>
-        </div>
-        {% if request.COOKIES.nameadm %}
-        <label>管理員已登入</label><br>
-        <hr>
-        <button type="button" id="buttonLO" class="btn btn-warning"><a href="/donate/siteadm/">直播管理區</a></button>
-        <button type="button" id="buttonLO" class="btn btn-warning"><a href="/donate/logout/">管理員登出</a></button>
-        {% else %}
-        <button type="submit" id="btn" class="btn btn btn-primary">會員登入</button>
-        {% endif %}
-      </form>
-    </div>
-  </div> -->
 
     <form role="form" method="POST">
             {% csrf_token %}
@@ -164,10 +156,25 @@
         <input type="password" class="form-control" id="inputPassword" name="password">
         <a class="pull-right" href="#">忘記密碼了嗎?</a>
       </div>
+      <div class="form-group">
+        <label for="captcha">驗證碼</label>
+        <input type="text" name="captcha" id="captcha" class="form-control" >
+        <img id="img_captcha" src="/donate/captcha">
+        <button id="btn_captcha" type="button"><i class="fas fa-redo-alt"></i>
+        </button>
+      </div>
       <div class="btn">
         <label class="remember"><input type="checkbox" name="remember" value="True">Remember me</label>
       </div>
-      <button type="submit" id="btn" class="btn btn btn-primary">登入</button>
+      {% if request.COOKIES.name_member %}
+        <!-- <button type="submit" id="btn" class="btn btn btn-primary">已登入</button> -->
+        <button type="submit" id="btn" class="btn btn btn-primary"><a href="/member/logout/">登出</a></button>
+        <!-- <hr> -->
+        <button type="button" id="btn" class="btn btn btn-primary"><a href="/member/my_member">會員資料</a></button>
+        <!-- <button type="button" id="buttonLO" class="btn btn-warning"><a href="/member/logout/">會員登出</a></button> -->
+        {% else %}
+      <button type="submit" id="btn" class="btn btn btn-danger">登入</button>
+      {% endif %}
     </form>
   </div>
 </div>

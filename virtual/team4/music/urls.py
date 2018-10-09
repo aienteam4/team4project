@@ -23,4 +23,6 @@ urlpatterns = [
     path('checkEmail/', views.checkEmail, name='checkEmail'),
     # 爬蟲
     path('worldhotsong/', views.worldHotSong),
+    #畫圖
+    path('drawchart/', views.drawChart),
 ]
