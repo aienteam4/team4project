@@ -10,9 +10,7 @@ app_name = "makefriends"
 
 urlpatterns = [
     path('',views.friends,name='friends'),
-    path('send/<str:messageUpdate>/',views.send),
-    # path('hello/<str:age>/',views.hello),
-    path('message_api/',views.message_api,name='message_api'),
-    # path('message_api/',include(router.urls)),
-    
+    path('api_message/',views.api_message,name='api_message'),
+    path('message_update/',views.message_update,name='message_update'),
+   
 ]
