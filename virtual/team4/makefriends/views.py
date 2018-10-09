@@ -81,10 +81,10 @@ def message_update(request):
 #     if request.method == "POST":
 #         #接收表單傳過來的資料
 #         memberId = request.POST["memberId"]
-#         message = request.POST["message"]  
-#         messageUpdate = request.POST["messageUpdate"]  
+#         messages = request.POST["message"]  
+#         messagesUpdate = request.POST["messagesUpdate"]  
 
-#         friends = (memberId,message,messageUpdate,id)
+#         friends = (memberId,messages,messagesUpdate,id)
 #         friend.update(friends)
 #         return redirect("/message_record/")
 
@@ -101,21 +101,21 @@ def message_update(request):
 #     return response
 
 # 傳訊息進資料庫
-# def send(request, messageUpdate):
+# def send(request, messagesUpdate):
     # time.sleep(1)
     # if request.method == "POST":
     #     #接收表單傳過來的資料
     #     # memberId = request.POST["memberId"]
-    #     message = request.POST["message"]  
-    #     Message = "{}/n{}".format(message,messageUpdate)
+    #     messages = request.POST["messages"]  
+    #     Message = "{}/n{}".format(messages,messagesUpdate)
     #     return HttpResponse(Message)
 
     # #將資料寫進資料庫
-    # Friends_Chat.objects.create(id=id.objects.get(id=id),message=message,messageUpdate=messageUpdate)
+    # Friends_Chat.objects.create(id=id.objects.get(id=id),messages=messages,messagesUpdate=messagesUpdate)
     # return HttpResponse(Message)
-    # message = request.GET["message"]
-    # Message = "{}     ({})".format(message,messageUpdate)
-    # print(message)
+    # messages = request.GET["messages"]
+    # Message = "{}     ({})".format(messages,messagesUpdate)
+    # print(messages)
     # return HttpResponse(Message)
 
 

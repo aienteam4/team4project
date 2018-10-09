@@ -9,6 +9,22 @@
         width:100% !important;
         border-radius: 0;
     }
+    .carousel.slide, .d-block.w-100{
+        height:120%;
+    }
+    .cover1, .cover2, .cover3{
+        position:absolute;
+        width:30%;
+        height:100%;
+        z-index: 1;
+        background-color: rgba(56, 56, 56, 0.6)
+    }
+    .cover2{
+        margin-left: 70%;
+    }
+    .cover3{
+        height:120%;
+    }
     .carousel-control-next-icon, .carousel-control-prev-icon{
         width:50px;
         height: 50px;
@@ -17,21 +33,28 @@
     .text{
         position: absolute;
         width:25%;
-        margin-left: 10%;
-        margin-top: 28%;
+        margin-left: 5%;
+        margin-top: 18%;
         z-index:1;
     }
     .text1{
         position: absolute;
         width:25%;
-        margin-left: 70%;
-        margin-top: 28%;
+        margin-left: 75%;
+        margin-top: 20%;
         z-index:1;
     }
-    .title{
+    .title1{
         color:rgb(52, 206, 159);
         font-size: 60px;
-        
+    }
+    .title2{
+        color:rgb(223, 155, 68);
+        font-size: 60px;
+    }
+    .title3{
+        color:rgb(74, 174, 250);
+        font-size: 60px;
     }
     .desc{
         font-size: 25px;        
@@ -68,15 +91,16 @@
 {% block content %}
 <!-- carousel -->
 <div id="controls1" class="carousel slide" data-ride="carousel">
+    <div class="cover1">
+    </div>
     <div class="text">
-        <h1 class="title">音樂功能區</h1>
+        <h1 class="title1">音樂功能區</h1>
         <h2 class="desc">阿毛 please add some text here<br>背景圖要換</h2>
         <div class="btn">
             <a href="{% url 'music:music' %}"><button id="myBtn">Enter</button></a>
         </div>
     </div>
     <div class="carousel-inner">
-        
         <div class="carousel-item active">
             <img class="d-block w-100" src="../../static/images/landscape 1.jpg" alt="First slide">
         </div>
@@ -99,8 +123,10 @@
 </div>
 
 <div id="controls2" class="carousel slide" data-ride="carousel">
+    <div class="cover2">
+    </div>
     <div class="text1">
-        <h1 class="title">交友功能區</h1>
+        <h1 class="title2">交友功能區</h1>
         <h2 class="desc">哲偉 please add some text here<br>背景圖要換</h2>
         <div class="btn">
             <a href="{% url 'music:music' %}"><button id="myBtn">Enter</button></a>
@@ -129,8 +155,10 @@
 </div>
 
 <div id="controls3" class="carousel slide" data-ride="carousel">
+    <div class="cover3">
+    </div>
     <div class="text">
-        <h1 class="title">斗內功能區</h1>
+        <h1 class="title3">斗內功能區</h1>
         <h2 class="desc">大哥 please add some text here<br>背景圖要換</h2>
         <div class="btn">
             <a href="{% url 'donate:index' %}"><button id="myBtn">Enter</button></a>

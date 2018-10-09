@@ -2,6 +2,19 @@
 {% load static %}
 {% block styles %}
 <style>
+body{
+        background-image: url("../../static/images/album.jpg")
+}
+header {
+    margin:auto;
+    text-decoration:none;
+    color: white;
+    background-color: rgba(22, 22, 22,0.6) !important;
+}
+footer{
+    color:white;
+    font-size: 16px;
+}
 /* boostnipp chat room */
 .chat
 {
@@ -293,12 +306,12 @@ uncomment this part if you haven't added this code anywhere else
     </div>
         <div class="panel-footer">
             <div class="input-group">
-                <input id="inputMessage" type="text" maxlength="100" class="form-control input-sm" placeholder="input your message" />
+                <input id="InputMessage" type="text" maxlength="100" class="form-control input-sm" placeholder="input your message"/>
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-warning btn-sm" id="btnSend" >
+                        <button type="button" class="btn btn-warning btn-sm" id="btnSend">
                             Send
                         </button>
-                        <button type="button" class="btn btn-danger btn-sm" id="btnClean" >
+                        <button type="button" class="btn btn-danger btn-sm" id="btnClean">
                             Clean
                         </button>
                     </span>
@@ -322,7 +335,7 @@ uncomment this part if you haven't added this code anywhere else
         </div> 
         <hr class="col-md-12">
         <div class="col-md-12 col-md-offset-1" id="webchat">
-            <iframe src='https://webchat.botframework.com/embed/maoBot?s=JcIKINeI66g.cwA.G2k.8k7PW7RH-QX4CqDlFbZ5NNiyZvBfipA8tT5nUFVL1uA'></iframe>
+            <!-- <iframe src='https://webchat.botframework.com/embed/maoBot?s=JcIKINeI66g.cwA.G2k.8k7PW7RH-QX4CqDlFbZ5NNiyZvBfipA8tT5nUFVL1uA'></iframe> -->
         </div>
         
     </div>
@@ -340,6 +353,7 @@ uncomment this part if you haven't added this code anywhere else
 <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 <!-- chatbot -- 內嵌程式碼 -->
 <script src="https://cdn.botframework.com/botframework-webchat/preview/botchat.js"></script>
+
 <script>
 // ================== Chat room control js =====================
     $(document).ready(function(){
@@ -356,53 +370,56 @@ uncomment this part if you haven't added this code anywhere else
         // // jquery send message
         // $('#btnSend').click(function(){
         //     // var userid = $('').val();
-        //     var message = $('#inputMessage').val();
-        //     var messageUpdate = setDate();
+        //     var messages = $('#inputMessage').val();
+        //     var messagesUpdate = setDate();
         //     // 顯示對話訊息
-        //     $.get('/makefriends/send/'+ messageUpdate +'/',{"message":message},function(datas){
+        //     $.get('/makefriends/send/'+ messagesUpdate +'/',{"messages":messages},function(datas){
         //         $('#outputMessage').html(datas);
         //     })
         // })  
           
         //jquery 新增訊息
-        $('#buttonSubmit').click(function(){    
+        $('#btnSend').click(function(){    
             var datas = {
-            // "memberId": $('#InputMemberId').val(),
-            "message": $('#InputMessage').val(),
-            "messageUpdate": setDate(),
+            "memberId": 1,
+            "messages": $('#InputMessage').val(),
+            "messagesUpdate": setDate(),
             };
-
-        $.post('/api/product/',datas,function(data){
-            // $('#InputMemberId').val('')
+            console.log(datas)
+        $.post('/api/Friends_Chat/',datas,function(data){
+            $('#InputMemberId').val('')
+            // console.log(datas)
             $('#InputMessage').val('')
             setDate()
                 loadMessage()
             })
         })
 
+        
         //讀取所有訊息
         function loadMessage(){
-            $.getJSON('/api/product',function(datas){
+            $.getJSON('/api/Friends_Chat/',function(datas){
                 // console.log(datas)
                 var tb = $('#outputMessage')
-                // var docFrag = $(document.createDocumentFragment())
-                $.each(datas,function(idx,todo){
+                var docFrag = $(document.createDocumentFragment())
+                $.each(datas,function(idx,product){
                     //a > index
                     //b > {}
                     // var cell1 = text(todo.id)
-                    var cell1 = $('p').html("<h3>" + todo.memberId + "</h3>")
-                    var cell2 = $('p').html("<h3>" + todo.message + "</h3>")
-                    var cell3 = $('p').html("<h5>" + todo.messageUpdate + "</h5>")
+                    var cell1 = $('p').html("<h3>" + datas[idx].memberId + "</h3>")
+                    var cell2 = $('p').html("<h3>" + datas[idx].messages + "</h3>")
+                    var cell3 = $('p').html("<h5>" + datas[idx].messagesUpdate + "</h5>")
                     var datas = $('<div class="mwt_border"><span class="arrow_l_int"></span><span class="arrow_l_out"></span></div>').html(cell1 + ": " + cell2 + "\n" + cell3)
-                    docFrag.append(datas)
+                    
                 })
-                if(memberId == memberId)
+                if(memberId == memberId){
                     tb.html(docFrag).css("background","lightorange")
-                else
+                }else{
                     tb.html(docFrag).find("div").css({"background":"lightgreen", "float":"right"}).find("span:eq(0)").toggleClass("arrow_r_int").find("span:eq(1)").toggleClass("arrow_r_out")
+                }
             })
         }
-        // loadMessage()
+        loadMessage()
 
         // jquery clean message
         $('#btnClean').click(function(){  
@@ -429,10 +446,10 @@ uncomment this part if you haven't added this code anywhere else
         })
         
         // Chatbot -- 內嵌程式碼
-        window.WebChat.renderWebChat({
-            directLine: window.WebChat.createDirectLine({ secret:           'JcIKINeI66g.cwA.G2k.8k7PW7RH-QX4CqDlFbZ5NNiyZvBfipA8tT5nUFVL1uA' })
-        }, 
-        document.getElementById('webchat'));
+        // window.WebChat.renderWebChat({
+        //     directLine: window.WebChat.createDirectLine({ secret:           'JcIKINeI66g.cwA.G2k.8k7PW7RH-QX4CqDlFbZ5NNiyZvBfipA8tT5nUFVL1uA' })
+        // }, 
+        // document.getElementById('webchat'));
         
         // boostrap nav control
         $('#pills-tab-1').click(function(e){

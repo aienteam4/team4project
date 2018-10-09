@@ -18,6 +18,3 @@ def contact(request):
 def login_or_register(request):
     title="Please log in or register."
     return render(request,'home/login_or_register.html',locals())
-
-def main(request):
-    return redirect("/")
