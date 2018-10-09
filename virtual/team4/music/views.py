@@ -4,10 +4,10 @@ import random,re,json,time
 from django.http import HttpResponse
 from django.contrib.sessions.models import Session
 from .forms import SongListForm
-from datetime import datetime
+from datetime import datetime,date,timedelta
 from bs4 import BeautifulSoup
 from selenium import webdriver
-
+from django.utils import timezone
 
 # Create your views here.
 
@@ -219,13 +219,41 @@ def worldHotSong(request):
     soup = BeautifulSoup(driver.page_source, 'lxml')
     # 存放資料的字典
     dataDict = {}
-    for song in soup.select('ytd-video-renderer #video-title',limit=4):
+    for song in soup.select('ytd-video-renderer #video-title',limit=10):
         print(song.get('aria-label'))
+        nameEnd = song.get('aria-label').find("上")
+        name = song.get('aria-label')[:nameEnd-1]
+        print(name)
         print(song.get('href'))
+        idStart = song.get('href').find("=")
+        id = song.get('href')[idStart+1:]
+        print(id)
         print("=========================")
-        dataDict[song.get('aria-label')] = song.get('href')
+        dataDict[name] = id
     driver.close()
     print(dataDict)
     # 把字典轉化成json字串
     dataJson = json.dumps(dataDict, ensure_ascii=False, indent=4)
     return HttpResponse(dataJson)              
+
+#畫圖
+def drawChart(request):
+    revel_list = [] # 製作存放數據的陣列
+    happy_list = []
+    lonely_list = []
+    sad_list = []
+    anger_list = []
+    print(revel_list, happy_list, lonely_list, sad_list, anger_list)
+    day = 6
+    todaydate = timezone.now()
+    while day >= 0 :        
+        enddate = todaydate - timedelta(days=day)
+        startdate = enddate + timedelta(days=1)
+        revel_list.append(len(Orderhistory.objects.filter(order_time__range = [enddate, startdate]))) 
+        happy_list.append(len(Orderhistory.objects.filter(order_time__range=[enddate, startdate], song__mood = 2)))
+        lonely_list.append(len(Orderhistory.objects.filter(order_time__range=[enddate, startdate], song__mood = 3)))
+        sad_list.append(len(Orderhistory.objects.filter(order_time__range=[enddate, startdate], song__mood = 4)))
+        anger_list.append(len(Orderhistory.objects.filter(order_time__range=[enddate, startdate], song__mood = 5)))
+        day -= 1    
+    # print(revel_list) 
+    return render(request, 'chart.html', locals())
