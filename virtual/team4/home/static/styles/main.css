@@ -44,15 +44,13 @@ body {
     background-color: rgb(31, 31, 31);
 }
 
-::-webkit-scrollbar-thumb
-{
-	border-radius: 10px;
-	background-image: -webkit-gradient(linear,
-									   left bottom,
-									   left top,
-									   color-stop(0.44, rgb(52, 206, 159)),
-									   color-stop(0.72, rgb(41, 160, 124)),
-                                       color-stop(0.86, rgb(38, 133, 104)));                         
+::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+    background-image: 
+        -webkit-gradient(linear,left bottom,left top,
+        color-stop(0.44, rgb(52, 206, 159)),
+        color-stop(0.72, rgb(41, 160, 124)),
+        color-stop(0.86, rgb(38, 133, 104)));                         
 }
 hr {   
     margin-left: 30px;
