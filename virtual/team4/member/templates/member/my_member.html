@@ -1,0 +1,127 @@
+<link href="../../static/styles/main.css" rel="stylesheet" />
+{% extends "main.html" %}
+{% block styles %}
+<style>
+    body{
+        background-image: url("../../static/images/album.jpg")
+    }
+    .main{
+        font-family: 'Ubuntu Mono', '微軟正黑體', monospace;
+        padding-top: 20px;
+        width:70%;
+        margin: auto;
+        font-size: 18px;
+        border-radius: 10px;
+    }
+    .title{
+        padding-top: 80px;
+    }
+    .form{
+        font-family: 'Ubuntu Mono', '微軟正黑體', monospace;
+        font-weight: 500;
+        /* width:70%; */
+        margin: auto;
+    }
+    tr{
+        font-size: 20px;
+    }
+    #sdk{
+        width:40%;
+        text-align: center;
+        line-height: 80%;
+        font-size: 40px;
+        margin: auto;
+        color:rgb(52, 206, 159);
+    }
+    #sdk_button{
+        width: 100% !important;
+    }
+    .login-or {
+        position: relative;
+        font-size: 18px;
+        color: rgb(255, 255, 255);
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .hr-or {
+        background-color: #cdcdcd;
+        height: 1px;
+        width: 50%;
+        margin: auto;
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+    }
+    a.btn-danger{
+        border-radius: 30px;
+        height: 40px;
+        width:60px;
+        padding-top: 10px;
+    }
+    a.btn-danger:hover{
+        background-color: rgb(150, 40, 40);
+        border-color: rgb(150, 40, 40);
+        transition: all 0.3s linear;
+        border-radius: 10px;
+    }
+    a.btn-secondary{
+        background-color: rgb(52, 206, 159);
+        border-color: rgb(52, 206, 159);
+        border-radius: 30px;
+        height: 40px;
+        width:60px;
+        padding-top: 10px; 
+    }
+    a.btn-secondary:hover{
+        background-color: rgb(43, 160, 125);
+        border-color: rgb(43, 160, 125);
+        transition: all 0.3s linear;
+        border-radius: 10px;
+    }
+    ::-webkit-scrollbar{
+        width: 6 !important;
+        background-color: rgb(31, 31, 31);
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="form">
+    <div class="title">
+        <div id="sdk">
+        我的會員資料
+        </div>
+        <div class="login-or">
+        <hr class="hr-or">
+    </div>
+</div>
+<div class="main">
+   <table class="table table-bordered">
+       <thead>
+           <tr>
+               <th>姓名</th>
+               <th>密碼</th>
+               <th>電子郵件</th>
+               <th>職業</th>
+               <th>生日</th>
+               <th>性別</th>
+               <th>編輯</th>
+           </tr>
+       </thead>
+       <tbody>
+           <tr>
+               <td>{{members.1}}</td>
+               <td>{{members.2}}</td>
+               <td>{{members.3}}</td>
+               <td>{{members.4}}</td>
+               <td>{{members.5}}</td>
+               <td>{{members.6}}</td>
+               <td>
+                    <a href="{% url 'member:update' members.0 %}" class="btn btn-secondary"><i class="fas fa-edit"></i></a>
+                </td>
+           </tr>
+       </tbody>
+   </table>
+</div>
+
+{% endblock%}

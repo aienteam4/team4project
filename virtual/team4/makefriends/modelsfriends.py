@@ -21,14 +21,14 @@ class Friends_Talk:
     #新增交友資料    
     def create(self, friends_chat):
         with connection.cursor() as cursor:
-            sql = """insert into friends_chat(memberId,message,messageUpdate) values(%s,%s,%s)"""
+            sql = """insert into friends_chat(memberId,messages,messagesUpdate) values(%s,%s,%s)"""
             #tuple  
             cursor.execute(sql, friends_chat)
 
     #更新交友訊息資料  
     def update(self, friends_chat):
         with connection.cursor() as cursor:
-            sql = """update friends_chat set message=%s messageUpdate=%s where id=%s"""
+            sql = """update friends_chat set messages=%s messagesUpdate=%s where id=%s"""
             #tuple 
             cursor.execute(sql, friends_chat)
 
@@ -42,6 +42,6 @@ class Friends_Talk:
     #刪除交友訊息資料 
     def deleteOne(self, friends_chat):
         with connection.cursor() as cursor:
-            sql = """delete from friends_chat set message=%s where id=%s"""
+            sql = """delete from friends_chat set messages=%s where id=%s"""
             #tuple
             cursor.execute(sql, friends_chat)

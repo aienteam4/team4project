@@ -1,0 +1,101 @@
+<link href="../../static/styles/main.css" rel="stylesheet" />
+{% extends "main.html" %}
+{% block styles %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style/music.css' %}">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <style>
+        #container {
+            min-width: 310px;
+            max-width: 800px;
+            height: 500px;
+            margin: 0 auto;
+            padding: 100px 0px 0px 0px;
+            }
+    </style>
+{% endblock %}
+{% block content %}
+    
+<div id="container"></div>
+    
+<script>
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth(); //January is 0!
+var yyyy = today.getFullYear();
+                
+        Highcharts.chart('container', {
+
+title: {
+  text: '心情點播數據分析'
+},
+
+subtitle: {
+  text: '近七天內的心情點播數據'
+},
+xAxis: {
+        type: 'datetime'
+    },
+yAxis: {
+  title: {
+    text: '點閱數'
+  }
+},
+legend: {
+  layout: 'vertical',
+  align: 'right',
+  verticalAlign: 'middle'
+},
+
+plotOptions: {
+        series: {
+            pointStart: Date.UTC(yyyy, mm, dd) - 6 * 24 * 3600 * 1000 , //6天以前
+            pointInterval: 24 * 3600 * 1000 // one day
+        }
+    },
+
+series: [{
+  name: '狂歡',
+  data: {{ revel_list }}
+}, {
+  name: '喜悅',
+  data: {{ happy_list }}
+}, {
+  name: '孤單',
+  data: {{ lonely_list }}
+}, {
+  name: '傷心',
+  data: {{ sad_list }}
+}, {
+  name: '憤怒',
+  data: {{ anger_list }}
+}],
+
+responsive: {
+  rules: [{
+    condition: {
+      maxWidth: 500
+    },
+    chartOptions: {
+      legend: {
+        layout: 'horizontal',
+        align: 'center',
+        verticalAlign: 'bottom'
+      }
+    }
+  }]
+}
+
+});
+    </script>
+
+{% endblock %}
+
+{% block scripts %}
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{% static 'scripts/jquery-ui.min.js' %}"></script>
+{% endblock %}

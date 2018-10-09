@@ -30,14 +30,26 @@ class Category(models.Model):
     class Meta:
         managed = False
         db_table = 'categories'
-
-class Friends_Chat(models.Model):
-    memberId = models.IntegerField()
-    message = models.TextField()
-    messageUpdate = models.DateTimeField(auto_now_add=True) 
+# Create your models here.
+class Messages(models.Model):
+    name = models.CharField(max_length=45)
+    gender = models.CharField(max_length=2, null=True)
+    email = models.CharField(max_length=200, null=True)
+    song = models.CharField(max_length=10, null=True)
+    content = models.TextField()
+    response = models.TextField( null=True)
 
     class Meta:
         managed = False
+        db_table = 'messages'
+
+class Friends_Chat(models.Model):
+    memberId = models.IntegerField()
+    messages = models.TextField()
+    messagesUpdate = models.DateTimeField(auto_now=True) 
+
+    class Meta:
+        managed = True
         db_table = 'Friends_Chat'
 
 

@@ -20,10 +20,13 @@ from django.conf.urls.static import static
 from rest_framework.routers import DefaultRouter
 from product import views
 
+
 router = DefaultRouter()
 router.register('product', views.ProductViewSet)
 router.register(r'songlist', views.SongListViewSet)
 router.register('category', views.CategoryViewSet)
+router.register(r'Friends_Chat', views.Friends_ChatViewSet)
+router.register(r'comment', views.MessagesViewSet)
 
 urlpatterns = [
     #http://localhost:8000/admin

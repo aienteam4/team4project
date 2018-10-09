@@ -1,16 +1,61 @@
 {% extends "main.html" %}
 {% block styles %}
 <style>
+  body{
+    background-image: url("../../static/images/album1.jpg")
+  }
   .main{
     font-family: 'Ubuntu Mono', '微軟正黑體', monospace;
-    padding-top: 80px;
+    padding-top: 20px;
     width:50%;
     margin: auto;
     font-size: 18px
   }
+  
+  .title{
+    padding-top: 80px;
+  }
+  .form{
+    font-family: 'Ubuntu Mono', '微軟正黑體', monospace;
+    font-weight: 500;
+    /* width:70%; */
+    margin: auto;
+  }
+  label{
+    text-align: right;
+  }
+  #sdk{
+    width:40%;
+    text-align: center;
+    line-height: 80%;
+    font-size: 40px;
+    margin: auto;
+    color:rgb(223, 155, 68);
+  }
+  #sdk_button{
+    width: 100% !important;
+  }
+  .login-or {
+    position: relative;
+    font-size: 18px;
+    color: rgb(255, 255, 255);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  
+  .hr-or {
+    background-color: #cdcdcd;
+    height: 1px;
+    width: 30%;
+    margin: auto;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+  }
   button.btn{
-    background-color: rgb(52, 206, 159);
-    border-color: rgb(52, 206, 159);
+    background-color: rgb(223, 155, 68);
+    border-color: rgb(223, 155, 68);
     border-radius: 30px !important;
     width: 150px;
     font-size: 20px !important;
@@ -21,17 +66,34 @@
     padding-bottom: 3px;
   }
   button.btn:hover{
-    background-color: rgb(43, 160, 125);
-    border-color: rgb(43, 160, 125);
+    background-color: rgb(190, 137, 66);
+    border-color: rgb(190, 137, 66);
     transition: all 0.3s linear;
     border-radius: 10px !important;
   }
   #update{
     padding-left: 40%;
   }
+  #inputGender{
+    margin-top:13px;
+    margin-left:10px;
+  }
+  #update{
+    padding-left: 45%;
+  }
 </style>
 {% endblock %}
 {% block content %}
+<div class="form">
+  <div class="title">
+    <div id="sdk">
+      會員資料更新
+    </div>
+    <div class="login-or">
+      <hr class="hr-or">
+    </div>  
+  </div>
+</div>
 <form method="POST">
   <div class="main">
     {% csrf_token %}
@@ -67,6 +129,14 @@
       <label for="inputJob" class="col-sm-2 col-form-label">生日</label>
       <div class="col-sm-10">
         <input type="date" class="form-control" id="inputBirth" name="birthday" value="{{member.5}}">
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="inputGender" class="col-sm-2 col-form-label">性別</label>
+      <div class="col-sm-5">
+          男性<input type="radio"  id="inputGender" name="gender" value="Men">
+          女性<input type="radio"  id="inputGender" name="gender" value="Women">
       </div>
     </div>
 
