@@ -11,12 +11,12 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RenameField(
-            model_name='friends_chat',
+            model_name='friends_Chat',
             old_name='messages',
             new_name='message',
         ),
         migrations.RenameField(
-            model_name='friends_chat',
+            model_name='friends_Chat',
             old_name='messagesUpdate',
             new_name='messageUpdate',
         ),

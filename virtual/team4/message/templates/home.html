@@ -30,7 +30,7 @@
     <div class="col-md-9">
        <table id="commentlist" class="table table-bordered" >
          <thead>
-            <tr style="color:white"><th>編號</th><th>名子</th><th>留言</th><th>管理</th></tr>
+            <tr style="color:white"><th>編號</th><th>名子</th><th>留言</th><th>選項</th></tr>
          </thead>
          <tbody style="color:white">
 
@@ -48,7 +48,9 @@
          <label for="inputtext">content</label>
          <input type="text" class="form-control" id="content" placeholder="新增留言">
        </div>
-       <div class="float:right"><span><button type="button" id="btnsubmit" class="btn btn-primary">留言</button></span></div>
+       <div><h3 style="color:white" >留言欄位可直接編輯內容</h3></div>
+       <div><button type="button" id="btnsubmit" class="btn btn-primary">留言</button>
+      </div>
      </form>
      
     </div>
@@ -142,74 +144,52 @@ $('#commentlist>tbody').on('click','button:nth-child(1)',function(){
      var id = $(this).parents('tr').find('td:nth-child(1)').text();
      var name = $(this).parents('tr').find('td:nth-child(2)').text();
      var content = $(this).parents('tr').find('td:nth-child(3)').text();
+     
+    
     //  var modelname = $(this).parents('tr').find('td:nth-child(4)').text();
     //  var description = $(this).parents('tr').find('td:nth-child(5)').text();
     //  var productimage = $(this).parents('tr').find('td:nth-child(8)').text();
-     var datas = {
-        
-        "id": id,
+     if(name && content){
+       var datas = {
+        //"id": id,
         "name":name,
-        "content":content,
+        "content":content
+        };
+        // var content = $(this).parents('tr').find('td:nth-child(3)').empty();
+        console.log(datas)
         // "modelnumber": modelnumber,
         // "modelname": modelname,
         // "description": description,
         // "productimage": productimage
-     };
+       
+        $.ajax({
+            url:'/api/comment/' + id +'/',
+            type:'PUT',
+            data:datas
+        }).done(function(data){
+          //  if (data == 1){
 
-  $.ajax({
-      url:'/api/comment/' + id + '/',
-      type:'PUT',
-      data:datas
-  }).done(function(data){
-    loadcomment();
+          //  }
+           console.log(data)
+           loadcomment();
+        });
+          //重新載入產品
+          
+          // var datas
+          // $('tr>td').each(function(){
+          //  $(this).val('');
+          //  $('').val('');
+          //  $('').val('');
+      //  })
+          
+      }
+     else{
+       
+       loadcomment();
+       alert("資料填寫不完整");
+     }
   });
-
-});
 })
   
   </script>
-  {% endblock %}
-
-  $('.table>tbody').on('click',':button:nth-child(1)',function(){
-    $('#add').prop('disabled',true);
-    $('#update').prop('disabled',false);
-    var id = $(this).parents('tr').find('td:nth-child(1)').text();
-    $.get('/single/' + id, function(data){
-        $('#productid').val(data.ProductId)
-        $('#categoryid').val(data.CategoryId);
-        $('#modelnumber').val(data.ModelNumber);
-        $('#modelname').val(data.ModelName);
-        $('#unitcost').val(data.UnitCost);
-        $('#description').val(data.Description);
-        $('#img1').attr('src','/media/' + data.ProductImage).addClass('show')
-        $('#hideimage').val(data.ProductImage)
-    })
-})
-$('#update').click(function(){
- var formData = new FormData(document.forms[0])
-  $.ajax({
-    'url':'/update/' + $('#productid').val(),
-    'method':'POST',
-    'data':formData,
-    'contentType': false,
-    'processData':false
-  }).done(function(data){
-    if(data == "1"){
-      alert("修改成功");
-      //重新載入產品
-      clearInput();
-      loadProducts();
-    }
-  }).fail(function(){
-    alert('error')
-  })
-})
-
-
-function clearInput(){
-    $(':input').each(function(){
-        $(this).val('');
-        $('#categoryid').val(0);
-        $('#img1').removeAttr('src');
-    })
-}
+{% endblock %} 
