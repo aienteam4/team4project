@@ -14,6 +14,7 @@ urlpatterns = [
     path('register/',views.register,name="register"),
     path('delete/<int:id>',views.delete,name="delete"),
     path('update/<int:id>', views.update, name="update"),
-    path('show/', views.show),
+    # path('show/', views.show),
     # path('check/<str:name>',views.checkname, name="checkname"),
+    path('captcha/',views.captcha, name='captcha')
 ]
