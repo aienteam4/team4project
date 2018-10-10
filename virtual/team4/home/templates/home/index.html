@@ -27,7 +27,6 @@
     .carousel-control-next-icon, .carousel-control-prev-icon{
         width:50px;
         height: 50px;
-        color: blue;
     }
     .text{
         position: absolute;
@@ -44,16 +43,28 @@
         z-index:1;
     }
     .title1{
-        color:rgb(52, 206, 159);
+        color:rgb(19, 179, 131);
         font-size: 60px;
+    }
+    .title1-1{
+        color:rgb(78, 219, 177);
+        font-size: 50px;
     }
     .title2{
-        color:rgb(223, 155, 68);
+        color:rgb(212, 124, 9);
         font-size: 60px;
     }
+    .title2-1{
+        color:rgb(223, 155, 68);
+        font-size: 50px;
+    }
     .title3{
-        color:rgb(74, 174, 250);
+        color:rgb(128, 197, 250);
         font-size: 60px;
+    }
+    .title3-1{
+        color:rgb(71, 173, 251);
+        font-size: 50px;
     }
     .desc{
         font-size: 25px;        
@@ -62,7 +73,7 @@
         margin: 0;
         padding: 0;
     }
-    #myBtn {
+    #myBtn1, #myBtn2, #myBtn3{
         font-family: 'Trebuchet MS', 'Lucida Sans Unicode';
         font-size: 25px;
         font-weight: 1000;
@@ -74,10 +85,16 @@
         border-radius: 25px;
         margin-top:10px;
     }
-    #myBtn:hover {
+    #myBtn1:hover, #myBtn2:hover ,#myBtn3:hover {
         background: rgb(43, 165, 128);
         color: rgb(255, 255, 255);
         transition: all 0.5s ease-in-out;
+    }
+    #myBtn2:hover{
+        background: rgb(223, 155, 68);
+    }
+    #myBtn3:hover{
+        background: rgb(71, 173, 251);
     }
     .text_area{
         position:fixed;
@@ -89,25 +106,26 @@
 {% endblock %}
 {% block content %}
 <!-- carousel -->
-<div id="controls1" class="carousel slide" data-ride="carousel">
+<div id="controls1" class="carousel slide carousel-fade" data-ride="carousel">
     <div class="cover1">
     </div>
     <div class="text">
         <h1 class="title1">音樂功能區</h1>
+        <h1 class="title1-1">我是副標題</h1>
         <h2 class="desc">阿毛 please add some text here<br>背景圖要換</h2>
         <div class="btn">
-            <a href="{% url 'music:music' %}"><button id="myBtn">Enter</button></a>
+            <a href="{% url 'music:music' %}"><button id="myBtn1">Enter</button></a>
         </div>
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img class="d-block w-100" src="../../static/images/landscape 1.jpg" alt="First slide">
+            <img class="d-block w-100" src="../../static/images/music1.jpg" alt="First slide">
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100" src="../../static/images/landscape 2.jpg" alt="Second slide">
+            <img class="d-block w-100" src="../../static/images/music2.jpg" alt="Second slide">
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100" src="../../static/images/landscape 3.jpg" alt="Third slide">
+            <img class="d-block w-100" src="../../static/images/music3.jpg" alt="Third slide">
         </div>
     </div>
     <!-- <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -125,20 +143,21 @@
     </div>
     <div class="text1">
         <h1 class="title2">交友功能區</h1>
+        <h1 class="title2-1">我是副標題</h1>
         <h2 class="desc">哲偉 please add some text here<br>背景圖要換</h2>
         <div class="btn">
-            <a href="{% url 'music:music' %}"><button id="myBtn">Enter</button></a>
+            <a href="{% url 'music:music' %}"><button id="myBtn2">Enter</button></a>
         </div>
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img class="d-block w-100" src="../../static/images/landscape 4.jpg" alt="First slide">
+            <img class="d-block w-100" src="../../static/images/friendship2.jpg" alt="First slide">
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100" src="../../static/images/landscape 5.jpg" alt="Second slide">
+            <img class="d-block w-100" src="../../static/images/friendship1.jpg" alt="Second slide">
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100" src="../../static/images/landscape 6.jpg" alt="Third slide">
+            <img class="d-block w-100" src="../../static/images/friendship3.jpg" alt="Third slide">
         </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleControls2" role="button" data-slide="prev">
@@ -151,25 +170,26 @@
     </a> -->
 </div>
 
-<div id="controls3" class="carousel slide" data-ride="carousel">
+<div id="controls3" class="carousel slide carousel-fade" data-ride="carousel">
     <div class="cover3">
     </div>
     <div class="text">
-        <h1 class="title3">FUSIC CHATBOT SHOP</h1>
+        <h1 class="title3">FUSIC</h1>
+        <h1 class="title3-1">CHATBOT SHOP</h1>
         <h2 class="desc">Bot Shopping & Chatting</h2>
         <div class="btn">
-            <a href="{% url 'donate:index' %}"><button id="myBtn">Enter</button></a>
+            <a href="{% url 'donate:index' %}"><button id="myBtn3">Enter</button></a>
         </div>
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img class="d-block w-100" src="../../static/images/landscape 7.jpg" alt="First slide">
+            <img class="d-block w-100" src="../../static/images/chatbotshop1.jpg" alt="First slide">
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100" src="../../static/images/landscape 8.jpg" alt="Second slide">
+            <img class="d-block w-100" src="../../static/images/chatbotshop2.jpg" alt="Second slide">
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100" src="../../static/images/landscape 1.jpg" alt="Third slide">
+            <img class="d-block w-100" src="../../static/images/chatbotshop3.jpg" alt="Third slide">
         </div>
     </div>
     <!-- <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">

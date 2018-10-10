@@ -1,9 +1,18 @@
 ﻿from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from . import models
-from donate.models import Product
+from donate.models import Product, Apnews
 from django.core.files.storage import FileSystemStorage
-
+import datetime
+from django.utils.encoding import smart_str
+import base64
+from django.core import serializers
+import json
+import requests
+from bs4 import BeautifulSoup
+import re
+import urllib
+from django.db import connection
 # Create your views here.
 def siteadm(request):  
     #cookies中沒有name表示沒有登入過
@@ -32,4 +41,68 @@ def siteadm(request):
 
 def index(request): 
     title = "斗NET直播主網"
+    #cookies中沒有name表示沒有登入過
+    #轉到登入頁面
+    if 'name_member' not in request.COOKIES:
+        theUrl = request.path
+        strJS = "<script>alert('會員請先登入 非會員請註冊');location.href='/login_or_register/?url=" + theUrl + "'</script>"
+        return HttpResponse(strJS)
+    else:
+        if request.method == "POST":
+            #name=value > key=value
+            login = request.POST["login"]
+            pwd = request.POST["password"]
+            captcha = request.POST["captcha"]
+            if request.session['captcha'] == captcha:
+                if (login=="admin" and pwd=="admin"):
+                    name = "cookieadmin"
+                    strJS = "<script>alert('登入成功');location.href='/donate/siteadm'</script>"
+                    response = HttpResponse(strJS)
+                    remember = None
+                #記住我有打勾保留cookie1天
+                    if 'remember' in request.POST.keys():
+                    #    remember = request.POST["remember"]
+                        expiresdate = datetime.datetime.now() + datetime.timedelta(days=1)
+                        response.set_cookie("nameadm",name,expires=expiresdate)
+                    else:
+                        response.set_cookie("nameadm",name)
+                    return response
+                else:
+                    # print("登入失敗")
+                    # return HttpResponse("<h2>登入失敗</h2>")
+                    return HttpResponse("<script>alert('登入失敗');location.href='/donate/'</script>")
+            else:
+                return HttpResponse("<script>alert('驗證碼錯誤，請重新輸入');location.href='/donate/'</script>")
+
+
+            #Back to Index
     return render(request,'donate/site.html',locals())
+
+def logout(request):
+    strJS = "<script>alert('登出');location.href='/donate/'</script>"
+    response = HttpResponse(strJS)
+    response.delete_cookie('nameadm')
+    return response
+
+def captcha(request):    
+    from django.contrib.staticfiles import finders
+    import random
+    # 安裝 pillow  pip install pillow
+    from PIL import Image,ImageDraw,ImageFont   
+    list1 = random.sample(['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F','H'],5)
+    txt = ''.join(list1)    
+    
+    # todo 將產生的數字及字母存到session中
+    request.session['captcha'] = txt  
+    
+    width = 15 * 4
+    height = 30
+    image = Image.new('RGB', (width, height), (255, 255, 255))    
+    # 下載字體https://fonts.google.com/
+    thefont = finders.find('fonts/Kavivanar-Regular.ttf')
+    font = ImageFont.truetype(thefont, 16)   
+    draw = ImageDraw.Draw(image)
+    draw.text((5, 5), txt,font=font, fill=(255, 0, 0))
+    response = HttpResponse(content_type="image/png")
+    image.save(response, "PNG")
+    return response
