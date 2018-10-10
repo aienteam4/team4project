@@ -82,6 +82,11 @@
     ul.drop-down-menu li:hover > ul { /* 滑鼠滑入展開次選單*/
         display: block;
     }
+    ul.drop-down-menu li ul li{
+        border:2px solid rgb(255, 255, 255);
+        /* background-color: rgba(255, 255, 255, 0.3); */
+        border-radius: 10px;
+    }
     ul.drop-down-menu li ul li:hover {
         width:auto;
         /* margin-top: 10px; */
@@ -142,7 +147,7 @@
                     </li>
                     <li><a href="#">Message board</a>
                     </li>
-                    <li><a href="{% url 'donate:index' %}">Donate</a>
+                    <li><a href="{% url 'donate:index' %}">ChatBot Shop</a>
                     </li>
                 </ul>
             </li>
