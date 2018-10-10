@@ -1,10 +1,10 @@
 
 var player;
-// var songUrl = '';
+var songUrl = '';
 var songId = 0;
 var youtubeId ='';
 var buttons = document.querySelectorAll('button');
-var flag = true;
+var flag = true;        //引入youtube api
 var timeOut;            //讓按鈕被按下五秒鐘後有另外一套樣式
 var countPlayTime;      //計算歌曲被播放的長度
 var countFlag = false;
@@ -14,6 +14,11 @@ var videoFlag = true;
 var btnStyle1='mood';
 var btnStyle2='moodTxt';
 var id = "";
+<<<<<<< HEAD
+=======
+var tasteNum = 0;
+var moodNum = "";
+>>>>>>> 86c4d71c74cb9cfc449a11a2f98b24fbfb756d60
 // 為增加說明文字變化，做一個0~2的亂數產生器
 var randomNum = Math.floor(Math.random()*3);
 
@@ -49,28 +54,29 @@ var originTxt = ['狂歡','愉悅','孤寂','悲傷','憤怒']
 // 游標移到心情選擇按鈕時，會替換說明文字
 // 憤怒5、難過4、寂寞3、開心2、狂歡1
 
+function ajaxFindSong(){
+    $.getJSON('findsong/', {"moodNum": moodNum}, function(data){
+        songId = data.songId;
+        youtubeId = data.youtubeId.replace(/(\r\n\t|\n|\r\t|\s)/gm,"");
 
-
-$(document).ready(function(){
-   
-    function playCount()        //函式：計算播放時間                      
-{
-    playTime += 1;
-    if (playTime >= 600) clearTimeout(countPlayTime);  // 避免背景不斷計時
-};
-
-    function stopPlayCount()    //函式：停止計算播放時間
+        console.log(youtubeId +"歌曲ID："+ songId);
+        // $('#player').attr('src','https://www.youtube.com/embed/'+youtubeId+'?rel=0&amp;showinfo=0&autoplay=1');
+    })
+}      
+function stopPlayCount()    //函式：停止計算播放時間
 {
         if (playTime >= 10) var tasteNum = 1;
         else tasteNum = 0;
         console.log(tasteNum);
         console.log(songId);
         $.getJSON("taste/", { "taste": tasteNum, "songId" : songId }, function(data){
-            $("#songdata > ul").append('<li class="nav-item"><span style="display:none">'+ data.songId +'</span>'+'<span style="display:none">'+ data.youtubeId +'</span>'+'<div class="xxx"><i class="fas fa-circle"></i>'+ data.songname + " " + data.singer + '</div></li>');
-            $("li.nav-item:last").click(playOldYt)
-        });
-        playTime = 0;
+            $("#songdata > ul").append('<li class="nav-item"><span style="display:none">'+ data.songId +
+            '</span>'+'<span style="display:none">'+ data.youtubeId +'</span>'+'<div class="xxx"><i class="fas fa-circle"></i>'
+            + data.songname + " " + data.singer + '</div></li>');
+            $("#songdata li.nav-item:last").click(playOldYt)
+        });        
         clearTimeout(countPlayTime);
+<<<<<<< HEAD
 };
     function playOldYt(){
         var songid = $(this).children("span:first").text();
@@ -82,8 +88,61 @@ $(document).ready(function(){
         $('#player').attr('src','https://www.youtube.com/embed/'+id+'?rel=0&amp;showinfo=0&autoplay=1')   
         id = ""; 
     }
+=======
+        playTime = 0;
+};
+
+function playCount()        //函式：計算播放時間                      
+{
+    playTime += 1;
+    if (playTime >= 600) clearTimeout(countPlayTime);  // 避免背景不斷計時
+};
+
+function playOldYt(){
+    if (playTime>0){
+        if (playTime >= 10) tasteNum = 1;
+        else tasteNum = 0;
+        $.get("taste/", { "taste": tasteNum, "songId" : songId })            
+    };
+    var songid = $(this).children("span:first").text();
+    id = $(this).children("span:last").text().replace(/(\r\n\t|\n|\r\t|\s)/gm,"");
+    console.log(songid)
+    console.log(id);            
+    // 也寫入資料庫，到這裡已確定聽者喜歡這首歌
+    $.get("taste/", { "taste": 1, "songId":songid });
+    player.loadVideoById(id);   
+    id = "";
+    playTime = 0;
+    clearTimeout(countPlayTime);
+}
+
+$(document).ready(function(){
+    
+    // 爬蟲熱門五首歌
+    $('#worldhotsong li:first')
+        .mouseenter(function() {
+            $( "span:first",this ).text( "世界在聽這些歌！" );
+        })
+        .mouseleave(function() {
+            $( "span:first",this ).text( "全球哈燒榜" );
+        })
+        .click(function(){
+            $.getJSON("worldhotsong/", function(data){
+                $.each(data, function(vname, vid){
+                    $("#worldhotsong > ul").append('<li class="nav-item"><span style="display:none">'+ vid +'</span>'+'<div class="xxx"><i class="fas fa-circle"></i>' + vname + '</div></li>');
+                    $("#worldhotsong li.nav-item:last").click(function(){
+                        console.log(vid);
+                        player.loadVideoById(vid); 
+                    })
+                })                            
+            })
+        })
+
+    
+
+>>>>>>> 86c4d71c74cb9cfc449a11a2f98b24fbfb756d60
     //為按鈕加上行為
-    for(var i=1; i<=buttons.length; i++){
+    for(var i=1; i<=buttons.length-1; i++){
         buttons[i-1].number = i;
         var index = i-1;
         $('button:eq('+index+')').on({
@@ -134,6 +193,8 @@ $(document).ready(function(){
     
     function playYt(){
         if (countFlag) stopPlayCount();
+        $( "#worldhotsong, #songdata" ).show( "fold", 5000 );
+        // 移開按鈕
         if (btnFlag){
             $(this).addClass('smMoodTxt');
             $('.btn').each(function(){
@@ -145,16 +206,18 @@ $(document).ready(function(){
             $('#anger').addClass( "musicOnAnger", 5000 );
             $('#sad').addClass( "musicOnSad", 5000 );
             $('#lonely').addClass( "musicOnLonely", 5000 );
+            $('#center').addClass( "musicOnCenter", 5000 );
             // 空五秒鐘才乾淨
             timeOut = setInterval(newBtnAct, 5000);
             btnFlag = false
         }
                               
-        var moodNum = this.number;
+        moodNum = this.number;
     
         // 顯示影片div
         // 利用ajax載入歌曲網址
         if (id == ""){
+<<<<<<< HEAD
             $.getJSON('findsong/', {"moodNum": moodNum}, function(data){
                 songId = data.songId;
                 youtubeId = data.youtubeId;
@@ -182,8 +245,11 @@ $(document).ready(function(){
             // }
             
             // findSong.send(); 
+=======
+            ajaxFindSong();
+>>>>>>> 86c4d71c74cb9cfc449a11a2f98b24fbfb756d60
         }else{
-            $('#player').attr('src','https://www.youtube.com/embed/'+id+'?rel=0&amp;showinfo=0&autoplay=1');                     
+            // $('#player').attr('src','https://www.youtube.com/embed/'+id+'?rel=0&amp;showinfo=0&autoplay=1');                     
         }
         // 2. This code loads the IFrame Player API code asynchronously.
         if(flag){    
@@ -193,7 +259,7 @@ $(document).ready(function(){
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);            
         }
         flag = false
-        
+                        
         //計算影片播放時間
         
         countPlayTime = setInterval(playCount, 1000);
@@ -209,8 +275,8 @@ $(document).ready(function(){
     
     function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
-        height: '390',
-        width: '640',
+        height: '530',
+        width: '900',
         videoId: youtubeId,
         rel: '0',
         events: {
@@ -221,7 +287,17 @@ $(document).ready(function(){
     }    
     // 4. The API will call this function when the video player is ready.
     function onPlayerReady(){
-        player.playVideo(); 
+            $("button").each(function(){
+                $(this).on("click", function(){
+                    var loadVideo = setTimeout( loadVideo, 500 );                   
+                    function loadVideo(){
+                        player.loadVideoById(youtubeId);
+                    // return false;
+                    }
+                })
+            })        
+        // alert("player ready");
+        player.loadVideoById(youtubeId);
     }    
          
 
@@ -230,13 +306,19 @@ $(document).ready(function(){
     //    the player should play for six seconds and then stop.
 
     function onPlayerStateChange(event){               
-        if (event.data == YT.PlayerState.ENDED) {
-            flag = true;
-            alert('video end');
+        // 狀態0是播完，1是開播
+        if (event.data == 0) {
+            console.log('video end');
+            stopPlayCount();
+            ajaxFindSong();
+            var stop1sec = setTimeout(function(){player.loadVideoById(youtubeId);}, 3000);                        
+            playCount();
             // $('#player').hide('fade',5000);
             // player.getIframe()
             // player.destroy()
             }
+        // if (event.data == 1) alert("start");    
+        // if (event.data == YT.PlayerState.BUFFERING) alert("Buffering")   
         }                  
     
     

@@ -7,6 +7,6 @@ from rest_framework import viewsets
 # def home(request):
 #     return render(request,'home.html',{'title':'message'})
 # def comment(request)
-class MessagesViewSet(viewsets.ModelViewSet):
-    queryset = Messages.objects.all()
-    serializer_class = MessagesSerializer
+# class MessagesViewSet(viewsets.ModelViewSet):
+#     queryset = Messages.objects.all()
+#     serializer_class = MessagesSerializer

@@ -14,6 +14,7 @@ class Members(models.Model):
     password = models.CharField(max_length=45)
     job = models.CharField(max_length=45)
     birthday = models.DateTimeField(max_length=45)
+    gender = models.CharField(max_length=10)
 
     class Meta:
         managed = True

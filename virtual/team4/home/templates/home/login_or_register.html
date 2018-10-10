@@ -3,6 +3,18 @@
 {% extends "main.html" %}
 {% block styles %}
     <style>
+        body{
+        background-image: url("../../static/images/album.jpg")
+        }
+        header {
+            margin:auto;
+            text-decoration:none;
+            color: white;
+            background-color: rgba(22, 22, 22,0.6) !important;
+        }
+        .main_content {
+            background:rgba(22, 22, 22,0.6);
+        }
         img{
             width:300px;
         }
@@ -54,12 +66,13 @@
             float: left;
             margin-top: 10%;
             margin-left: 4.5%;
+            text-align: right;
         }
         .desc_text2{
             float: left;
             margin-top: 10%;
             margin-left: 22%;
-            text-align: center;
+            text-align: left;
         }
         .login_text{
             color: rgb(52, 206, 159);
@@ -89,13 +102,13 @@
     </a>
 </div>
 <div class="desc">
-    <p class="desc_text1">如您已是本站會員，請由<a href="{% url 'member:login' %}" class="login_text">此處</a>登入</p>
-    <p class="desc_text2">沒有帳號嗎? <br>來創辦一個屬於<a href="{% url 'member:register' %}" class="login_text">您的帳號</a>吧!</p>
+    <p class="desc_text1">如您已是本站會員，請由<a href="{% url 'member:login' %}" class="login_text">此處</a>登入<br>
+        管理者(實況主)請由<a href="{% url 'member:login_as_adm' %}" class="login_text">此處</a>登入
+    </p>
+    <p class="desc_text2">還沒加入會員嗎? <br>
+        來創辦一個屬於<a href="{% url 'member:register' %}" class="login_text">您的帳號</a>吧!
+    </p>
 </div>
 {% endblock %}
 {% block scripts %}
-<!-- <script src="../../static/scripts/jquery-ui.min.js"></script> -->
 {% endblock %}
-
-
-

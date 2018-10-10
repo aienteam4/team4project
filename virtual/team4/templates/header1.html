@@ -1,0 +1,84 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.navbar {
+    
+    width:800px;
+    margin:auto;
+    overflow: hidden;
+    background-color: #333;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.dropdown {
+    float: right;
+    overflow: hidden;
+}
+
+.navbar a {
+    float:right;
+    
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+.dropdown .dropbtn {
+    font-size: 16px;    
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit;
+    margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+    background-color: rgb(0, 140, 255);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+</style>
+
+<link href="../../static/styles/main.css" rel="stylesheet" />
+<div class="navbar">
+    <a class="navbar-brand" href="{% url 'home:welcome' %}" style="float:left">EMO<span>.</span></a>
+    <a class="nav-link" href="{% url 'home:index' %}">Index</a>
+    <a class="nav-link" href="{% url 'home:makefriends' %}">Log In</a>
+  
+    <div class="dropdown">
+        <button class="dropbtn">Friends</button>
+        <div class="dropdown-content">
+            <a href="#">Make friends</a>
+            <a href="#">Chat room</a>
+            <a href="#">Donate</a>
+        </div>
+    </div>
+    <a class="nav-link" href="{% url 'home:about' %}">About us</a>
+    <a class="nav-link" href="{% url 'home:contact' %}">Contact</a> 
+</div>

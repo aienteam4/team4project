@@ -4,8 +4,8 @@ from django.db import models
 
 class Friends_Chat(models.Model):
     memberId = models.IntegerField()
-    message = models.TextField()
-    messageUpdate = models.DateTimeField(auto_now_add=True) 
+    messages = models.TextField()
+    messagesUpdate = models.DateTimeField(auto_now_add=True) 
 
     class Meta:
         managed = False

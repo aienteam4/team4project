@@ -1,12 +1,65 @@
 {% extends "main.html" %}
 {% block styles %}
 <style>
+  body{
+    background-image: url("../../static/images/album.jpg")
+  }
+  header {
+    margin:auto;
+    text-decoration:none;
+    color: white;
+    background-color: rgba(22, 22, 22,0.6) !important;
+  }
+  .main_content {
+    background:rgba(22, 22, 22,0.6);
+  }
   .main{
     font-family: 'Ubuntu Mono', '微軟正黑體', monospace;
-    padding-top: 80px;
+    padding-top: 20px;
     width:50%;
     margin: auto;
     font-size: 18px
+  }
+  .title{
+    padding-top: 80px;
+  }
+  .form{
+    font-family: 'Ubuntu Mono', '微軟正黑體', monospace;
+    font-weight: 500;
+    /* width:70%; */
+    margin: auto;
+  }
+  label{
+    text-align: right;
+  }
+  #sdk{
+    width:40%;
+    text-align: center;
+    line-height: 80%;
+    font-size: 40px;
+    margin: auto;
+    color:rgb(52, 206, 159);
+  }
+  #sdk_button{
+    width: 100% !important;
+  }
+  .login-or {
+    position: relative;
+    font-size: 18px;
+    color: rgb(255, 255, 255);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  
+  .hr-or {
+    background-color: #cdcdcd;
+    height: 1px;
+    width: 30%;
+    margin: auto;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
   }
   button.btn{
     background-color: rgb(52, 206, 159);
@@ -27,11 +80,31 @@
     border-radius: 10px !important;
   }
   #reg{
-    padding-left: 40%;
+    padding-left: 45%;
+  }
+  .col-sm-5{
+    
+    line-height: 25px;
+    font-size: 20px;
+    height:40px;
+  }
+  #inputGender{
+    margin-top:13px;
+    margin-left:10px;
   }
 </style> 
 {% endblock %}
 {% block content %}
+<div class="form">
+  <div class="title">
+    <div id="sdk">
+      會員註冊
+    </div>
+    <div class="login-or">
+      <hr class="hr-or">
+    </div>  
+  </div>
+</div>
 <form method="POST">
   <div class="main">
     {% csrf_token %}
@@ -50,7 +123,7 @@
     </div>
 
     <div class="form-group row">
-      <label for="inputEmail" class="col-sm-2 col-form-label">電子郵件</label>
+      <label for="inputEmail" class="col-sm-2 col-form-label">郵件</label>
       <div class="col-sm-10">
         <input type="email" class="form-control" id="inputEmail" placeholder="Email" name="email">
       </div>
@@ -69,6 +142,14 @@
         <input type="date" class="form-control" id="inputBirth" name="birthday">
       </div>
     </div>
+
+    <div class="form-group row">
+      <label for="inputGender" class="col-sm-2 col-form-label">性別</label>
+      <div class="col-sm-5">
+          男性<input type="radio"  id="inputGender" name="gender" value="Men">
+          女性<input type="radio"  id="inputGender" name="gender" value="Women">
+      </div>
+    </div>
     
     <div class="form-group row">
       <div class="col-sm-12" id="reg">
@@ -83,12 +164,10 @@
   $(document).ready(function(){
     $('#inputName').blur(function(){
       var n =$(this).val()
-
-    get("../check/" + n +"/",function(data){
-      if (data == 1){
-        
-      }
-    })
+      get("../check/" + n +"/",function(data){
+        if (data == 1){
+        }
+      })
     })
   })
 </script>

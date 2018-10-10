@@ -65,44 +65,42 @@
 {% endblock %}
 {% block content %}
 <div class="form">
-    <div class="row">
-      <div class="main">
-        <!-- <h3>Please Log In, or <a href="#">Sign Up</a></h3> -->
-        <div class="row">
-          <div class="col-xs-6 col-sm-6 col-md-6" class="btn">
-            <a href="#" class="btn btn-lg btn-primary btn-block" id="link"><i class="fab fa-facebook"></i>  facebook</a>
-          </div>
-          <div class="col-xs-6 col-sm-6 col-md-6">
-            <a href="#" class="btn btn-lg btn-success btn-block" id="link"><i class="fab fa-google"></i>  google</a>
-          </div>
+  <div class="row">
+    <div class="main">
+      <!-- <h3>Please Log In, or <a href="#">Sign Up</a></h3> -->
+      <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6" class="btn">
+          <a href="#" class="btn btn-lg btn-primary btn-block" id="link"><i class="fab fa-facebook"></i>  facebook</a>
         </div>
-        <div class="login-or">
-          <hr class="hr-or">
-          <span class="span-or">or</span>
+        <div class="col-xs-6 col-sm-6 col-md-6">
+          <a href="#" class="btn btn-lg btn-success btn-block" id="link"><i class="fab fa-google"></i>  google</a>
         </div>
-  
-        <form role="form" method="POST">
-                {% csrf_token %}
-          <div class="form-group">
-            <label for="inputEmail">Your account</label>
-            <input type="text" class="form-control" id="inputEmail" name="email">
-          </div>
-          <div class="form-group">
-            <label for="inputPassword">Your password</label>
-            <input type="password" class="form-control" id="inputPassword" name="password">
-            <a class="pull-right" href="#">Forgot password?</a>
-          </div>
-          <div class="btn">
-            <label><input type="checkbox" name="remember" value="True">Remember me</label>
-          </div>
-          <!--name=value remember=True -->
-          <button type="submit" id="btn" class="btn btn btn-primary">Log in</button>
-        </form>
-      
       </div>
-      
+      <div class="login-or">
+        <hr class="hr-or">
+        <span class="span-or">or</span>
+      </div>
+
+      <form role="form" method="POST">
+              {% csrf_token %}
+        <div class="form-group">
+          <label for="inputEmail">Your account</label>
+          <input type="text" class="form-control" id="inputEmail" name="email">
+        </div>
+        <div class="form-group">
+          <label for="inputPassword">Your password</label>
+          <input type="password" class="form-control" id="inputPassword" name="password">
+          <a class="pull-right" href="#">Forgot password?</a>
+        </div>
+        <div class="btn">
+          <label><input type="checkbox" name="remember" value="True">Remember me</label>
+        </div>
+        <!--name=value remember=True -->
+        <button type="submit" id="btn" class="btn btn btn-primary">Log in</button>
+      </form>
     </div>
   </div>
+</div>
 {% endblock %}
 {% block scripts %}
 {% endblock %}

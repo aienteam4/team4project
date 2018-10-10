@@ -2,6 +2,19 @@
 {% load static %}
 {% block styles %}
 <style>
+body{
+        background-image: url("../../static/images/album.jpg")
+}
+header {
+    margin:auto;
+    text-decoration:none;
+    color: white;
+    background-color: rgba(22, 22, 22,0.6) !important;
+}
+footer{
+    color:white;
+    font-size: 16px;
+}
 /* boostnipp chat room */
 .chat
 {
@@ -43,7 +56,18 @@
 .panel-body
 {
     overflow-y: scroll;
-    height: 500px;
+    height: 700px;
+    width: 500px;
+}
+
+.panel-primary
+{
+    width: 500px;
+}
+
+.panel-footer
+{
+    width: 500px;
 }
 
 ::-webkit-scrollbar-track
@@ -105,6 +129,78 @@ uncomment this part if you haven't added this code anywhere else
 	opacity: 0;
 }*/
 
+/* testbox */
+.test_box {
+    width: 450px; 
+    min-height: 120px; 
+    max-height: 600px;
+    height: 600px; 
+    margin-left: auto; 
+    margin-right: auto; 
+    padding: 3px; 
+    /* outline: 0;  */
+    border: 1px solid #68d0eb; 
+    /* font-size: 16px;  */
+    word-wrap: break-word;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overflow-y: visible; 
+} 
+
+/* message對話框 */
+.testLeft{
+    color:white;
+    width:250px;
+    height:80px;
+    min-height: 80px; 
+    max-height: none;
+    min-width: 200px; 
+    max-width: none;
+    padding:5px 15px 5px; 
+    border-radius:30px ; 
+    background-color: rgb(25, 139, 233);
+    word-wrap: break-word;
+    text-overflow:ellipsis; 
+    white-space:nowrap; 
+}
+
+.testRight{
+    color:white;
+    width:250px;
+    height:80px;
+    min-height: 80px; 
+    max-height: none;
+    min-width: 200px; 
+    max-width: none;
+    padding:5px 15px 5px; 
+    border-radius:30px ; 
+    background-color: rgb(243, 135, 47);
+    word-wrap: break-word;
+    text-overflow:ellipsis; 
+    white-space:nowrap; 
+    margin-left:180px;
+}
+
+.test span{
+    width:auto; 
+    height:auto; 
+    font-size:8px; 
+    position:absolute;
+}
+
+.timeLeft{
+    width:200px;
+    height:30px;
+    padding:5px 15px 5px; 
+    margin-left:250px; 
+}
+.timeRight{
+    width:200px;
+    height:30px;
+    padding:5px 15px 5px; 
+    margin-left:20px; 
+}
+
 </style>
 {% endblock %}
 
@@ -113,8 +209,8 @@ uncomment this part if you haven't added this code anywhere else
     <!-- 交友聊天室 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <div class="container" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
+    <div class="container"> 
+        <!-- {% csrf_token %}  method="POST" enctype="multipart/form-data" -->
     <div class="row align-items-start">
 <!-- bootstrap chat title & select botton-->
     <div class="col-sm-4 col-md-offset-0">
@@ -129,7 +225,7 @@ uncomment this part if you haven't added this code anywhere else
         </div>
         </div><hr class="col-md-12">
         <div class="col-md-offset-6">
-        <input type="button" class="btn btn-primary" id="donate1" data-toggle="tooltip" title="music chat" value="音樂聊天">
+        <a href="{% url "makefriends:api_message" %}" class="btn btn-primary" id="donate1" data-toggle="tooltip" title="music chat">聊天資料庫</a>
         </div><hr class="col-md-12">
     <div class="card" style="width: 35rem;">
         <a class="image-popup-no-margins" href="../../static/images/music_music.jpg" title="music">
@@ -141,7 +237,7 @@ uncomment this part if you haven't added this code anywhere else
         </div>
         </div><hr class="col-md-12">
         <div class="col-md-offset-6">
-        <input type="button" class="btn btn-danger" id="music2" data-toggle="tooltip" title="small talk" value="小型聊天">
+        <a href="{% url "makefriends:message_update" %}" class="btn btn-danger" id="music2" data-toggle="tooltip" title="small talk">編輯聊天</a>
         </div> 
     </div>
     <div class="col-md-5 col-md-offset-3">
@@ -149,8 +245,8 @@ uncomment this part if you haven't added this code anywhere else
             <div class="panel-heading">
                 <span class="glyphicon glyphicon-comment"></span> Chat Room
                     <div class="btn-group pull-right">
-                        <a style="color:rgb(31, 11, 211)" href="{% url "music:music" %}"><span class="glyphicon glyphicon-ok-sign"></span>fusic Music</a>
-                        <a style="color:rgb(23, 158, 19)" href="{% url "donate:index" %}"><span class="glyphicon glyphicon-ok-sign"></span>donate</a> 
+                        <a style="color:rgb(31, 11, 211)" href="https://www.facebook.com/"><span class="glyphicon glyphicon-ok-sign"></span>Facebook</a>
+                        <a style="color:rgb(67, 209, 24)" href="https://www.youtube.com/"><span class="glyphicon glyphicon-ok-sign"></span>Youtube</a> 
                         <!-- <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-chevron-down"></span>
                         </button>  
@@ -173,40 +269,59 @@ uncomment this part if you haven't added this code anywhere else
                 </div>
     <div class="panel-body">
         <ul class="chat"></ul>
-        <div id="message" class="alert alert-primary" style="height:50px;text-align:center;">wellcom to fusic chat room</div>
-        <textarea type="text" name="message" id="outputMessage" class="md-textarea form-control" rows="24" placeholder="Please enter a chat conversation"></textarea>
+        <div id="chat" class="alert alert-primary" style="height:50px;text-align:center;">wellcom to fusic chat room</div>
+        <div class="test_box" name="message" id="outputMessage" contenteditable="true"></div>
+        <!-- <textarea type="text" name="message" id="outputMessage" class="md-textarea form-control" rows="36" placeholder="Please enter a chat conversation"></textarea> -->
     </div>
         <div class="panel-footer">
             <div class="input-group">
-                <input id="inputMessage" type="text" maxlength="100" class="form-control input-sm" placeholder="input your message" />
+                <input id="InputMessage" type="text" maxlength="100" class="form-control input-sm" placeholder="input your message"/>
                     <span class="input-group-btn">
-                        <button type="button" class="btn btn-warning btn-sm" id="btnSend" >
+                        <button type="button" class="btn btn-warning btn-sm" id="btnSend">
                             Send
                         </button>
-                        <button type="button" class="btn btn-danger btn-sm" id="btnClean" >
+                        <button type="button" class="btn btn-danger btn-sm" id="btnClean">
                             Clean
                         </button>
                     </span>
                 </div>
             </div>
         </div>
+        <hr class="col-md-12">
+        <div class="col-md-12" id="nav">
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-tab-1" data-toggle="pill" href="#tab1" role="tab" aria-controls="pills-home" aria-selected="true">Chatbot</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-tab-2" data-toggle="pill" href="#tab2" role="tab" aria-controls="pills-profile" aria-selected="false">Description</a>
+                </li>
+            </ul>
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-content1" role="tabpanel" aria-labelledby="pills-home-tab">Home</div>
+            <div class="tab-pane fade" id="pills-content2" role="tabpanel" aria-labelledby="pills-profile-tab">A web chat is a system that allows users to communicate in real time using easily accessible web interfaces. It is a type of Internet online chat distinguished by its simplicity and accessibility to users who do not wish to take the time to install and learn to use specialized chat software. This trait allows users instantaneous access and only a web browser is required to chat. Users will always get the latest version of a chat service because no software installation or updates are required.</div>
+        </div>
+        </div> 
+        <hr class="col-md-12">
+        <div class="col-md-12 col-md-offset-1" id="webchat">
+            <iframe style="width:400px;height:300px;" src='https://webchat.botframework.com/embed/maoBot?s=JcIKINeI66g.cwA.G2k.8k7PW7RH-QX4CqDlFbZ5NNiyZvBfipA8tT5nUFVL1uA'></iframe>
+        </div>
     </div>
 </div>
 </div>
     <hr>
-    <!-- <div id="message1" class="alert alert-primary"></div> -->
-        <!-- <input type="text" id='text1' placeholder="user name"><br>
-        <input type="text" id='text2' placeholder="user age">
-        <input type="button" class="btn btn-primary" id="btn1" value="click">
-        <input type="button" class="btn btn-danger" id="btn2" value="cancel">  -->
 {% endblock %} 
 
 {% block scripts %}
 <!-- jQuery 1.7.2+ or Zepto.js 1.0+ -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
 <!-- Magnific Popup core JS file -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+<!-- chatbot -- 內嵌程式碼 -->
+<script src="https://cdn.botframework.com/botframework-webchat/preview/botchat.js"></script>
+
 <script>
 // ================== Chat room control js =====================
     $(document).ready(function(){
@@ -216,32 +331,75 @@ uncomment this part if you haven't added this code anywhere else
             var hours = time.getHours();
             var minutes = time.getMinutes();
             var seconds = time.getSeconds();
-            times =  hours + ":" + minutes + ":" + seconds;
+            times =  hours + "h " + minutes + "m " + seconds + "s ";
             return times;
         }
 
-        // jquery send message
-        $('#btnSend').click(function(){
-            // var userid = $('').val();
-            var message = $('#inputMessage').val();
-            var messageUpdate = setDate();
-            // 顯示對話訊息
-            $.get('/send/'+ messageUpdate +'/',{"message":message},function(datas){
-                $('#message').html("<h5>"+ datas +"</h5>"+ "<br>");
-            })
-        })  
+        // // jquery send message
+        // $('#btnSend').click(function(){
+        //     // var userid = $('').val();
+        //     var messages = $('#inputMessage').val();
+        //     var messagesUpdate = setDate();
+        //     // 顯示對話訊息
+        //     $.get('/makefriends/send/'+ messagesUpdate +'/',{"messages":messages},function(datas){
+        //         $('#outputMessage').html(datas);
+        //     })
+        // })  
           
-        // $('#btn1').click(function(){
-        //     var name = $('#text1').val()
-        //     var age = $('#text2').val()
-        //     $.get('/hello/'+ age +'/',{"name":name},function(datas){
-        //         $('#message1').html("<h2>"+ datas + "</h2>");
-        //     })     
-        // })
+        //api 新增訊息進資料庫
+        $('#btnSend').click(function(){    
+            var datas = {
+            "memberId": 1,
+            "messages": $('#InputMessage').val(),
+            "messagesUpdate": setDate(),
+            };
+            console.log(datas)
+        $.post('/api/Friends_Chat/',datas,function(data){
+            $('#InputMemberId').val('')
+            // console.log(datas)
+            $('#InputMessage').val('')
+            setDate()
+                loadMessage()
+            })
+        })
+
+        //api 讀取所有訊息 印出所有訊息
+        function loadMessage(){
+            $.getJSON('/api/Friends_Chat/',function(datas){
+                // console.log(datas)
+                var tb = $('#outputMessage')
+                var docFrag = $(document.createDocumentFragment())
+                $.each(datas,function(idx,product){
+                    //a > index
+                    //b > {}
+                    // var cell1 = text(todo.id)
+                    // var cell1 = $('<h5></h5>').text(product.memberId)
+                    var cell2 = $('<h4></h4>').text(product.messages)
+                    var cell3 = $('<h6></h6>').text(product.messagesUpdate)       
+                    var datas = $('<div class="testLeft"><span class="span"></span></div>').append(cell2)
+                    var dataTime = $('<div class="timeLeft"></div>').append(cell3)
+                    var datas2 = $('<div><span class="span"></span></div>').append(cell2).toggleClass("testRight")
+                    var dataTime2 = $('<div></div>').append(cell3).toggleClass("timeRight")
+                    if(JSON.stringify(product.id) % 2 == 0){
+                        docFrag.append(datas2,dataTime2)
+                        // console.log(product.id)
+                        // console.log(product.messages)
+                        // console.log(product.messagesUpdate)
+                    }else{
+                        docFrag.append(datas,dataTime)
+                        console.log(product.id)
+                        console.log(product.messages)
+                        console.log(product.messagesUpdate)
+                    }
+                })
+                tb.html(docFrag)
+            })
+        }
+        loadMessage()
 
         // jquery clean message
         $('#btnClean').click(function(){  
-            $('#message').html("");
+            $('#outputMessage').html("");
         })     
         
         // lightbox 
@@ -262,7 +420,17 @@ uncomment this part if you haven't added this code anywhere else
                 duration: 300 // don't foget to change the duration also in CSS
             }
         })
+        
+        // boostrap nav control
+        $('#pills-tab-1').click(function(e){
+            e.preventDefault()
+            $('#pills-tab-1 a[href="#tab1"]').tab('show')
+        })
 
+        $('#pills-tab-2').click(function(e){
+            e.preventDefault()
+            $('#pills-tab-2 a[href="#tab2"]').tab('show')
+        })
 
 })
 </script>
