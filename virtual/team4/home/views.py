@@ -20,15 +20,6 @@ def index(request):
     #print(locals())
     return render(request,'home/index.html',locals())
 
-def makefriends(request):
-    title="Let's make friends!"
-    return render(request,'home/makefriends.html',locals())
-
-def about(request):
-    title="About us"
-    return render(request,'home/about.html',locals())
-    
-
 def contact(request):
     title="Contact"
     return render(request,'home/contact.html',locals())

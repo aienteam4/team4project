@@ -64,9 +64,6 @@ friend = Friends_Talk()
 def friends(request):
     return render(request,'makefriends/friends.html')
 
-def test(request):
-    return render(request,'makefriends/test.html')
-    
 def delete(request, id):
     friend.delete(id)
     return redirect("/message_record/")
@@ -98,24 +95,24 @@ def testencoding(request):
 def send(request, messageUpdate):
     # time.sleep(1)
     if request.method == "POST":
-       #接收表單傳過來的資料
-       # memberId = request.POST["memberId"]
-       message = request.POST["message"]  
-       Message = "{}/n{}".format(message,messageUpdate)
-       return HttpResponse(Message)
+        #接收表單傳過來的資料
+        # memberId = request.POST["memberId"]
+        message = request.POST["message"]  
+        Message = "{}/n{}".format(message,messageUpdate)
+        return HttpResponse(Message)
 
     #將資料寫進資料庫
     Friends_Chat.objects.create(id=id.objects.get(id=id),message=message,messageUpdate=messageUpdate)
     return HttpResponse(Message)
 
-def hello(request,age):
-    # time.sleep(10)
-    name = request.GET["name"]
-    age = request.GET["age"]
-    message = "{}\r\n{}".format(name,age)
-    return HttpResponse(message)
-
-# restful api
-class Friends_ChatViewSet(viewsets.ModelViewSet):
-    queryset = Friends_Chat.objects.all()
-    serializer_class = Friends_ChatSerializer
+# def hello(request,age):
+#     # time.sleep(10)
+#     name = request.GET["name"]
+#     # age = request.GET["age"]
+#     message = "{}\r\n{}".format(name,age)
+#     return HttpResponse(message)
+    
+# restful api CRUD
+def message_api(request):  
+    title = "Restful api -- makefriends"
+    return render(request,'makefriends/api_message.html',locals())
