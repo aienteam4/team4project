@@ -6,19 +6,60 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <style>
-    
-    body{
-      background-image: url("/media/chatbotbg.jpg");
-      color:white !important;
-
-    }
-    .thumb{
-        width:100px;
-    }
-
-    .bot{
-      width:400px;
-    }
+  body{
+    background-image: url("/media/chatbotbg.jpg");
+    color:white !important;
+  }
+  header {
+    width:100%;
+    height: 10% ;
+    margin:auto;
+    text-decoration:none;
+    color: white;
+    background-color: rgba(22, 22, 22,0.6) !important;
+  }
+  form{
+    margin-left: 80px;
+  }
+  .thumb{
+      width:100px;
+  }
+  .bot{
+    width:400px;
+  }
+  #img_captcha{
+    width:65px;
+    border-radius: 5px;
+  }
+  #btn_captcha{
+    margin-top: 10px;
+    margin-left: 3px;
+    border-radius: 5px;
+    padding: 5px;
+    width: 35px;
+    color: white;
+    background-color: rgb(52, 206, 159);
+    border:2px solid white;
+  }
+  #btn{
+    background-color: rgb(52, 206, 159);
+    border-color: rgb(52, 206, 159);
+    border-radius: 30px;
+    width: 140px;
+    color: rgb(255, 255, 255);
+    margin: auto;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 30px;
+    padding-top: 10px;
+    padding-bottom: 3px;
+  }
+  #btn:hover{
+    background-color: rgb(43, 160, 125);
+    border-color: rgb(43, 160, 125);
+    transition: all 0.3s linear;
+    border-radius: 10px;
+  }
 </style>
 {% endblock %}
 {% block content %}

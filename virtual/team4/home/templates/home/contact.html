@@ -2,6 +2,9 @@
 {% extends "main.html" %}
 {% block styles %}
 <style>
+    .main{
+        margin-top: 50px;
+    }
     img {
         width:150px;
     }
@@ -17,29 +20,31 @@
 </style>
 {% endblock %}
 {% block content %}
-<div class="intro">
-    <h2 class="ch">工作團隊</h2>
+<div class="main">
+    <div class="intro">
+        <h2 class="ch">工作團隊</h2>
+    </div>
+    <div class="team">
+        <img src="../../static/images/team4-01.jpg">
+        <h2 class="ch" style="float: right">組長 徐子越<br>負責項目:</h2> 
+    </div>
+    <div class="team">
+        <img src="../../static/images/team4-02.jpg">
+        <h2 class="ch" style="float: right">組員 陳惠龍<br>負責項目:</h2> 
+    </div>
+    <div class="team">
+        <img src="../../static/images/team4-03.jpg">
+        <h2 class="ch" style="float: right">組員 毛鼎言<br>負責項目:</h2> 
+    </div>
+    <div class="team">
+        <img src="../../static/images/team4-04.jpg">
+        <h2 class="ch" style="float: right">組員 劉安昇<br>負責項目:</h2> 
+    </div>
+    <div class="team">
+        <img src="../../static/images/team4-05.jpg">
+        <h2 class="ch" style="float: right">組員 許哲偉<br>負責項目:</h2> 
+    </div>
 </div>
-<div class="team">
-    <img src="../../static/images/team4-01.jpg">
-    <h2 class="ch" style="float: right">組長 徐子越<br>負責項目:</h2> 
-</div>
-<div class="team">
-    <img src="../../static/images/team4-02.jpg">
-    <h2 class="ch" style="float: right">組員 陳惠龍<br>負責項目:</h2> 
-</div>
-<div class="team">
-    <img src="../../static/images/team4-03.jpg">
-    <h2 class="ch" style="float: right">組員 毛鼎言<br>負責項目:</h2> 
-</div>
-<div class="team">
-    <img src="../../static/images/team4-04.jpg">
-    <h2 class="ch" style="float: right">組員 劉安昇<br>負責項目:</h2> 
-</div>
-<div class="team">
-    <img src="../../static/images/team4-05.jpg">
-    <h2 class="ch" style="float: right">組員 許哲偉<br>負責項目:</h2> 
-</div>  
 {% endblock %}
 {% block scripts %}
 {% endblock %}
