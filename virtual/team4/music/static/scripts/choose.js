@@ -15,7 +15,7 @@ var btnStyle1='mood';
 var btnStyle2='moodTxt';
 var id = "";
 var tasteNum = 0;
-var moodNum = "";
+var moodNum = 0;
 // 為增加說明文字變化，做一個0~2的亂數產生器
 var randomNum = Math.floor(Math.random()*3);
 
@@ -125,7 +125,7 @@ $(document).ready(function(){
     
 
     //為按鈕加上行為
-    for(var i=1; i<=buttons.length-1; i++){
+    for(var i=1; i<=5; i++){
         buttons[i-1].number = i;
         var index = i-1;
         $('button:eq('+index+')').on({
@@ -189,14 +189,15 @@ $(document).ready(function(){
             $('#anger').addClass( "musicOnAnger", 5000 );
             $('#sad').addClass( "musicOnSad", 5000 );
             $('#lonely').addClass( "musicOnLonely", 5000 );
-            $('#center').addClass( "musicOnCenter", 5000 );
+            $('#center').hide( "fade", 2500 );
+            
             // 空五秒鐘才乾淨
             timeOut = setInterval(newBtnAct, 5000);
             btnFlag = false
         }
                               
         moodNum = this.number;
-    
+        $('.marquee').css('display','');
         // 顯示影片div
         // 利用ajax載入歌曲網址
         if (id == ""){

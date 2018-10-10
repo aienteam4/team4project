@@ -168,7 +168,7 @@ def set_session(request):
         response = HttpResponse('memberId : ' + str(memberId))
         del request.session['memberId']                     # 刪除
     else: 
-        request.session['memberId'] = 3                 # 設置會員id
+        request.session['memberId'] = 4                 # 設置會員id
         response = HttpResponse('您還未登入')
                               
     return response
