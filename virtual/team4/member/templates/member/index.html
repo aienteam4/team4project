@@ -125,8 +125,8 @@
                     <td>{{member.5}}</td>
                     <td>{{member.6}}</td>
                     <td>
-                        <a href="{% url 'member:delete' member.0 %}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-                        <a href="{% url 'member:update' member.0 %}" class="btn btn-secondary"><i class="fas fa-edit"></i></a>
+                        <a href="{% url 'member:delete' member.0 %}" class="btn btn-danger"  onclick="show_confirm()"><i class="fas fa-trash"></i></a>
+                        <a href="{% url 'member:update' member.0 %}" class="btn btn-secondary"><i class="fas fa-edit"></i>修改</a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -135,3 +135,21 @@
     </div>
 </div>
 {% endblock%}
+{% block scripts %}
+<script>
+function show_confirm()
+{
+var r=confirm("您確定要刪除這位可愛的會員嗎?");
+if (r==true)
+  {
+  alert("資料已刪除，回不去了!");
+  window.event.returnValue=true;
+  }
+else
+  {
+  alert("資料未刪除，再想想吧!");
+  window.event.returnValue=false;
+  }
+}
+</script>
+{% endblock %}

@@ -14,7 +14,7 @@ member = Member()
 
 # Create your views here.
 def index(request):  
-    title = "會員資料修改"
+    title = "會員資料管理"
     # with connection.cursor() as cursor:
     #     sql = """select * from members"""
     #     cursor.execute(sql)
@@ -56,9 +56,6 @@ def login(request):
         captcha = request.POST["captcha"]
         if request.session['captcha'] == captcha:
             theMember = Members.objects.filter(email=mail,password=pwd).values('id')
-            # theMember = Members.objects.filter(email=mail,password=pwd).values('id')
-            # theMember = Members.objects.filter(email=mail,password=pwd).values('id')
-            # print(theMember[0])
 
             if theMember:
                 # mid = theMember[0]["id"]
@@ -95,48 +92,52 @@ def login(request):
     return render(request,'member/login.html',locals())
 
 def login_as_adm(request):  
-    title = "會員登入"
-    # POST
+    title = "管理員登入"
+    # POST  檢查管理員登入帳密
     if request.method == "POST":
         #name=value > key=value
         # print(request.POST.keys())
         mail = request.POST["email"]
         pwd = request.POST["password"]
-        theMember = Members.objects.filter(email=mail,password=pwd).values('name')
-        #print()
+        captcha = request.POST["captcha"]
+        if request.session['captcha'] == captcha:
+            # theMember = Members.objects.filter(email=mail,password=pwd).values('id')
+            if (mail=="admin" and pwd=="admin"):
 
-        if theMember:
-            if 'url' in request.GET:
-                theUrl = request.GET['url']
+            # if theMember:
+                # if 'url' in request.GET:
+                # theUrl = request.GET['url']
+                # else:
+                name = "cookieadmin"
+                strJS = "<script>alert('登入成功');location.href='/member/login_as_adm'</script>"
+                response = HttpResponse(strJS)
+                remember = None
+                #記住我有打勾保留cookie7天
+                if 'remember' in request.POST.keys():
+                    #    remember = request.POST["remember"]
+                    expiresdate = datetime.datetime.now() + datetime.timedelta(days=7)
+                    response.set_cookie("name_adm",name,expires=expiresdate)
+                else:
+                    response.set_cookie("name_adm",name)
+                return response
+                # return render(request,'member/login.html',locals())
             else:
-                theUrl = "/"
-            # print("登入成功：", theMember[0].name)
-            #return HttpResponse("<h2>登入成功</h2>")
-            name = theMember[0]['name']
-            strJS = "<script>alert('登入成功');location.href='" + theUrl + "'</script>"
-            response = HttpResponse(strJS)
-           
-            remember = None
-            #記住我有打勾保留cookie7天
-            if 'remember' in request.POST.keys():
-                #    remember = request.POST["remember"]
-                expiresdate = datetime.datetime.now() + datetime.timedelta(days=7)
-                response.set_cookie("name",name,expires=expiresdate)
-            else:
-                response.set_cookie("name",name)
-
-            return response
+                # print("登入失敗")
+                #return HttpResponse("<h2>登入失敗</h2>")
+                return HttpResponse("<script>alert('登入失敗，帳號或密碼有誤!');location.href='/member/login_as_adm'</script>")
         else:
-            # print("登入失敗")
-            #return HttpResponse("<h2>登入失敗</h2>")
-            return HttpResponse("<script>alert('登入失敗，帳號或密碼有誤!');location.href='/member/login_as_adm'</script>")
-
+            return HttpResponse("<script>alert('驗證碼錯誤，請重新輸入');location.href='/member/login_as_adm'</script>")
     # GET   
     return render(request,'member/login_as_adm.html',locals())
 
 def logout(request):
     response = HttpResponse("<script>location.href='/member/login'</script>")
     response.delete_cookie('name_member')
+    return response
+
+def logout_adm(request):
+    response = HttpResponse("<script>location.href='/member/login_as_adm'</script>")
+    response.delete_cookie('name_adm')
     return response
 
 def register(request):  
@@ -158,8 +159,10 @@ def register(request):
         #     cursor.execute(sql,(name,email,password,job,birthday))
         _member = (name,email,password,job,birthday,gender)
         member.create(_member)
+        strJS = "<script>alert('登入成功');location.href='/member/register'</script>"
+        response = HttpResponse(strJS)
         #轉到會員的首頁上
-        return redirect("/member/my_member")
+        return redirect("/member/login")
     return render(request,'member/register.html',locals())
 
 
@@ -183,8 +186,6 @@ def update(request, id):
         job = request.POST["job"]
         birthday = request.POST["birthday"]
         gender = request.POST["gender"]
-
-
         #將資料寫進資料庫
         # with connection.cursor() as cursor:
         #     sql = """update members set name=%s,email=%s,password=%s,age=%s
@@ -195,7 +196,29 @@ def update(request, id):
         member.update(_member)
         #轉到會員的首頁上
         return redirect("/member/index")
+    membersingle = member.single(id)
+    return render(request,'member/update.html',locals())
 
+def my_member_update(request, id):
+    #步驟二
+    if request.method == "POST":
+        #接收表單傳過來的資料
+        name = request.POST["name"]
+        email = request.POST["email"]
+        password = request.POST["password"]
+        job = request.POST["job"]
+        birthday = request.POST["birthday"]
+        gender = request.POST["gender"]
+        #將資料寫進資料庫
+        # with connection.cursor() as cursor:
+        #     sql = """update members set name=%s,email=%s,password=%s,age=%s
+        #              where id=%s"""
+        #     #tuple
+        #     cursor.execute(sql,(name,email,password,age,id))
+        _member = (name,email,password,job,birthday,gender,id)
+        member.update(_member)
+        #轉到會員的首頁上
+        return redirect("/member/my_member")
     #步驟一
     # with connection.cursor() as cursor:
     #     sql = """select * from members where id=%s"""
@@ -203,29 +226,7 @@ def update(request, id):
     #     cursor.execute(sql,(id,))
     #     member = cursor.fetchone()
     membersingle = member.single(id)
-    return render(request,'member/update.html',locals())
-    
-# def testencoding(request):
-#     u1 = "中文"
-#     u2 = smart_str(u1,encoding='utf-8')
-#     response = HttpResponse("<h2>encoding test</h2>")
-#     # response.set_cookie("u1",u1)
-#     response.set_cookie("u2",u2)
-#     return response
-
-# def hello(request):
-#     return HttpResponse("Hello Ajax!!")
-
-# def show(request):
-#    datas = serializers.serialize("json", Members.objects.all())
-#    return HttpResponse(datas, content_type="application/json")
-
-# def checkname(request,name):
-#     result = Members.objects.filter(name=name)
-#     message = "0"
-#     if result:
-#         message = "1"
-#     return HttpResponse(message)
+    return render(request,'member/my_member_update.html',locals())
 
 def captcha(request):    
     from django.contrib.staticfiles import finders
