@@ -6,26 +6,43 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <style>
-    body {
+    
+    body{
+      background-image: url("/media/chatbotbg.jpg");
       color:white !important;
+
     }
     .thumb{
         width:100px;
     }
+
+    .bot{
+      width:400px;
+    }
 </style>
 {% endblock %}
 {% block content %}
-   <div class="row">
-     <div class="col-md-9">
-        <table id="todolist" class="table table-bordered">
+   <div style="margin:0 auto" class="row">
+     <div class="col-md-4">
+        <table id="todolist" class="table  table-responsive">
           <thead>
-             <tr><th>ID</th><th>直播主編號</th><th>性別</th><th>姓名</th><th>說明</th><th>直播</th><th>照片</th></tr>
+             <tr><th>ID</th><th>編號</th><th>性別</th><th>姓名</th><th>FUSIC CHATBOT</th></tr>
           </thead>
           <tbody>
-
           </tbody>
         </table>
      </div>
+
+     <div class="col-md-4">
+        <table id="chatbot" class="table  table-responsive">
+          <thead>
+             <tr><th>FUSIC CHATBOT</th></tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+     </div>
+
      <div class="col-md-3">
         <form role="form" method="POST">
                 {% csrf_token %}
@@ -46,14 +63,14 @@
           {% if request.COOKIES.nameadm %}
           <label>管理員已登入</label><br>
           <hr>
-          <button type="button" id="buttonLO" class="btn btn-warning"><a href="/donate/siteadm/">直播管理區</a></button>
-          <button type="button" id="buttonLO" class="btn btn-warning"><a href="/donate/logout/">管理員登出</a></button>
+          <button type="button" id="buttonLI" class="btn btn-warning"><a href="/donate/siteadm/" style="color: white">CHATBOT管理區</a></button>
+          <button type="button" id="buttonLO" class="btn btn-danger"><a href="/donate/logout/" style="color: white">管理員登出</a></button>
           {% else %}
           <button type="submit" id="btn" class="btn btn btn-primary">管理員登入</button>
           {% endif %}
-        </form>
+        </form><br>
       </div>
-    </div>
+    </div>  
 
 {% endblock%}
 
@@ -78,24 +95,19 @@ $(document).ready(function(){
     xhr.send();    
   })
        
-    //讀取所有資料
+    //讀取主人資料
     function loadTodo(){
       $.getJSON('/api/product/',function(datas){
-          // console.log(datas)
           var tb =  $('#todolist>tbody');
           var docFrag = $(document.createDocumentFragment())
           $.each(datas,function(idx,product){
-              //a > index
-              //b > {}
               var cell0 = $('<td></td>').text(product.productid)
               var cell1 = $('<td></td>').text(product.modelnumber)
               var cell2 = $('<td></td>').text(product.categoryid)
               var cell3 = $('<td></td>').text(product.modelname)
-              var cell4 = $('<td></td>').text(product.description)
-              var cell5 = $('<td></td>').html('<a href="#"><button class="btn btn-warning"><i class="fas fa-video"></i></button>')
-              var cell6 = $('<td></td>').html('<img class="img-thumbnail thumb" src="/media/'+product.productimage+'"/>')
+              var cell4 = $('<td></td>').html('<img class="img-thumbnail thumb" src="/media/'+product.productimage+'"/><br>'+product.description)
               //<tr><td><td><td>
-              var row = $('<tr></tr>').append([cell0,cell1,cell2,cell3,cell4,cell5,cell6])
+              var row = $('<tr></tr>').append([cell0,cell1,cell2,cell3,cell4])
               //<tbody><tr>
               docFrag.append(row)
           })
@@ -103,6 +115,26 @@ $(document).ready(function(){
       })
     }
     loadTodo();
-  })
+
+    $('#todolist>tbody').on('mouseover','td:nth-child(5)',function(){
+         var productid = $(this).parents('tr').find('td:nth-child(1)').text();
+         $.ajax({
+                url:'/api/product/' + productid + '/',
+                type:'GET'
+            }).done(function(data){
+              var tb =  $('#chatbot>tbody');
+              var docFrag = $(document.createDocumentFragment());
+              var cell0 = $('<td></td>').html('<img class="img-thumbnail chatbot" src="/media/'+data.productimage+'"/><br>'+data.description)
+              var row = $('<tr></tr>').append([cell0])
+              docFrag.append(row)
+              tb.html(docFrag)
+            })
+
+
+
+        }
+      )    
+})
+
 </script>
 {% endblock%}
