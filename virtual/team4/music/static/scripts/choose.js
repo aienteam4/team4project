@@ -14,8 +14,15 @@ var videoFlag = true;
 var btnStyle1='mood';
 var btnStyle2='moodTxt';
 var id = "";
+<<<<<<< HEAD
+=======
 var tasteNum = 0;
+<<<<<<< HEAD
 var moodNum = "";
+>>>>>>> 86c4d71c74cb9cfc449a11a2f98b24fbfb756d60
+=======
+var moodNum = 0;
+>>>>>>> 43d029327ebe4a0d3c0ff88b588880b533edde25
 // 為增加說明文字變化，做一個0~2的亂數產生器
 var randomNum = Math.floor(Math.random()*3);
 
@@ -73,6 +80,19 @@ function stopPlayCount()    //函式：停止計算播放時間
             $("#songdata li.nav-item:last").click(playOldYt)
         });        
         clearTimeout(countPlayTime);
+<<<<<<< HEAD
+};
+    function playOldYt(){
+        var songid = $(this).children("span:first").text();
+        id = $(this).children("span:last").text();
+        console.log(songid)
+        console.log(id);
+        // 也寫入資料庫，到這裡已確定聽者喜歡這首歌
+        $.get("taste/", { "taste": 1, "songId":songid });
+        $('#player').attr('src','https://www.youtube.com/embed/'+id+'?rel=0&amp;showinfo=0&autoplay=1')   
+        id = ""; 
+    }
+=======
         playTime = 0;
 };
 
@@ -124,8 +144,9 @@ $(document).ready(function(){
 
     
 
+>>>>>>> 86c4d71c74cb9cfc449a11a2f98b24fbfb756d60
     //為按鈕加上行為
-    for(var i=1; i<=buttons.length-1; i++){
+    for(var i=1; i<=5; i++){
         buttons[i-1].number = i;
         var index = i-1;
         $('button:eq('+index+')').on({
@@ -189,18 +210,49 @@ $(document).ready(function(){
             $('#anger').addClass( "musicOnAnger", 5000 );
             $('#sad').addClass( "musicOnSad", 5000 );
             $('#lonely').addClass( "musicOnLonely", 5000 );
-            $('#center').addClass( "musicOnCenter", 5000 );
+            $('#center').hide( "fade", 2500 );
+            
             // 空五秒鐘才乾淨
             timeOut = setInterval(newBtnAct, 5000);
             btnFlag = false
         }
                               
         moodNum = this.number;
-    
+        $('.marquee').css('display','');
         // 顯示影片div
         // 利用ajax載入歌曲網址
         if (id == ""){
+<<<<<<< HEAD
+            $.getJSON('findsong/', {"moodNum": moodNum}, function(data){
+                songId = data.songId;
+                youtubeId = data.youtubeId;
+                console.log(youtubeId);
+                $('#player').attr('src','https://www.youtube.com/embed/'+youtubeId+'?rel=0&amp;showinfo=0&autoplay=1');
+            })
+            
+            // var findSong = new XMLHttpRequest();
+            // if(findSong != null){        
+            //     findSong.open('GET','/music/findsong/?q='+moodNum);              
+            //     findSong.addEventListener('load',returnData);
+            //     function returnData(){
+            //         if(findSong.status==200){
+            //             // songUrl = findSong.responseText;
+            //             youtubeId = findSong.responseText;
+            //             console.log(youtubeId);
+            //             $('#player').attr('src','https://www.youtube.com/embed/'+youtubeId+'?rel=0&amp;showinfo=0&autoplay=1');                     
+                    
+            //         }        
+            //         else{alert(findSong.status+'ajax 出問題啦');}            
+            //     }
+            // }
+            // else{
+            //     alert('您的瀏覽器不支援Ajax功能！');
+            // }
+            
+            // findSong.send(); 
+=======
             ajaxFindSong();
+>>>>>>> 86c4d71c74cb9cfc449a11a2f98b24fbfb756d60
         }else{
             // $('#player').attr('src','https://www.youtube.com/embed/'+id+'?rel=0&amp;showinfo=0&autoplay=1');                     
         }
