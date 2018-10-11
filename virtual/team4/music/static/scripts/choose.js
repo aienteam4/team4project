@@ -14,15 +14,8 @@ var videoFlag = true;
 var btnStyle1='mood';
 var btnStyle2='moodTxt';
 var id = "";
-<<<<<<< HEAD
-=======
 var tasteNum = 0;
-<<<<<<< HEAD
-var moodNum = "";
->>>>>>> 86c4d71c74cb9cfc449a11a2f98b24fbfb756d60
-=======
 var moodNum = 0;
->>>>>>> 43d029327ebe4a0d3c0ff88b588880b533edde25
 // 為增加說明文字變化，做一個0~2的亂數產生器
 var randomNum = Math.floor(Math.random()*3);
 
@@ -80,7 +73,6 @@ function stopPlayCount()    //函式：停止計算播放時間
             $("#songdata li.nav-item:last").click(playOldYt)
         });        
         clearTimeout(countPlayTime);
-<<<<<<< HEAD
 };
     function playOldYt(){
         var songid = $(this).children("span:first").text();
@@ -91,8 +83,6 @@ function stopPlayCount()    //函式：停止計算播放時間
         $.get("taste/", { "taste": 1, "songId":songid });
         $('#player').attr('src','https://www.youtube.com/embed/'+id+'?rel=0&amp;showinfo=0&autoplay=1')   
         id = ""; 
-    }
-=======
         playTime = 0;
 };
 
@@ -144,7 +134,6 @@ $(document).ready(function(){
 
     
 
->>>>>>> 86c4d71c74cb9cfc449a11a2f98b24fbfb756d60
     //為按鈕加上行為
     for(var i=1; i<=5; i++){
         buttons[i-1].number = i;
@@ -218,11 +207,13 @@ $(document).ready(function(){
         }
                               
         moodNum = this.number;
-        $('.marquee').css('display','');
+        $('.marquee').css('display','block');    // 顯示跑馬燈
+        $('.marquee div span').each(function(){
+            $(this).text( "你正在 " + originTxt[moodNum-1] + " 的歌曲世界倘佯，點選左邊的按鈕更換氛圍！" )
+        })
         // 顯示影片div
         // 利用ajax載入歌曲網址
         if (id == ""){
-<<<<<<< HEAD
             $.getJSON('findsong/', {"moodNum": moodNum}, function(data){
                 songId = data.songId;
                 youtubeId = data.youtubeId;
@@ -250,9 +241,7 @@ $(document).ready(function(){
             // }
             
             // findSong.send(); 
-=======
             ajaxFindSong();
->>>>>>> 86c4d71c74cb9cfc449a11a2f98b24fbfb756d60
         }else{
             // $('#player').attr('src','https://www.youtube.com/embed/'+id+'?rel=0&amp;showinfo=0&autoplay=1');                     
         }
