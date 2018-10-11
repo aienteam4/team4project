@@ -142,9 +142,27 @@
 
     <div class="form-group row">
       <div class="col-sm-10" id="update">
-        <button type="submit" class="btn btn-primary">修改</button>
+        <button type="submit" class="btn btn-primary" onclick="show_confirm()">修改</button>
       </div>
     </div>
   </div>
 </form>
+{% endblock %}
+{% block scripts %}
+<script>
+function show_confirm()
+{
+var r=confirm("確定要變更資料嗎?");
+if (r==true)
+  {
+  alert("資料已變更!");
+  window.event.returnValue=true;
+  }
+else
+  {
+  alert("資料未變更!");
+  window.event.returnValue=false;
+  }
+}
+</script>
 {% endblock %}

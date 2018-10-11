@@ -100,9 +100,9 @@
             left: 5%;
             top: 81%;
         }
-        .musicOnCenter{
-            opacity: 0;
-        }
+        /* .musicOnCenter{
+            display: none;
+        } */
         .invisible{
             display: none;
         }
@@ -161,17 +161,17 @@
         }
         body{
             background-image: none;
-            
         }
         #worldhotsong{
+            display: none;
             position: fixed;
-            top: 62%;
+            top: 65%;
             right: 5%;
             width: 200px;
             height: 300px;
             overflow-x: hidden;
             overflow-y: scroll;
-            /* z-index: 1; */
+            z-index: 1;
         }
         span.round-tabs{
             width: 70px;
@@ -185,4 +185,11 @@
             left: 0;
             text-align: center;
             font-size: 25px;
+        }
+        .marquee{
+            position: fixed;
+            left: 20%;
+            top: 80%;
+            display: none;
+            z-index: 5;
         }

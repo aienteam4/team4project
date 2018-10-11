@@ -5,20 +5,56 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <style>
-    body {
-      color:white !important;
-    }
-    .thumb{
-        width:100px;
-    }
+  body {
+    background-image: url("/media/chatbotbg.jpg");
+
+    color:white !important;
+  }
+  header {
+    width:100%;
+    height: 10% ;
+    margin:auto;
+    text-decoration:none;
+    color: white;
+    background-color: rgba(22, 22, 22,0.6) !important;
+  }
+  .thumb{
+      width:100px;
+  }
+  #buttonLO{
+    background-color: rgb(223, 155, 68);
+    border-color: rgb(223, 155, 68);
+    border-radius: 30px;
+    width: 140px;
+    color: rgb(255, 255, 255);
+    margin: auto;
+    font-size: 20px;
+    font-weight: 700;
+    padding-bottom: 3px;
+  }
+  #buttonLO:hover{
+    background-color: rgb(190, 137, 66);
+    border-color: rgb(190, 137, 66);
+    transition: all 0.3s linear;
+    border-radius: 10px;
+  }
+  .btn.btn-dark{
+    border-radius: 30px;
+    margin-top: 10px;
+    padding:5px 10px;
+  }
+  .btn.btn-dark:hover{
+    transition: all 0.3s linear;
+    border-radius: 10px;
+}
 </style>
 {% endblock %}
 {% block content %}
-   <div class="row">
+   <div style="margin:0 auto" class="row">
      <div class="col-md-9">
-        <table id="todolist" class="table table-bordered">
+        <table id="todolist" class="table table-responsive">
           <thead>
-             <tr><th>ID</th><th>直播主編號</th><th>性別</th><th>姓名</th><th>說明</th><th>管理</th><th>照片</th></tr>
+             <tr><th>ID</th><th>編號</th><th>性別</th><th>姓名</th><th>FUSIC CHATBOT</th><th>管理</th><th>照片</th></tr>
           </thead>
           <tbody>
 
@@ -28,8 +64,8 @@
      <div class="col-md-3">
       <form >
         <div class="form-group">
-          <label for="InputMID">直播主編號</label>
-          <input type="text" class="form-control" id="InputMID" placeholder="直播主編號">         
+          <label for="InputMID">CHATBOT編號</label>
+          <input type="text" class="form-control" id="InputMID" placeholder="編號">         
         </div>
         <div class="form-group">
           <label for="InputGEN">性別</label>
@@ -40,28 +76,29 @@
           <input type="text" class="form-control" id="InputNAM" placeholder="姓名">         
         </div>
         <div class="form-group">
-          <label for="InputDES">說明</label>
-          <input type="text" class="form-control" id="InputDES" placeholder="說明">
-          <button type="button" id="buttonSubmit" class="btn btn-warning">新增直播主</button>
+          <label for="InputDES">FUSIC CHATBOT</label>
+          <input type="text" class="form-control" id="InputDES" placeholder="FUSIC CHATBOT">
+          <button type="button" id="buttonSubmit" class="btn btn-dark" style="color: white">新增CHATBOT</button>
         </div> 
         </form><br>
       <hr>
      <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="form-group">
-        <label for="InputCID">直播主ID</label>
-        <input type="text" class="form-control" id="InputCID" placeholder="直播主ID" name="productcid">         
+        <label for="InputCID">CHATBOT ID</label>
+        <input type="text" class="form-control" id="InputCID" placeholder="ID" name="productcid">         
       </div>
       <div class="form-group">
         <label for="InputCimg">照片</label>
-        <input type="file" accept= "image/*" class="form-control" id="InputCimg" placeholder="照片" name="productcimg"  />
+<<<<<<< HEAD
+        <input type="file" class="form-control" id="InputCimg" placeholder="照片" name="productimage">
         <button type="submit" id="buttonChange" class="btn btn-warning">照片上傳</button>
+=======
+        <input type="file" accept= "image/*" class="form-control" id="InputCimg" placeholder="照片" name="productcimg"  />
+        <button type="submit" id="buttonChange" class="btn btn-dark" style="color: white">照片上傳</button>
+>>>>>>> 43d029327ebe4a0d3c0ff88b588880b533edde25
       </div>
      </form>
-     <hr><hr>
-      <div class="form-group">
-        <a href="/donate/logout/"><button type="button" id="buttonLO" class="btn btn-danger">管理員登出</button></a>
-      </div>
      </div>
     </div>
 {% endblock%}
@@ -78,7 +115,7 @@ $(document).ready(function(){
     //讀取所有資料
     function loadTodo(){
       $.getJSON('/api/product/',function(datas){
-          // console.log(datas)
+          // console.log(datas.length)
           var tb =  $('#todolist>tbody');
           var docFrag = $(document.createDocumentFragment());
           $.each(datas,function(idx,product){
@@ -101,26 +138,22 @@ $(document).ready(function(){
     loadTodo();
 
     //jquery 新增資料
-    $('#buttonSubmit').click(function(){
-    if ( $('#InputMID').val() && $('#InputGEN').val() && $('#InputNAM').val() && $('#InputDES').val()){
-        var datas = {
-          "modelnumber": $('#InputMID').val(),
-          "categoryid": $('#InputGEN').val(),
-          "modelname": $('#InputNAM').val(),
-          "description": $('#InputDES').val(),
-          "productimage": "superstar.gif"
-        };
-        $.post('/api/product/',datas,function(data){
-          $('#InputMID').val('');
-          $('#InputGEN').val('');
-          $('#InputNAM').val('');
-          $('#InputDES').val('');
-          loadTodo();
-          })
-      }
-      else {
-          alert("欄位未填寫完全");
-      }
+    $('#buttonSubmit').click(function(){    
+     var datas = {
+       "modelnumber": $('#InputMID').val(),
+       "categoryid": $('#InputGEN').val(),
+       "modelname": $('#InputNAM').val(),
+       "description": $('#InputDES').val(),
+       "productimage": "superstar.gif"
+    };
+    $.post('/api/product/',datas,function(data){
+      $('#InputMID').val('');
+      $('#InputGEN').val('');
+      $('#InputNAM').val('');
+      $('#InputDES').val('');
+      loadTodo();
+      })
+
     });
 
 
@@ -144,27 +177,22 @@ $(document).ready(function(){
          var modelname = $(this).parents('tr').find('td:nth-child(4)').text();
          var description = $(this).parents('tr').find('td:nth-child(5)').text();
          var productimage = $(this).parents('tr').find('td:nth-child(7)').text();
-         if ( modelnumber && categoryid && modelname && description){
-            var datas = {
-                "modelnumber": modelnumber,
-                "categoryid": categoryid,
-                "modelname": modelname,
-                "description": description,
-                "productimage": productimage
-            };
+         var datas = {
+            "modelnumber": modelnumber,
+            "categoryid": categoryid,
+            "modelname": modelname,
+            "description": description,
+            "productimage": productimage
+         };
 
-            $.ajax({
-                url:'/api/product/' + productid + '/',
-                type:'PUT',
-                data:datas
-            }).done(function(data){
-              loadTodo();
-            });
-          }
-        else {
-          loadTodo();
-          alert("欄位未填寫完全");
-        }
+      $.ajax({
+          url:'/api/product/' + productid + '/',
+          type:'PUT',
+          data:datas
+      }).done(function(data){
+        loadTodo();
+      });
+
     });
   })
 

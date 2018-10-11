@@ -72,26 +72,58 @@
   .remember{
     font-size: 18px;
   }
-  button#btn{
+  #btn, #btn1{
     background-color: rgb(223, 155, 68);
     border-color: rgb(223, 155, 68);
-    border-radius: 30px !important;
-    width: 100px;
+    border-radius: 30px;
+    width: 120px;
+    color: rgb(255, 255, 255);
     margin: auto;
-    font-size: 20px !important;
+    font-size: 20px;
     font-weight: 700;
     line-height: 30px;
     padding-top: 10px;
     padding-bottom: 3px;
   }
-  button#btn:hover{
+  #btn1{
+    background-color: rgb(52, 206, 159);
+    border-color: rgb(52, 206, 159);
+  }
+  #btn:hover{
     background-color: rgb(190, 137, 66);
     border-color: rgb(190, 137, 66);
     transition: all 0.3s linear;
-    border-radius: 10px !important;
+    border-radius: 10px;
+  }
+  #btn1:hover{
+    background-color: rgb(43, 160, 125);
+    border-color: rgb(43, 160, 125);
+    transition: all 0.3s linear;
+    border-radius: 10px;
+  }
+  a:link{
+    color:white;
+    text-decoration: none;
+  }
+  a:visited{
+    color:white;
+    text-decoration: none;
   }
   .form-control{
     background-color: white;
+  }
+  #img_captcha{
+    width:65px;
+    border-radius: 5px;
+  }
+  #btn_captcha{
+    margin-top: 10px;
+    margin-left: 3px;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+    background-color: rgb(223, 155, 68);
+    border:2px solid white;
   }
   </style>
 {% endblock %}
@@ -100,16 +132,9 @@
   <div class="main">
     <div class="row" id="sdk">
       管理者登入
-      <!-- <div class="col-xs-6 col-sm-6 col-md-6" id="sdk_button">
-        <a href="#" class="btn btn-lg btn-primary btn-block" id="link"><i class="fab fa-facebook"></i>  facebook</a>
-      </div>
-      <div class="col-xs-6 col-sm-6 col-md-6" id="sdk_button">
-        <a href="#" class="btn btn-lg btn-success btn-block" id="link"><i class="fab fa-google"></i>  google</a>
-      </div> -->
     </div>
     <div class="login-or">
       <hr class="hr-or">
-      <!-- <span class="span-or">or</span> -->
     </div>
 
     <form role="form" method="POST">
@@ -123,36 +148,48 @@
         <input type="password" class="form-control" id="inputPassword" name="password">
         <a class="pull-right" href="#">忘記密碼了嗎?</a>
       </div>
+      <div class="form-group">
+        <label for="captcha">驗證碼</label>
+        <input type="text" name="captcha" id="captcha" class="form-control" >
+        <img id="img_captcha" src="/donate/captcha">
+        <button id="btn_captcha" type="button"><i class="fas fa-redo-alt"></i>
+        </button>
+      </div>
       <div class="btn">
         <label class="remember"><input type="checkbox" name="remember" value="True">Remember me</label>
       </div>
-      <!--name=value remember=True -->
+      <!-- <button type="submit" id="btn" class="btn btn btn-primary">登入</button> -->
+
+      {% if request.COOKIES.name_adm %}
+        <button type="button" id="btn1" class="btn btn btn-primary"><a href="/member/logout_adm/">登出</a></button>
+        <!-- <hr> -->
+        <button type="button" id="btn" class="btn btn btn-primary"><a href="/member/index">會員資料</a></button>
+        {% else %}
       <button type="submit" id="btn" class="btn btn btn-primary">登入</button>
+      {% endif %}      
     </form>
   </div>
 </div>
 {% endblock %}
 {% block scripts %}
-<!-- <script>
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '{your-app-id}',
-        cookie     : true,
-        xfbml      : true,
-        version    : '{api-version}'
-      });
-        
-      FB.AppEvents.logPageView();   
-        
-    };
-  
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "https://connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
-  </script>複製代碼 -->
-  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> 
+<script src="/static/js/jquery.dataTables.min.js"></script>
+<script>
+$(document).ready(function(){
+  //加驗證碼
+  $('#btn_captcha').click(function () {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/donate/captcha/");
+    xhr.responseType = "arraybuffer";
+    xhr.addEventListener("load",function(event) {
+      var blob = new Blob([xhr.response], {type: "image/png"});
+      var imageUrl = window.URL.createObjectURL(blob);   
+      $('#img_captcha').attr('src',imageUrl)
+    });
+    xhr.send();    
+  })
+})
+</script>
 {% endblock %}
