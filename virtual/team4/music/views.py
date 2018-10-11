@@ -36,23 +36,22 @@ def taste(request):
     """
     紀錄歌曲喜好
     """
-    herTaste = request.GET["taste"]                     #喜歡或不喜歡(1,0)
+    herTaste = request.GET["taste"]        #喜歡或不喜歡(1,0)
     songId = request.GET["songId"]
     print(herTaste)
     print(songId)
     try:
-        song = Songlist.objects.get(id=songId)          #抓出這首歌
+        song = Songlist.objects.get(id=songId)
         print(song)
     except:
-        print("查無此songid")    
+        print("url有問題")    
     songId = song.id                                    #歌曲ID   
-    sid = request.COOKIES['sessionid']                 
-    herId = Session.objects.get(pk = sid).get_decoded()['memberId'] #會員ID
-    print("會員ID：",herId)
+    sid = request.COOKIES['sessionid']
+    herId = Session.objects.get(pk = sid).get_decoded()['memberId']
     index = song.url.find('=')
     youtubeId = song.url[index+1:]    
-    data1 = Orderhistory.objects.filter(member = herId) #此會員所有點歌資料
-    data = data1.filter(song = songId)                  #此會員點此首歌的資料
+    data1 = Orderhistory.objects.filter(member = herId)
+    data = data1.filter(song = songId)
     member = Member.objects.get(id=herId)
     if data:                                             #如果此會員點過這首歌...
         print("他點過這首歌")
@@ -165,10 +164,11 @@ def set_session(request):
 
     if 'memberId' in request.session:
         memberId = request.session['memberId']                # 讀取會員id
+
         response = HttpResponse('memberId : ' + str(memberId))
         del request.session['memberId']                     # 刪除
     else: 
-        request.session['memberId'] = 3                 # 設置會員id
+        request.session['memberId'] = 4                 # 設置會員id
         response = HttpResponse('您還未登入')
                               
     return response

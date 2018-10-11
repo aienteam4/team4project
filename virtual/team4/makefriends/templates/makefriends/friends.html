@@ -129,108 +129,76 @@ uncomment this part if you haven't added this code anywhere else
 	opacity: 0;
 }*/
 
+/* testbox */
+.test_box {
+    width: 450px; 
+    min-height: 120px; 
+    max-height: 600px;
+    height: 600px; 
+    margin-left: auto; 
+    margin-right: auto; 
+    padding: 3px; 
+    /* outline: 0;  */
+    border: 1px solid #68d0eb; 
+    /* font-size: 16px;  */
+    word-wrap: break-word;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overflow-y: visible; 
+} 
 
 /* message對話框 */
-.mwt_border{
-    width:150px;
+.testLeft{
+    color:white;
+    width:250px;
+    height:80px;
+    min-height: 80px; 
+    max-height: none;
+    min-width: 200px; 
+    max-width: none;
+    padding:5px 15px 5px; 
+    border-radius:30px ; 
+    background-color: rgb(25, 139, 233);
+    word-wrap: break-word;
+    text-overflow:ellipsis; 
+    white-space:nowrap; 
+}
+
+.testRight{
+    color:white;
+    width:250px;
+    height:80px;
+    min-height: 80px; 
+    max-height: none;
+    min-width: 200px; 
+    max-width: none;
+    padding:5px 15px 5px; 
+    border-radius:30px ; 
+    background-color: rgb(243, 135, 47);
+    word-wrap: break-word;
+    text-overflow:ellipsis; 
+    white-space:nowrap; 
+    margin-left:180px;
+}
+
+.test span{
+    width:auto; 
+    height:auto; 
+    font-size:8px; 
+    position:absolute;
+}
+
+.timeLeft{
+    width:200px;
     height:30px;
-    text-align:center;
-    background:#fff;
-    position:relative;
-    border: solid 1px #333;
-    margin:30px;
-    padding:30px;
+    padding:5px 15px 5px; 
+    margin-left:250px; 
 }
-/*箭頭右*/
-.mwt_border .arrow_r_int{
-    width:0px;
-    height:0px;
-    border-width:15px;
-    border-style:solid;
-    border-color:transparent transparent transparent #333;
-    position:absolute;
-    top:20%;
-    right:-30px;
-}
-/*箭頭右-邊框*/
-.mwt_border .arrow_r_out{
-    width:0px;
-    height:0px;
-    border-width:15px;
-    border-style:solid;
-    border-color:transparent transparent transparent #fff;
-    position:absolute;
-    top:20%;
-    right:-29px;
-}
-
-/*箭頭左*/
-.mwt_border .arrow_l_int{
-    width:0px;
-    height:0px;
-    border-width:15px;
-    border-style:solid;
-    border-color:transparent #333 transparent  transparent ;
-    position:absolute;
-    top:20%;
-    left:-30px;
-}
-/*箭頭左-邊框*/
-.mwt_border .arrow_l_out{
-    width:0px;
-    height:0px;
-    border-width:15px;
-    border-style:solid;
-    border-color:transparent #fff transparent transparent ;
-    position:absolute;
-    top:20%;
-    left:-29px;
-}
-
-/*箭頭上*/
-.mwt_border .arrow_t_int{
-    width:0px;
-    height:0px;
-    border-width:15px;
-    border-style:solid;
-    border-color:transparent transparent #333 transparent ;
-    position:absolute;
-    top:-30px;
-    left:40px;
-}
-/*箭頭上-邊框*/
-.mwt_border .arrow_t_out{
-    width:0px;
-    height:0px;
-    border-width:15px;
-    border-style:solid;
-    border-color:transparent transparent #fff transparent ;
-    position:absolute;
-    top:-29px;
-    left:40px;
-}
-
-/*箭頭下*/
-.mwt_border .arrow_b_int{
-    width:0px;
-    height:0px;
-    border-width:15px;
-    border-style:solid;
-    border-color:#333 transparent transparent transparent ;
-    position:absolute;
-    bottom:-30px;
-    right:50px;
-}
-/*箭頭下-邊框*/
-.mwt_border .arrow_b_out{
-    width:0px;
-    height:0px;
-    border-width:15px;
-    border-style:solid;
-    border-color:#fff transparent transparent transparent ;
-    position:absolute;
-    bottom:-29px;
-    right:50px;
+.timeRight{
+    width:200px;
+    height:30px;
+    padding:5px 15px 5px; 
+    margin-left:20px; 
 }
 
 </style>
@@ -302,7 +270,8 @@ uncomment this part if you haven't added this code anywhere else
     <div class="panel-body">
         <ul class="chat"></ul>
         <div id="chat" class="alert alert-primary" style="height:50px;text-align:center;">wellcom to fusic chat room</div>
-        <textarea type="text" name="message" id="outputMessage" class="md-textarea form-control" rows="36" placeholder="Please enter a chat conversation"></textarea>
+        <div class="test_box" name="message" id="outputMessage" contenteditable="true"></div>
+        <!-- <textarea type="text" name="message" id="outputMessage" class="md-textarea form-control" rows="36" placeholder="Please enter a chat conversation"></textarea> -->
     </div>
         <div class="panel-footer">
             <div class="input-group">
@@ -335,9 +304,8 @@ uncomment this part if you haven't added this code anywhere else
         </div> 
         <hr class="col-md-12">
         <div class="col-md-12 col-md-offset-1" id="webchat">
-            <!-- <iframe src='https://webchat.botframework.com/embed/maoBot?s=JcIKINeI66g.cwA.G2k.8k7PW7RH-QX4CqDlFbZ5NNiyZvBfipA8tT5nUFVL1uA'></iframe> -->
+            <iframe style="width:400px;height:300px;" src='https://webchat.botframework.com/embed/maoBot?s=JcIKINeI66g.cwA.G2k.8k7PW7RH-QX4CqDlFbZ5NNiyZvBfipA8tT5nUFVL1uA'></iframe>
         </div>
-        
     </div>
 </div>
 </div>
@@ -363,7 +331,7 @@ uncomment this part if you haven't added this code anywhere else
             var hours = time.getHours();
             var minutes = time.getMinutes();
             var seconds = time.getSeconds();
-            times =  hours + ":" + minutes + ":" + seconds;
+            times =  hours + "h " + minutes + "m " + seconds + "s ";
             return times;
         }
 
@@ -378,7 +346,7 @@ uncomment this part if you haven't added this code anywhere else
         //     })
         // })  
           
-        //jquery 新增訊息
+        //api 新增訊息進資料庫
         $('#btnSend').click(function(){    
             var datas = {
             "memberId": 1,
@@ -395,7 +363,7 @@ uncomment this part if you haven't added this code anywhere else
             })
         })
 
-        //讀取所有訊息
+        //api 讀取所有訊息 印出所有訊息
         function loadMessage(){
             $.getJSON('/api/Friends_Chat/',function(datas){
                 // console.log(datas)
@@ -405,17 +373,26 @@ uncomment this part if you haven't added this code anywhere else
                     //a > index
                     //b > {}
                     // var cell1 = text(todo.id)
-                    var cell1 = $('p').html("<h3>" + datas[idx].memberId + "</h3>")
-                    var cell2 = $('p').html("<h3>" + datas[idx].messages + "</h3>")
-                    var cell3 = $('p').html("<h5>" + datas[idx].messagesUpdate + "</h5>")
-                    var datas = $('<div class="mwt_border"><span class="arrow_l_int"></span><span class="arrow_l_out"></span></div>').html(cell1 + ": " + cell2 + "\n" + cell3)
-                    
+                    // var cell1 = $('<h5></h5>').text(product.memberId)
+                    var cell2 = $('<h4></h4>').text(product.messages)
+                    var cell3 = $('<h6></h6>').text(product.messagesUpdate)       
+                    var datas = $('<div class="testLeft"><span class="span"></span></div>').append(cell2)
+                    var dataTime = $('<div class="timeLeft"></div>').append(cell3)
+                    var datas2 = $('<div><span class="span"></span></div>').append(cell2).toggleClass("testRight")
+                    var dataTime2 = $('<div></div>').append(cell3).toggleClass("timeRight")
+                    if(JSON.stringify(product.id) % 2 == 0){
+                        docFrag.append(datas2,dataTime2)
+                        // console.log(product.id)
+                        // console.log(product.messages)
+                        // console.log(product.messagesUpdate)
+                    }else{
+                        docFrag.append(datas,dataTime)
+                        console.log(product.id)
+                        console.log(product.messages)
+                        console.log(product.messagesUpdate)
+                    }
                 })
-                if(memberId == memberId){
-                    tb.html(docFrag).css("background","lightorange")
-                }else{
-                    tb.html(docFrag).find("div").css({"background":"lightgreen", "float":"right"}).find("span:eq(0)").toggleClass("arrow_r_int").find("span:eq(1)").toggleClass("arrow_r_out")
-                }
+                tb.html(docFrag)
             })
         }
         loadMessage()
@@ -443,12 +420,6 @@ uncomment this part if you haven't added this code anywhere else
                 duration: 300 // don't foget to change the duration also in CSS
             }
         })
-        
-        // Chatbot -- 內嵌程式碼
-        // window.WebChat.renderWebChat({
-        //     directLine: window.WebChat.createDirectLine({ secret:           'JcIKINeI66g.cwA.G2k.8k7PW7RH-QX4CqDlFbZ5NNiyZvBfipA8tT5nUFVL1uA' })
-        // }, 
-        // document.getElementById('webchat'));
         
         // boostrap nav control
         $('#pills-tab-1').click(function(e){
