@@ -21,14 +21,16 @@ class Songlist(models.Model):
 
 #會員資料表 (測試)
 class Member(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=45)
+    email = models.CharField(max_length=200)
+    password = models.CharField(max_length=45)
+    job = models.CharField(max_length=45)
+    birthday = models.DateTimeField(max_length=45)
     gender = models.CharField(max_length=10)
-    birth = models.DateField()
-    email = models.CharField(max_length=50)
-    job = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        db_table = 'member'
+        managed = True
+        db_table = 'members'
 # 喜好資料表
 class Orderhistory(models.Model):
     member = models.ForeignKey('Member', models.DO_NOTHING)
