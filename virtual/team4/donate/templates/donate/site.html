@@ -22,7 +22,7 @@
     margin-left: 80px;
   }
   .thumb{
-      width:80px;
+      width:75px;
   }
   .bot{
     width:500px;
@@ -102,14 +102,25 @@
             <label class="remember"><input type="checkbox" name="remember" value="True">Remember me</label>
           </div>
           {% if request.COOKIES.nameadm %}
-          <label>管理員已登入</label><br>
-          <hr>
+          <label>管理員已登入</label>
           <button type="button" id="buttonLI" class="btn btn-warning"><a href="/donate/siteadm/" style="color: white">CHATBOT管理區</a></button>
           <button type="button" id="buttonLO" class="btn btn-danger"><a href="/donate/logout/" style="color: white">管理員登出</a></button>
           {% else %}
           <button type="submit" id="btn" class="btn btn btn-primary">管理員登入</button>
           {% endif %}
-        </form><br>
+        </form>
+        <hr>
+        <button type="button" id="button00" class="btn btn-dark">FUSIC 即時新聞更新<br>(FROM APPLE NEWS)</button>
+        <br>
+        <button type="button" id="button10" class="btn btn-info">第01-10則</button>
+        <button type="button" id="button20" class="btn btn-info">第11-20則</button>
+        <table id="newslist" class="table  table-responsive">
+          <thead>
+          <tr><th>時間</th><th>分類</th><th>標題</th></tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
       </div>
     </div>  
 
@@ -156,6 +167,41 @@ $(document).ready(function(){
       })
     }
     loadTodo();
+
+  function loadNews(id1,id2){
+        $.getJSON('/donate/apnews/',function(apnewsall){
+          var tb =  $('#newslist>tbody');
+          var docFrag = $(document.createDocumentFragment())
+          $.each(apnewsall,function(idx,apnewse){
+            if (idx>=id1 & idx < id2){
+              apnews=apnewse.fields
+              // console.log(apnews)
+              var cell0 = $('<td></td>').text(apnews.time)
+              var cell1 = $('<td></td>').text(apnews.category)
+              var cell2 = $('<td></td>').html('<a target="blank" href="'+apnews.link+'" style="color: white">'+apnews.title+'</a>')
+              //<tr><td><td><td>
+              var row = $('<tr></tr>').append([cell0,cell1,cell2])
+              //<tbody><tr>
+              docFrag.append(row)
+            } 
+          })
+          tb.html(docFrag)
+      })
+    }
+  loadNews(0,10);
+
+  $('#button00').click(function () {
+    loadNews(0,10);
+    })
+
+  $('#button10').click(function () {
+    loadNews(0,10);
+    })
+
+  $('#button20').click(function () {
+    loadNews(10,20);
+    })
+
 
     $('#todolist>tbody').on('mouseover','td:nth-child(5)',function(){
          var productid = $(this).parents('tr').find('td:nth-child(1)').text();
