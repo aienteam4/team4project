@@ -1,0 +1,58 @@
+{% extends "main.html" %}
+{% block content %}
+<div id="chartContainer" style="height:500px; width:80%; margin:auto; padding-top:90px;"></div>
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+<script>
+        window.onload = function () {
+        
+        //Better to construct options first and then pass it as a parameter
+        var options = {
+            animationEnabled: true,
+            title: {
+                text: "Most Popular Internet Chat Language",                
+                fontColor: "Peru"
+            },	
+            axisY: {
+                tickThickness: 0,
+                lineThickness: 0,
+                valueFormatString: " ",
+                gridThickness: 0                    
+            },
+            axisX: {
+                tickThickness: 0,
+                lineThickness: 0,
+                labelFontSize: 18,
+                labelFontColor: "Peru"				
+            },
+            data: [{
+                indexLabelFontSize: 26,
+                toolTipContent: "<span style=\"color:#62C9C3\">{indexLabel}:</span> <span style=\"color:#CD853F\"><strong>{y}</strong></span>",
+                indexLabelPlacement: "inside",
+                indexLabelFontColor: "white",
+                indexLabelFontWeight: 600,
+                indexLabelFontFamily: "Verdana",
+                color: "#62C9C3",
+                type: "bar",
+                dataPoints: [
+                    { y: 21, label: "21%", indexLabel: "老司機" },
+                    { y: 25, label: "25%", indexLabel: "嚇到吃手手" },
+                    { y: 33, label: "33%", indexLabel: "傻眼貓咪" },
+                    { y: 40, label: "40%", indexLabel: "BJ4" },
+                    { y: 49, label: "49%", indexLabel: "黑人問號" },
+                    { y: 53, label: "53%", indexLabel: "87分不能再高了" },
+                    { y: 58, label: "58%", indexLabel: "7777777777777" },
+                    { y: 62, label: "62%", indexLabel: "8+9" },
+                    { y: 79, label: "79%", indexLabel: "6666666666666" }
+                ]
+            }]
+        };
+        
+        $("#chartContainer").CanvasJSChart(options);
+        }
+        </script>
+{% endblock %}
