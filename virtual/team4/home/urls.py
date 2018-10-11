@@ -9,7 +9,7 @@ urlpatterns = [
     #views表示views.py的module
     #index表示views.py下的function
     path('index/',views.index,name="index"),    
-    path('login/',views.login,name="login"),
+    # path('login/',views.login,name="login"),
     path('makefriends/',include('makefriends.urls')),
     path('contact/',views.contact,name="contact"),
     path('login_or_register/',views.login_or_register,name="login_or_register"),
