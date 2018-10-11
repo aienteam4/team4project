@@ -9,24 +9,31 @@
 <link rel="stylesheet" href="/static/css/jquery.dataTables.min.css"/>  <!-- 子越  -->
  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">  <!--  子越  -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
   
 {% endblock %}
 
   <!------ Include the above in your HEAD tag ---------->
   
   <style>
-    .commentb{float:right;margin-top:15px;
-    }
+    /* .commentb{float:right;margin-top:15px;
+    } */
+    /* #messag{
+      position: fixed;
+      top: 1500px;
+      left: 25%;
+      width: 300px;
+      margin-left: 500px;
+    } */
   </style>
   <body>
         {margin-top:200px;margin-bottom:0px;
     
         }
   </body>
-    
-{% block content %}
-  <div class="row">
+{% block content %}    
+
+  <div class="row" id="messag" >
     <div class="col-md-9">
        <table id="commentlist" class="table table-bordered" >
          <thead>
@@ -55,7 +62,7 @@
      
     </div>
   </div>
-{% endblock%} 
+{% endblock %} 
 
   
 

@@ -2,14 +2,17 @@
 {% load static %}
 {% block styles %}
 <style>
-body{
+/* body{
         background-image: url("../../static/images/album.jpg")
-}
+} */
 header {
-    margin:auto;
+    /* margin:auto; */
     text-decoration:none;
     color: white;
-    background-color: rgba(22, 22, 22,0.6) !important;
+    /* background-color: rgba(22, 22, 22,0.6) !important; */
+    z-index: 99;
+    position:fixed;
+    left: 10%;
 }
 footer{
     color:white;
@@ -207,6 +210,15 @@ uncomment this part if you haven't added this code anywhere else
     padding:5px 15px 5px; 
     margin-left:20px; 
 }
+.myVideo {
+    position: fixed ;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+    z-index: 0;
+}
+
 
 </style>
 {% endblock %}
@@ -214,6 +226,9 @@ uncomment this part if you haven't added this code anywhere else
 {% block content %}
     <!-- 聊天即時訊息(id, time) -->
     <!-- 交友聊天室 -->
+    <video autoplay muted loop class="myVideo">
+        <source src="../../static/images/Blue Glitter Particles-1.mp4" type="video/mp4">
+    </video>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <div class="container"> 

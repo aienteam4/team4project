@@ -154,7 +154,6 @@
             bottom:55px;
             left:0px;
             right:0px;
-            overflow:hidden;
             margin-left:0px;
             margin-right: 0px;
             border-radius: 10px;
@@ -162,6 +161,7 @@
         }
         body{
             background-image: none;
+            overflow-y: scroll;
         }
         #worldhotsong{
             display: none;
@@ -190,7 +190,7 @@
         
         ::-webkit-scrollbar {
             width: 0px;  /* remove scrollbar space */
-            background: transparent;  /* optional: just make scrollbar invisible */
+            background: transparent !important;  /* optional: just make scrollbar invisible */
         }
         
         .marquee {
@@ -226,4 +226,9 @@
           @keyframes marquee {
             0% { top: -100%; }
             100% { top: 0; }
+          }
+          #messag{
+            width: 400px;
+            margin-top: 600px;
+            margin-left: 300px;
           }
