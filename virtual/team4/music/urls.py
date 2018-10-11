@@ -24,5 +24,5 @@ urlpatterns = [
     # 爬蟲
     path('worldhotsong/', views.worldHotSong),
     #畫圖
-    path('drawchart/', views.drawChart),
+    path('drawChart/', views.drawChart, name ='drawChart'),
 ]
