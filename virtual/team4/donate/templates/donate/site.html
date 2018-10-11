@@ -22,10 +22,10 @@
     margin-left: 80px;
   }
   .thumb{
-      width:100px;
+      width:80px;
   }
   .bot{
-    width:400px;
+    width:500px;
   }
   #img_captcha{
     width:65px;
@@ -74,18 +74,15 @@
         </table>
      </div>
 
-     <div class="col-md-4">
+     <div class="col-md-5">
         <table id="chatbot" class="table  table-responsive">
           <thead>
-             <tr><th>FUSIC CHATBOT</th></tr>
+             <tr><th>FUSIC CHATBOT(滑鼠請移到照片)</th></tr>
           </thead>
           <tbody>
           </tbody>
         </table>
      </div>
-<<<<<<< HEAD
-    </div> 
-=======
 
      <div class="col-md-3">
         <form role="form" method="POST">
@@ -116,7 +113,6 @@
       </div>
     </div>  
 
->>>>>>> 43d029327ebe4a0d3c0ff88b588880b533edde25
 {% endblock%}
 
 {% block scripts%}
@@ -127,9 +123,6 @@
 <script src="/static/js/jquery.dataTables.min.js"></script>
 <script>
 $(document).ready(function(){
-<<<<<<< HEAD
-    //讀取所有資料
-=======
   //加驗證碼
   $('#btn_captcha').click(function () {
     var xhr = new XMLHttpRequest();
@@ -144,7 +137,6 @@ $(document).ready(function(){
   })
        
     //讀取主人資料
->>>>>>> 43d029327ebe4a0d3c0ff88b588880b533edde25
     function loadTodo(){
       $.getJSON('/api/product/',function(datas){
           var tb =  $('#todolist>tbody');

@@ -117,6 +117,7 @@
         }
         /* 以下是別人的 */
         #songdata{
+            display: none;
             position: fixed;
             top: 22%;
             right: 5%;
@@ -186,10 +187,43 @@
             text-align: center;
             font-size: 25px;
         }
-        .marquee{
-            position: fixed;
-            left: 20%;
-            top: 80%;
-            display: none;
-            z-index: 5;
+        
+        ::-webkit-scrollbar {
+            width: 0px;  /* remove scrollbar space */
+            background: transparent;  /* optional: just make scrollbar invisible */
         }
+        
+        .marquee {
+            height: 500px;
+            width: 30px;
+            display: none;
+            overflow: hidden;
+            position: fixed;
+            left: 22%;
+            top: 25%;
+            z-index: 3;
+            writing-mode: vertical-lr
+
+          }
+          
+          .marquee div {
+            display: block;
+            width: 20px;
+            height: 500px;
+          
+            position: absolute;
+            overflow: hidden;
+
+            animation: marquee 10s linear infinite;
+          }
+          
+          .marquee span {
+            float: left;
+            /* width: 50%; */
+            /* line-height: 1.5 em; */
+          }
+          
+          @keyframes marquee {
+            0% { top: -100%; }
+            100% { top: 0; }
+          }
