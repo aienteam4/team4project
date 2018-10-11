@@ -144,28 +144,28 @@ uncomment this part if you haven't added this code anywhere else
     word-wrap: break-word;
     overflow-x: hidden;
     overflow-y: auto;
-    overflow-y: visible; 
+    overflow-y: visible;
+    background-color: #e0e0de; 
 } 
 
 /* message對話框 */
 .testLeft{
-    color:white;
-    width:250px;
+    width:350px;
     height:80px;
     min-height: 80px; 
     max-height: none;
-    min-width: 200px; 
+    min-width: 250px; 
     max-width: none;
     padding:5px 15px 5px; 
     border-radius:30px ; 
-    background-color: rgb(25, 139, 233);
+    background-color: rgb(164, 206, 240);
     word-wrap: break-word;
     text-overflow:ellipsis; 
-    white-space:nowrap; 
+    white-space:nowrap;
+    /* z-index: 99;  */
 }
 
 .testRight{
-    color:white;
     width:250px;
     height:80px;
     min-height: 80px; 
@@ -174,29 +174,36 @@ uncomment this part if you haven't added this code anywhere else
     max-width: none;
     padding:5px 15px 5px; 
     border-radius:30px ; 
-    background-color: rgb(243, 135, 47);
+    background-color: rgb(245, 200, 163);
     word-wrap: break-word;
     text-overflow:ellipsis; 
     white-space:nowrap; 
     margin-left:180px;
 }
 
-.test span{
-    width:auto; 
-    height:auto; 
-    font-size:8px; 
+.spanLeft{
+    width:0; 
+    height:0; 
+    /* font-size:8px;  */
+    position:absolute;
+}
+
+.spanRight{
+    width:0; 
+    height:0; 
+    /* font-size:8px;  */
     position:absolute;
 }
 
 .timeLeft{
     width:200px;
-    height:30px;
+    height:40px;
     padding:5px 15px 5px; 
     margin-left:250px; 
 }
 .timeRight{
     width:200px;
-    height:30px;
+    height:40px;
     padding:5px 15px 5px; 
     margin-left:20px; 
 }
@@ -237,7 +244,7 @@ uncomment this part if you haven't added this code anywhere else
         </div>
         </div><hr class="col-md-12">
         <div class="col-md-offset-6">
-        <a href="{% url "makefriends:message_update" %}" class="btn btn-danger" id="music2" data-toggle="tooltip" title="small talk">編輯聊天</a>
+        <a href="{% url "makefriends:message_update" %}" class="btn btn-danger" id="music2" data-toggle="tooltip" title="small talk">熱門網路用語爬蟲</a>
         </div> 
     </div>
     <div class="col-md-5 col-md-offset-3">
@@ -301,10 +308,10 @@ uncomment this part if you haven't added this code anywhere else
             <div class="tab-pane fade show active" id="pills-content1" role="tabpanel" aria-labelledby="pills-home-tab">Home</div>
             <div class="tab-pane fade" id="pills-content2" role="tabpanel" aria-labelledby="pills-profile-tab">A web chat is a system that allows users to communicate in real time using easily accessible web interfaces. It is a type of Internet online chat distinguished by its simplicity and accessibility to users who do not wish to take the time to install and learn to use specialized chat software. This trait allows users instantaneous access and only a web browser is required to chat. Users will always get the latest version of a chat service because no software installation or updates are required.</div>
         </div>
-        </div> 
-        <hr class="col-md-12">
-        <div class="col-md-12 col-md-offset-1" id="webchat">
-            <iframe style="width:400px;height:300px;" src='https://webchat.botframework.com/embed/maoBot?s=JcIKINeI66g.cwA.G2k.8k7PW7RH-QX4CqDlFbZ5NNiyZvBfipA8tT5nUFVL1uA'></iframe>
+        </div>
+        <hr class="col-md-12"> 
+        <div class="col-md-12 col-md-offset-0" id="webchat">
+            <iframe style="width:500px;height:500px;" src='https://webchat.botframework.com/embed/maoBot?s=JcIKINeI66g.cwA.G2k.8k7PW7RH-QX4CqDlFbZ5NNiyZvBfipA8tT5nUFVL1uA'></iframe>
         </div>
     </div>
 </div>
@@ -331,21 +338,14 @@ uncomment this part if you haven't added this code anywhere else
             var hours = time.getHours();
             var minutes = time.getMinutes();
             var seconds = time.getSeconds();
-            times =  hours + "h " + minutes + "m " + seconds + "s ";
+            var ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0'+minutes : minutes;
+            times =  hours + ":" + minutes + ":" + seconds + " " + ampm;
             return times;
         }
 
-        // // jquery send message
-        // $('#btnSend').click(function(){
-        //     // var userid = $('').val();
-        //     var messages = $('#inputMessage').val();
-        //     var messagesUpdate = setDate();
-        //     // 顯示對話訊息
-        //     $.get('/makefriends/send/'+ messagesUpdate +'/',{"messages":messages},function(datas){
-        //         $('#outputMessage').html(datas);
-        //     })
-        // })  
-          
         //api 新增訊息進資料庫
         $('#btnSend').click(function(){    
             var datas = {
@@ -353,7 +353,7 @@ uncomment this part if you haven't added this code anywhere else
             "messages": $('#InputMessage').val(),
             "messagesUpdate": setDate(),
             };
-            console.log(datas)
+            // console.log(datas)
         $.post('/api/Friends_Chat/',datas,function(data){
             $('#InputMemberId').val('')
             // console.log(datas)
@@ -376,20 +376,22 @@ uncomment this part if you haven't added this code anywhere else
                     // var cell1 = $('<h5></h5>').text(product.memberId)
                     var cell2 = $('<h4></h4>').text(product.messages)
                     var cell3 = $('<h6></h6>').text(product.messagesUpdate)       
-                    var datas = $('<div class="testLeft"><span class="span"></span></div>').append(cell2)
-                    var dataTime = $('<div class="timeLeft"></div>').append(cell3)
-                    var datas2 = $('<div><span class="span"></span></div>').append(cell2).toggleClass("testRight")
+                    var datas = $('<div><span class="spanLeft"></span></div>').append("<h4>" + product.messages + "</h4>").toggleClass("testLeft")
+                    var dataTime = $('<div></div>').append("<h6>" + product.messagesUpdate  + "</h6>").toggleClass("timeLeft")
+                    var datas2 = $('<div><span class="spanRight"></span></div>').append(cell2).toggleClass("testRight")
                     var dataTime2 = $('<div></div>').append(cell3).toggleClass("timeRight")
-                    if(JSON.stringify(product.id) % 2 == 0){
-                        docFrag.append(datas2,dataTime2)
-                        // console.log(product.id)
+                    // console.log(JSON.stringify(product.id))
+                    if(JSON.stringify(product.id) % 2 == 1){
+                        docFrag.append([datas,dataTime])
+                        // console.log("Left")
                         // console.log(product.messages)
                         // console.log(product.messagesUpdate)
                     }else{
-                        docFrag.append(datas,dataTime)
-                        console.log(product.id)
-                        console.log(product.messages)
-                        console.log(product.messagesUpdate)
+                        docFrag.append([datas2,dataTime2])
+                        // console.log("Right")
+                        // console.log(product.id)
+                        // console.log(product.messages)
+                        // console.log(product.messagesUpdate)
                     }
                 })
                 tb.html(docFrag)
