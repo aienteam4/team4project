@@ -178,7 +178,7 @@ uncomment this part if you haven't added this code anywhere else
     word-wrap: break-word;
     text-overflow:ellipsis; 
     white-space:nowrap; 
-    margin-left:180px;
+    margin-left:190px;
 }
 
 .spanLeft{
@@ -226,9 +226,9 @@ uncomment this part if you haven't added this code anywhere else
         <a class="image-popup-no-margins" href="../../static/images/singer_donate.jpg" title="donate">
         <img class="card-img-top" src="../../static/images/singer_donate.jpg" width="400" height="300" alt="Card image cap">
         <div class="card-body">
-            <h5 class="card-title">Donate</h5>
+            <h5 class="card-title">Chatbot Shop</h5>
             <p>This is my Big brother * Alan's * template (the card's content).</p>
-            <a href="{% url "donate:index" %}" class="btn btn-primary" data-toggle="tooltip" title="Alan's template">Go Donate</a>
+            <a href="{% url "donate:index" %}" class="btn btn-primary" data-toggle="tooltip" title="Alan's template">Go Chatbot Shop</a>
         </div>
         </div><hr class="col-md-12">
         <div class="col-md-offset-6">
@@ -243,8 +243,8 @@ uncomment this part if you haven't added this code anywhere else
             <a href="{% url "donate:index" %}" class="btn btn-primary" data-toggle="tooltip" title="Mao's template">Go Music</a>
         </div>
         </div><hr class="col-md-12">
-        <div class="col-md-offset-6">
-        <a href="{% url "makefriends:message_update" %}" class="btn btn-danger" id="music2" data-toggle="tooltip" title="small talk">熱門網路用語爬蟲</a>
+        <div class="col-md-offset-5">
+        <a href="{% url "makefriends:pop_chat" %}" class="btn btn-danger" id="music2" data-toggle="tooltip" title="small talk">熱門網路用語charts</a>
         </div> 
     </div>
     <div class="col-md-5 col-md-offset-3">
@@ -276,7 +276,7 @@ uncomment this part if you haven't added this code anywhere else
                 </div>
     <div class="panel-body">
         <ul class="chat"></ul>
-        <div id="chat" class="alert alert-primary" style="height:50px;text-align:center;">wellcom to fusic chat room</div>
+        <div id="chat" class="alert alert-primary" style="height:50px;text-align:center;">welcome to fusic chat room</div>
         <div class="test_box" name="message" id="outputMessage" contenteditable="true"></div>
         <!-- <textarea type="text" name="message" id="outputMessage" class="md-textarea form-control" rows="36" placeholder="Please enter a chat conversation"></textarea> -->
     </div>
@@ -295,7 +295,7 @@ uncomment this part if you haven't added this code anywhere else
             </div>
         </div>
         <hr class="col-md-12">
-        <div class="col-md-12" id="nav">
+        <!-- <div class="col-md-12" id="nav">
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="pills-tab-1" data-toggle="pill" href="#tab1" role="tab" aria-controls="pills-home" aria-selected="true">Chatbot</a>
@@ -308,11 +308,11 @@ uncomment this part if you haven't added this code anywhere else
             <div class="tab-pane fade show active" id="pills-content1" role="tabpanel" aria-labelledby="pills-home-tab">Home</div>
             <div class="tab-pane fade" id="pills-content2" role="tabpanel" aria-labelledby="pills-profile-tab">A web chat is a system that allows users to communicate in real time using easily accessible web interfaces. It is a type of Internet online chat distinguished by its simplicity and accessibility to users who do not wish to take the time to install and learn to use specialized chat software. This trait allows users instantaneous access and only a web browser is required to chat. Users will always get the latest version of a chat service because no software installation or updates are required.</div>
         </div>
-        </div>
-        <hr class="col-md-12"> 
+        </div> -->
+        <!-- <hr class="col-md-12"> 
         <div class="col-md-12 col-md-offset-0" id="webchat">
             <iframe style="width:500px;height:500px;" src='https://webchat.botframework.com/embed/maoBot?s=JcIKINeI66g.cwA.G2k.8k7PW7RH-QX4CqDlFbZ5NNiyZvBfipA8tT5nUFVL1uA'></iframe>
-        </div>
+        </div> -->
     </div>
 </div>
 </div>
