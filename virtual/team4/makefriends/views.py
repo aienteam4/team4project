@@ -1,15 +1,15 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db import connection
-from .modelsfriends import Friends_Talk
+# from .modelsfriends import Friends_Talk
 import datetime
 from django.utils.encoding import smart_str
 import base64
 from .models import Friends_Chat
-from .serializers import Friends_ChatSerializer
+# from .serializers import Friends_ChatSerializer
 from rest_framework import viewsets
 
-friend = Friends_Talk()
+# friend = Friends_Talk()
 
 def friends(request):
     return render(request,'makefriends/friends.html',locals())

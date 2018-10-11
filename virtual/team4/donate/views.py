@@ -87,6 +87,35 @@ def index(request):
             #Back to Index
     return render(request,'donate/site.html',locals())
 
+def apnews(request):
+    #Get news from Apple
+    url = 'https://tw.appledaily.com/new/realtime'   #選擇網址
+    headers_data = {
+        'user-agent' : 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36'
+    }
+    responsenews = requests.get(url, headers=headers_data)
+    soup = BeautifulSoup(responsenews.text,'lxml')
+    items = soup.select('ul.rtddd > li.rtddt')
+
+    Apnews.objects.all().delete()
+
+    for item in items:
+        time = item.find('time').string
+        category = item.find('h2').string
+        title = item.find('h1').get_text()
+        link = item.find('a').get('href')
+        match = re.search(r'(?P<title>.+)\((?P<count>\d+)\)',item.find('h1').get_text())
+        count = 0
+        try:
+           title = match.group("title")
+           count = match.group("count")
+        except AttributeError:
+            pass
+  
+        Apnews.objects.create(time = time, category = category, title = title, link = link)
+        apnewsall = serializers.serialize("json", Apnews.objects.all())
+    return HttpResponse(apnewsall, content_type="application/json")
+
 def logout(request):
     strJS = "<script>alert('登出');location.href='/donate/'</script>"
     response = HttpResponse(strJS)

@@ -1,6 +1,6 @@
 from .models import Songlist, Orderhistory,Member
 from django.shortcuts import render,redirect
-import random,re,json,time
+import random,re,json,time,requests
 from django.http import HttpResponse
 from django.contrib.sessions.models import Session
 from .forms import SongListForm
@@ -53,8 +53,12 @@ def taste(request):
     index = song.url.find('=')
     youtubeId = song.url[index+1:]    
     data1 = Orderhistory.objects.filter(member = herId)
+    print("data1:",data1)
     data = data1.filter(song = songId)
+    print("data:",data)
     member = Member.objects.get(id=herId)
+    print("member:", member)
+    print("到這沒問題")
     if data:                                             #如果此會員點過這首歌...
         print("他點過這首歌")
         print(data.last().order_time)                                           
@@ -67,6 +71,7 @@ def taste(request):
         newdata.save()
         print(newdata.this_song_like_or_not) 
     else:                                               #如果此會員沒點過這首歌...
+        print("他沒點過這首歌")
         newOrder = Orderhistory()
         newOrder.member = member
         newOrder.song = song

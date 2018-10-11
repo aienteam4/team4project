@@ -1,12 +1,12 @@
 <link href="../../static/styles/main.css" rel="stylesheet" />
-{% extends "main.html" %}
+{% extends "home.html" %}
 {% block styles %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'style/music.css' %}">
  
 {% endblock %}
 
-{% block content %}
+{% block video %}
     <!-- <h1>可做聽歌成就系統！！勿忘勿忘！！</h1> -->
 
     
@@ -55,7 +55,8 @@
             </li>                        
         </ul>
     </div>
-</aside>  
+</aside>
+
 {% endblock %}
 
 {% block scripts %}
