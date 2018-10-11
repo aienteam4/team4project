@@ -1,4 +1,4 @@
-from .models import Songlist, Member, Orderhistory
+from .models import Songlist, Orderhistory,Member
 from django.shortcuts import render,redirect
 import random,re,json,time,requests
 from django.http import HttpResponse
@@ -45,10 +45,10 @@ def taste(request):
         print(song)
     except:
         print("url有問題")    
-    songId = song.id                                    #歌曲ID   
+    songId = song.id                                    #歌曲ID  
+    herId = request.COOKIES['name_member'] 
+    print('輸入者id' + herId)
     # sid = request.COOKIES['sessionid']
-    herId = request.COOKIES['name_member']
-    print(herId)
     # herId = Session.objects.get(pk = sid).get_decoded()['memberId']
     index = song.url.find('=')
     youtubeId = song.url[index+1:]    

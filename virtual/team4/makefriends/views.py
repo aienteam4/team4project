@@ -19,8 +19,8 @@ def api_message(request):
     title = "Restful api -- makefriends"
     return render(request,'makefriends/api_message.html',locals())
 
-def message_update(request):
-    return render(request,'makefriends/message_update.html')
+def pop_chat(request):
+    return render(request,'makefriends/pop_chat.html')
 
 # def index(request):  
 #     #ORM

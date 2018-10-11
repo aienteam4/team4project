@@ -11,6 +11,6 @@ app_name = "makefriends"
 urlpatterns = [
     path('',views.friends,name='friends'),
     path('api_message/',views.api_message,name='api_message'),
-    path('message_update/',views.message_update,name='message_update'),
+    path('pop_chat/',views.pop_chat,name='pop_chat'),
    
 ]
