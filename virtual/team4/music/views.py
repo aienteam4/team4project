@@ -46,8 +46,10 @@ def taste(request):
     except:
         print("url有問題")    
     songId = song.id                                    #歌曲ID   
-    sid = request.COOKIES['sessionid']
-    herId = Session.objects.get(pk = sid).get_decoded()['memberId']
+    # sid = request.COOKIES['sessionid']
+    herId = request.COOKIES['name_member']
+    print(herId)
+    # herId = Session.objects.get(pk = sid).get_decoded()['memberId']
     index = song.url.find('=')
     youtubeId = song.url[index+1:]    
     data1 = Orderhistory.objects.filter(member = herId)
