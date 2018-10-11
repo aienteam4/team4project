@@ -1,15 +1,15 @@
 <link href="../../static/styles/main.css" rel="stylesheet" />
-{% extends "home.html" %}
+{% extends "main.html" %}
 {% block styles %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'style/music.css' %}">
  
 {% endblock %}
 
-{% block video %}
+
     <!-- <h1>可做聽歌成就系統！！勿忘勿忘！！</h1> -->
 
-    
+{% block content %}    
     <!--加入youtube-->
     <!-- <iframe id="player" type="text/html" width="854" height="480" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
 <div id="player"></div>
