@@ -24,9 +24,9 @@ def contact(request):
     title="Contact"
     return render(request,'home/contact.html',locals())
 
-def login(request):
-    title="Please log in."
-    return render(request,'home/login.html',locals())
+# def login(request):
+#     title="Please log in."
+#     return render(request,'home/login.html',locals())
 
 def login_or_register(request):
     title="Please log in or register."
