@@ -84,7 +84,7 @@
     }
     ul.drop-down-menu li ul li{
         border:2px solid rgb(255, 255, 255);
-        /* background-color: rgba(255, 255, 255, 0.3); */
+        background-color: rgba(255, 255, 255, 0.3);
         border-radius: 10px;
     }
     ul.drop-down-menu li ul li:hover {
@@ -139,7 +139,13 @@
         <ul class="drop-down-menu">
             <li><a href="{% url 'home:index' %}">Index</a>
             </li>
-            <li><a href="{% url 'music:music' %}">Music</a>
+            <li><a href="#">Music</a>
+                <ul>
+                    <li><a href="{% url 'music:music' %}">Music</a>
+                    </li>
+                    <li><a href="{% url 'music:drawChart' %}">Chart report</a>
+                    </li>
+                </ul>
             </li>
             <li><a href="#">Friends</a>
                 <ul>
@@ -147,12 +153,12 @@
                     </li>
                     <li><a href="{% url 'message:home' %}">Message board</a>
                     </li>
-                    <li><a href="{% url 'donate:index' %}">ChatBot Shop</a>
+                    <li><a href="{% url 'donate:index' %}">ChatBot shop</a>
                     </li>
                 </ul>
             </li>
-            <li><a href="{% url 'home:contact' %}">Contact</a>
-            </li>
+            <!-- <li><a href="{% url 'home:contact' %}">Contact</a>
+            </li> -->
             <li class="divider">|   
             </li>
             <!-- <li><a href="{% url 'member:register' %}">Register</a>

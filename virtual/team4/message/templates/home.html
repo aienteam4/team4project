@@ -3,83 +3,156 @@
 
 
   
-{% block styles %} 
+{% block styles %}
+
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">    
 <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"> -->
 <link rel="stylesheet" href="/static/css/jquery.dataTables.min.css"/>  <!-- 子越  -->
  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">  <!--  子越  -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
-  
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<style>
+.main{
+  font-family: 'Ubuntu Mono', '微軟正黑體', monospace;
+  padding-top: 20px;
+  width:70%;
+  margin: auto;
+  font-size: 18px;
+  border-radius: 10px;
+}
+.title{
+  padding-top: 80px;
+}
+.form{
+  font-family: 'Ubuntu Mono', '微軟正黑體', monospace;
+  font-weight: 500;
+  /* width:70%; */
+  margin: auto;
+}
+tr{
+  font-size: 20px;
+}
+#sdk{
+  width:40%;
+  text-align: center;
+  line-height: 80%;
+  font-size: 40px;
+  margin: auto;
+  color:rgb(52, 206, 159);
+}
+#sdk_button{
+  width: 100% !important;
+}
+.login-or {
+  position: relative;
+  font-size: 18px;
+  color: rgb(255, 255, 255);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.hr-or {
+  background-color: #cdcdcd;
+  height: 1px;
+  width: 50%;
+  margin: auto;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+.col-md-9{
+  left:18%;
+  width: 90%;
+  /* margin: auto; */
+}
+.col-md-4{
+  left:18%;
+  width: 90%;
+}
+.form-control{
+  margin:0;
+  margin-top:10px;
+  line-height: 30px;
+  font-size: 20px;
+}
+.edit{
+  margin-top: 20px;
+}
+#btnsubmit{
+  font-family: '微軟正黑體', 'Trebuchet MS', 'Lucida Sans Unicode';
+  font-size: 25px;
+  font-weight: 1000;
+  width: 100px;
+  border: 2px solid rgb(255, 255, 255);
+  background:transparent;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  border-radius: 25px;
+  margin-top:10px;
+  float:right;
+}
+#btnsubmit:hover{
+  background: rgb(43, 165, 128);
+  color: rgb(255, 255, 255);
+  transition: all 0.5s ease-in-out;
+}
+.th{
+  width: 200px;
+}
+#content{
+  height:150px;
+}
+</style>
 {% endblock %}
-
-  <!------ Include the above in your HEAD tag ---------->
-  
-  <style>
-    /* .commentb{float:right;margin-top:15px;
-    } */
-    /* #messag{
-      position: fixed;
-      top: 1500px;
-      left: 25%;
-      width: 300px;
-      margin-left: 500px;
-    } */
-  </style>
-  <body>
-        {margin-top:200px;margin-bottom:0px;
-    
-        }
-  </body>
-{% block content %}    
-
-  <div class="row" id="messag" >
-    <div class="col-md-9">
-       <table id="commentlist" class="table table-bordered" >
-         <thead>
-            <tr style="color:white"><th>編號</th><th>名子</th><th>留言</th><th>選項</th></tr>
-         </thead>
-         <tbody style="color:white">
-
-         </tbody>
-       </table>
-    </div>
-    <hr>
-    <div class="col-md-3">
-     <form>
-       <div class="input-group">
-         <label for="inputname">name</label>
-         <input type="text" class="form-control" id="name" placeholder="輸入名子">         
-       </div>
-       <div class="input-group">
-         <label for="inputtext">content</label>
-         <input type="text" class="form-control" id="content" placeholder="新增留言">
-       </div>
-       <div><h3 style="color:white" >留言欄位可直接編輯內容</h3></div>
-       <div><button type="button" id="btnsubmit" class="btn btn-primary">留言</button>
+{% block content %}
+<div class="form">
+  <div class="title">
+      <div id="sdk">
+        fusic留言板
       </div>
-     </form>
-     
-    </div>
+      <div class="login-or">
+      <hr class="hr-or">
   </div>
+</div> 
+
+<div class="row">
+  <div class="col-md-9">
+      <table id="commentlist" class="table table-bordered" >
+        <thead>
+          <tr style="color:white"><th>編號</th><th>名字</th><th>留言</th><th>編輯</th></tr>
+        </thead>
+        <tbody style="color:white">
+
+        </tbody>
+      </table>
+  </div>
+  <hr>
+  <div class="col-md-4">
+    <form>
+      <div class="input-group">
+        <!-- <label for="inputname">name</label> -->
+        <input type="text" class="form-control" id="name" placeholder="輸入名字">         
+      </div>
+      <div class="input-group">
+        <!-- <label for="inputtext">content</label> -->
+        <textarea type="text" class="form-control" id="content" placeholder="新增留言"></textarea>
+      </div>
+      <div class="edit"><h3 style="color:white" >留言欄位可直接編輯內容</h3></div>
+      <div><button type="button" id="btnsubmit" class="btn btn-primary">留言</button>
+    </div>
+    </form>
+  </div>
+</div>
 {% endblock %} 
-
-  
-
-
 
 {% block scripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>  <!-- 子越  -->
   
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> <!-- 子越  -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> 子越 
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>  <!-- 子越  -->  
-
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>  <!-- 子越  -->
-  
-<script src="/static/js/jquery.dataTables.min.js"></script>  <!-- 子越  -->
+ 
+<!-- <script src="/static/js/jquery.dataTables.min.js"></script>  子越  -->
 
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   
@@ -163,7 +236,7 @@ $('#commentlist>tbody').on('click','button:nth-child(1)',function(){
         "content":content
         };
         // var content = $(this).parents('tr').find('td:nth-child(3)').empty();
-        console.log(datas)
+        // console.log(datas)
         // "modelnumber": modelnumber,
         // "modelname": modelname,
         // "description": description,
@@ -177,7 +250,7 @@ $('#commentlist>tbody').on('click','button:nth-child(1)',function(){
           //  if (data == 1){
 
           //  }
-           console.log(data)
+            console.log(data)
            loadcomment();
         });
           //重新載入產品
