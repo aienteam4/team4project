@@ -189,13 +189,17 @@ def session_test(request):
 
 def cookietest(request):
     
-    if request.session.test_cookie_worked():
-        request.session.delete_test_cookie()
-        message = 'You can eat cookies!'
-    else:
-        message = 'You cannot eat cookies...'
-    request.session.set_test_cookie()
-    return HttpResponse(message)
+    # if request.session.test_cookie_worked():
+    #     request.session.delete_test_cookie()
+    #     message = 'You can eat cookies!'
+    # else:
+    #     message = 'You cannot eat cookies...'
+    # request.session.set_test_cookie()
+    # return HttpResponse(message)
+    response = HttpResponse()
+    response.set_cookie("name_member",1,)
+    response.set_cookie("nameadm",'nameadm')
+    return response
 
 # 練習login
 def checkEmail(request):    

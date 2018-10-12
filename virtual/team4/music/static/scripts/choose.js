@@ -62,8 +62,14 @@ function ajaxFindSong(){
 }      
 function stopPlayCount()    //函式：停止計算播放時間
 {
-        if (playTime >= 10) var tasteNum = 1;
-        else tasteNum = 0;
+        if (playTime >= 5) {
+            var tasteNum = 1;
+            console.log("他喜歡這首歌")
+        }
+        else{ 
+            tasteNum = 0;
+            console.log("他不喜歡這首歌");
+        }    
         console.log(tasteNum);
         console.log(songId);
         $.getJSON("taste/", { "taste": tasteNum, "songId" : songId }, function(data){
@@ -73,42 +79,17 @@ function stopPlayCount()    //函式：停止計算播放時間
             $("#songdata li.nav-item:last").click(playOldYt)
         });        
         clearTimeout(countPlayTime);
-};
-    function playOldYt(){
-        var songid = $(this).children("span:first").text();
-        id = $(this).children("span:last").text();
-        console.log(songid)
-        console.log(id);
-        // 也寫入資料庫，到這裡已確定聽者喜歡這首歌
-        $.get("taste/", { "taste": 1, "songId":songid });
-        $('#player').attr('src','https://www.youtube.com/embed/'+id+'?rel=0&amp;showinfo=0&autoplay=1')   
-        id = ""; 
         playTime = 0;
 };
 
 function playCount()        //函式：計算播放時間                      
 {
     playTime += 1;
+    console.log(playTime)
     if (playTime >= 600) clearTimeout(countPlayTime);  // 避免背景不斷計時
 };
 
-function playOldYt(){
-    if (playTime>0){
-        if (playTime >= 10) tasteNum = 1;
-        else tasteNum = 0;
-        $.get("taste/", { "taste": tasteNum, "songId" : songId })            
-    };
-    var songid = $(this).children("span:first").text();
-    id = $(this).children("span:last").text().replace(/(\r\n\t|\n|\r\t|\s)/gm,"");
-    console.log(songid)
-    console.log(id);            
-    // 也寫入資料庫，到這裡已確定聽者喜歡這首歌
-    $.get("taste/", { "taste": 1, "songId":songid });
-    player.loadVideoById(id);   
-    id = "";
-    playTime = 0;
-    clearTimeout(countPlayTime);
-}
+
 
 $(document).ready(function(){
     
@@ -315,7 +296,25 @@ $(document).ready(function(){
         // if (event.data == YT.PlayerState.BUFFERING) alert("Buffering")   
         }                  
     
-    
+        function playOldYt(){
+            // if (playTime>0){
+            //     if (playTime >= 10) tasteNum = 1;
+            //     else tasteNum = 0;
+            //     $.get("taste/", { "taste": tasteNum, "songId" : songId })            
+            // };
+            var songid = $(this).children("span:first").text();
+            id = $(this).children("span:last").text().replace(/(\r\n\t|\n|\r\t|\s)/gm,"");
+            console.log(songid)
+            console.log(id);            
+            // 也寫入資料庫，到這裡已確定聽者喜歡這首歌
+            $.get("taste/", { "taste": 1, "songId":songid });
+            console.log("播放舊歌曲")
+            $('#player').attr('src','https://www.youtube.com/embed/'+id+'?rel=0&amp;showinfo=0&autoplay=1');   
+            // player.loadVideoById(id);   
+            id = "";
+            playTime = 0;
+            clearTimeout(countPlayTime);
+        }
     
      
 
