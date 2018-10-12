@@ -6,25 +6,33 @@
  
 {% endblock %}
 
-{% block content %}
+
     <!-- <h1>可做聽歌成就系統！！勿忘勿忘！！</h1> -->
 
-    
+{% block content %}    
     <!--加入youtube-->
     <!-- <iframe id="player" type="text/html" width="854" height="480" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
-    <div id="player"></div>
-            <video id="bgvideo" autoplay muted loop class="video">
-                    <source src="../../static/images/Blue Glitter Particles-1.mp4" type="video/mp4">
-            </video>
-    <button id='revel'  type="button" class="btn btn-outline-warning revelbtn mood"><h2>狂歡</h2></button>    
+<div id="player"></div>
+<div class="marquee">
+    <div>
+      <span></span>
+      <!-- <span></span> -->
+    </div>
+  </div>
+  <video id="bgvideo" autoplay muted loop class="video">
+        <source src="../../static/images/Blue Glitter Particles-1.mp4" type="video/mp4">
+    </video>
+<aside>       
+    <button id='revel'  type="button" class="btn btn-outline-warning revelbtn mood"><h2>狂歡</h2></button>
     <button id='happy' type="button" class="btn btn-outline-success happybtn mood"><h2>愉悅</h2></button>
     <button id='lonely' type="button" class="btn btn-outline-primary lonelybtn mood"><h2>孤寂</h2></button>
     <button id='sad' type="button" class="btn btn-outline-secondary sadbtn mood"><h2>悲傷</h2></button>    
     <button id='anger' type="button" class="btn btn-outline-danger angerbtn mood"><h2>憤怒</h2></button>
     <button id="center" type="button" class="center_div"><p>您今天心情如何呢?</p></button>
-
+</aside>        
     
     <!-- 放聽過的歌 -->
+<aside>
     <div id="songdata">   
         <ul class="nav nav-pills flex-column">
             <li class="nav-item w-100">
@@ -44,10 +52,11 @@
                     <i class="fab fa-youtube"></i>
                     <span class="d-inline-block">全球哈燒榜</span> 
                 </a>
-            </li>                        
+            </li>
         </ul>
     </div>
-    
+</aside>
+
 {% endblock %}
 
 {% block scripts %}

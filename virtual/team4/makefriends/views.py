@@ -1,15 +1,26 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.db import connection
-from .modelsfriends import Friends_Talk
+# from .modelsfriends import Friends_Talk
 import datetime
 from django.utils.encoding import smart_str
 import base64
 from .models import Friends_Chat
-from .serializers import Friends_ChatSerializer
+# from .serializers import Friends_ChatSerializer
 from rest_framework import viewsets
 
-friend = Friends_Talk()
+# friend = Friends_Talk()
+
+def friends(request):
+    return render(request,'makefriends/friends.html',locals())
+
+# restful api CRUD
+def api_message(request):  
+    title = "Restful api -- makefriends"
+    return render(request,'makefriends/api_message.html',locals())
+
+def pop_chat(request):
+    return render(request,'makefriends/pop_chat.html')
 
 # def index(request):  
 #     #ORM
@@ -61,58 +72,50 @@ friend = Friends_Talk()
 #     response = HttpResponse("<script>location.href='/'</script>")
 #     response.delete_cookie("name") 
 #     return response
-def friends(request):
-    return render(request,'makefriends/friends.html')
 
-def delete(request, id):
-    friend.delete(id)
-    return redirect("/message_record/")
+# def delete(request, id):
+#     friend.delete(id)
+#     return redirect("/message_record/")
 
-def update(request, id):
-    if request.method == "POST":
-        #接收表單傳過來的資料
-        memberId = request.POST["memberId"]
-        message = request.POST["message"]  
-        messageUpdate = request.POST["messageUpdate"]  
+# def update(request, id):
+#     if request.method == "POST":
+#         #接收表單傳過來的資料
+#         memberId = request.POST["memberId"]
+#         messages = request.POST["message"]  
+#         messagesUpdate = request.POST["messagesUpdate"]  
 
-        friends = (memberId,message,messageUpdate,id)
-        friend.update(friends)
-        return redirect("/message_record/")
+#         friends = (memberId,messages,messagesUpdate,id)
+#         friend.update(friends)
+#         return redirect("/message_record/")
 
-    friendsingle = friend.single(id)
-    return render(request,'message_update.html',locals())
+#     friendsingle = friend.single(id)
+#     return render(request,'message_update.html',locals())
 
-def testencoding(request):
-    response = HttpResponse("<h2>encoding test</h2>")
-    # u1 = u"中文"
-    # u2 = smart_str(u1)
-    u2 = bytes("中文","utf-8").decode("utf-8")
-    # response.set_cookie("u1",u1)
-    response.set_cookie("username",u2)
-    return response
+# def testencoding(request):
+#     response = HttpResponse("<h2>encoding test</h2>")
+#     # u1 = u"中文"
+#     # u2 = smart_str(u1)
+#     u2 = bytes("中文","utf-8").decode("utf-8")
+#     # response.set_cookie("u1",u1)
+#     response.set_cookie("username",u2)
+#     return response
 
 # 傳訊息進資料庫
-def send(request, messageUpdate):
+# def send(request, messagesUpdate):
     # time.sleep(1)
-    if request.method == "POST":
-        #接收表單傳過來的資料
-        # memberId = request.POST["memberId"]
-        message = request.POST["message"]  
-        Message = "{}/n{}".format(message,messageUpdate)
-        return HttpResponse(Message)
+    # if request.method == "POST":
+    #     #接收表單傳過來的資料
+    #     # memberId = request.POST["memberId"]
+    #     messages = request.POST["messages"]  
+    #     Message = "{}/n{}".format(messages,messagesUpdate)
+    #     return HttpResponse(Message)
 
-    #將資料寫進資料庫
-    Friends_Chat.objects.create(id=id.objects.get(id=id),message=message,messageUpdate=messageUpdate)
-    return HttpResponse(Message)
+    # #將資料寫進資料庫
+    # Friends_Chat.objects.create(id=id.objects.get(id=id),messages=messages,messagesUpdate=messagesUpdate)
+    # return HttpResponse(Message)
+    # messages = request.GET["messages"]
+    # Message = "{}     ({})".format(messages,messagesUpdate)
+    # print(messages)
+    # return HttpResponse(Message)
 
-# def hello(request,age):
-#     # time.sleep(10)
-#     name = request.GET["name"]
-#     # age = request.GET["age"]
-#     message = "{}\r\n{}".format(name,age)
-#     return HttpResponse(message)
-    
-# restful api CRUD
-def message_api(request):  
-    title = "Restful api -- makefriends"
-    return render(request,'makefriends/api_message.html',locals())
+

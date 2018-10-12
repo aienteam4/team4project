@@ -1,4 +1,5 @@
 from django.db import connection
+from datetime import date
 
 class Member:
     #讀出所有資料
@@ -7,6 +8,7 @@ class Member:
             sql = """select * from members"""
             cursor.execute(sql)
             members = cursor.fetchall()
+            
         return members
 
     #讀出單筆資料

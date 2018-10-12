@@ -25,6 +25,7 @@ router = DefaultRouter()
 router.register('product', views.ProductViewSet)
 router.register(r'songlist', views.SongListViewSet)
 router.register('category', views.CategoryViewSet)
+router.register(r'Friends_Chat', views.Friends_ChatViewSet)
 router.register(r'comment', views.MessagesViewSet)
 
 urlpatterns = [

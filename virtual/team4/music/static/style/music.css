@@ -100,9 +100,9 @@
             left: 5%;
             top: 81%;
         }
-        .musicOnCenter{
-            opacity: 0;
-        }
+        /* .musicOnCenter{
+            display: none;
+        } */
         .invisible{
             display: none;
         }
@@ -117,6 +117,7 @@
         }
         /* 以下是別人的 */
         #songdata{
+            display: none;
             position: fixed;
             top: 22%;
             right: 5%;
@@ -153,7 +154,6 @@
             bottom:55px;
             left:0px;
             right:0px;
-            overflow:hidden;
             margin-left:0px;
             margin-right: 0px;
             border-radius: 10px;
@@ -161,17 +161,18 @@
         }
         body{
             background-image: none;
-            
+            overflow-y: scroll;
         }
         #worldhotsong{
+            display: none;
             position: fixed;
-            top: 62%;
+            top: 65%;
             right: 5%;
             width: 200px;
             height: 300px;
             overflow-x: hidden;
             overflow-y: scroll;
-            /* z-index: 1; */
+            z-index: 1;
         }
         span.round-tabs{
             width: 70px;
@@ -186,3 +187,48 @@
             text-align: center;
             font-size: 25px;
         }
+        
+        ::-webkit-scrollbar {
+            width: 0px;  /* remove scrollbar space */
+            background: transparent !important;  /* optional: just make scrollbar invisible */
+        }
+        
+        .marquee {
+            height: 500px;
+            width: 30px;
+            display: none;
+            overflow: hidden;
+            position: fixed;
+            left: 22%;
+            top: 25%;
+            z-index: 3;
+            writing-mode: vertical-lr
+
+          }
+          
+          .marquee div {
+            display: block;
+            width: 20px;
+            height: 500px;
+          
+            position: absolute;
+            overflow: hidden;
+
+            animation: marquee 10s linear infinite;
+          }
+          
+          .marquee span {
+            float: left;
+            /* width: 50%; */
+            /* line-height: 1.5 em; */
+          }
+          
+          @keyframes marquee {
+            0% { top: -100%; }
+            100% { top: 0; }
+          }
+          #messag{
+            width: 400px;
+            margin-top: 600px;
+            margin-left: 300px;
+          }
